@@ -39,8 +39,6 @@
 				pinctrl-0 = <&mmc0_8bit_pins_a
 					&mmc0_cd_cfg &mmc0_sck_cfg>;
 				bus-width = <8>;
-				wp-gpios = <&gpio2 12 0>;
-				vmmc-supply = <&reg_vddio_sd0>;
 				status = "okay";
 			};
 
@@ -49,14 +47,16 @@
 			pinctrl@80018000 {
 				pinctrl-names = "default";
 
-				led_pin_gpio3_5: led_gpio3_5@0 {
+
+				led_pin_gpio1_23: led_gpio1_23@0 {
 					reg = <0>;
 					fsl,pinmux-ids = <
-						MX28_PAD_AUART1_TX__GPIO_3_5
+						MX28_PAD_LCD_D23__GPIO_1_23
+						MX28_PAD_LCD_D22__GPIO_1_22
 					>;
-					fsl,drive-strength = <MXS_DRIVE_4mA>;
-					fsl,voltage = <MXS_VOLTAGE_HIGH>;
-					fsl,pull-up = <MXS_PULL_DISABLE>;
+					fsl,drive-strength = <0>;
+					fsl,voltage = <1>;
+					fsl,pull-up = <0>;
 				};
 
 				gpmi_pins_evk: gpmi-nand-evk@0 {
@@ -134,25 +134,6 @@
 				pinctrl-0 = <&i2c0_pins_a>;
 				status = "okay";
 
-				sgtl5000: codec@0a {
-					compatible = "fsl,sgtl5000";
-					reg = <0x0a>;
-					VDDA-supply = <&reg_3p3v>;
-					VDDIO-supply = <&reg_3p3v>;
-					clocks = <&saif0>;
-				};
-
-				at24@51 {
-					compatible = "atmel,24c32";
-					pagesize = <32>;
-					reg = <0x51>;
-				};
-			};
-
-			pwm: pwm@80064000 {
-				pinctrl-names = "default";
-				pinctrl-0 = <&pwm3_pins_a>;
-				status = "okay";
 			};
 
 			duart: serial@80074000 {
@@ -190,7 +171,7 @@
 			pinctrl-names = "default";
 			pinctrl-0 = <&mac0_pins_a>;
 			phy-supply = <&reg_fec_3v3>;
-			phy-reset-gpios = <&gpio4 13 GPIO_ACTIVE_LOW>;
+			phy-reset-gpios = <&gpio1 16 GPIO_ACTIVE_LOW>;
 			phy-reset-duration = <100>;
 			status = "okay";
 		};
@@ -211,25 +192,15 @@
 			regulator-always-on;
 		};
 
-		reg_vddio_sd0: regulator@1 {
-			compatible = "regulator-fixed";
-			reg = <1>;
-			regulator-name = "vddio-sd0";
-			regulator-min-microvolt = <3300000>;
-			regulator-max-microvolt = <3300000>;
-			gpio = <&gpio3 28 0>;
-		};
-
-		reg_fec_3v3: regulator@2 {
+		reg_fec_3v3: regulator@1 {
 			compatible = "regulator-fixed";
 			reg = <2>;
 			regulator-name = "fec-3v3";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
-			gpio = <&gpio2 15 0>;
 		};
 
-		reg_usb0_vbus: regulator@3 {
+		reg_usb0_vbus: regulator@2 {
 			compatible = "regulator-fixed";
 			reg = <3>;
 			regulator-name = "usb0_vbus";
@@ -239,7 +210,7 @@
 			enable-active-high;
 		};
 
-		reg_usb1_vbus: regulator@4 {
+		reg_usb1_vbus: regulator@3 {
 			compatible = "regulator-fixed";
 			reg = <4>;
 			regulator-name = "usb1_vbus";
@@ -249,7 +220,7 @@
 			enable-active-high;
 		};
 
-		reg_lcd_3v3: regulator@5 {
+		reg_lcd_3v3: regulator@4 {
 			compatible = "regulator-fixed";
 			reg = <5>;
 			regulator-name = "lcd-3v3";
@@ -259,15 +230,6 @@
 			enable-active-high;
 		};
 
-		reg_can_3v3: regulator@6 {
-			compatible = "regulator-fixed";
-			reg = <6>;
-			regulator-name = "can-3v3";
-			regulator-min-microvolt = <3300000>;
-			regulator-max-microvolt = <3300000>;
-			gpio = <&gpio2 13 0>;
-			enable-active-high;
-		};
 
 	};
 
@@ -275,12 +237,18 @@
 	leds {
 		compatible = "gpio-leds";
 		pinctrl-names = "default";
-		pinctrl-0 = <&led_pin_gpio3_5>;
+		pinctrl-0 = <&led_pin_gpio1_23>;
 
-		user {
-			label = "Heartbeat";
-			gpios = <&gpio3 5 0>;
+		red {
+			label = "err-led";
+			gpios = <&gpio1 23 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "heartbeat";
+		};
+
+		green {
+			label = "run-led";
+			gpios = <&gpio1 22 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "mmc0"; 
 		};
 	};
 

@@ -186,7 +186,7 @@
 		"ubi create filesystem; " \
 		"ubi write ${loadaddr} filesystem ${filesize}\0" \
 	"nandargs=setenv bootargs console=${console_mainline},${baudrate} " \
-		"rootfstype=ubifs ubi.mtd=6 root=ubi0_0 ${mtdparts}\0" \
+		"rootfstype=ubifs ubi.mtd=6 root=ubi0_0:rootfs rw ${mtdparts}\0" \
 	"nandboot="		/* Boot from NAND */ \
 		"mtdparts default; " \
 		"run nandargs; " \

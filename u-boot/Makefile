@@ -243,7 +243,7 @@ export	HOSTARCH HOSTOS
 
 # set default to nothing for native builds
 ifeq ($(HOSTARCH),$(ARCH))
-CROSS_COMPILE ?=
+CROSS_COMPILE ?= 
 endif
 
 KCONFIG_CONFIG	?= .config
