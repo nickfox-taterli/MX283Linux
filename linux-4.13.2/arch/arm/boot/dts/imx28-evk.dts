@@ -12,8 +12,10 @@
 /dts-v1/;
 #include "imx28.dtsi"
 
+#include <dt-bindings/thermal/thermal.h>
+
 / {
-	model = "Freescale i.MX28 Evaluation Kit";
+	model = "EasyARM i.MX283A(TaterLi Kernel)";
 	compatible = "fsl,imx28-evk", "fsl,imx28";
 
 	memory {
@@ -28,11 +30,11 @@
 		apbh@80000000 {
 		
 			hsadc@80002000 {
-				status = "okay";
+				status = "disabled";
 			};
 
 			perfmon@80006000 {
-				status = "okay";
+				status = "disabled";
 			};
 
 			gpmi-nand@8000c000 {
@@ -55,7 +57,6 @@
 
 			pinctrl@80018000 {
 				pinctrl-names = "default";
-
 
 				led_pin_gpio1_23: led_gpio1_23@0 {
 					reg = <0>;
@@ -94,6 +95,11 @@
 			};
 			
 			digctl@8001c000 {
+				status = "okay";
+			};
+
+			dcp@80028000 {
+				compatible = "fsl,imx28-dcp";
 				status = "okay";
 			};
 
@@ -138,12 +144,12 @@
 
 		apbx@80040000 {
 
-			lradc@80050000 {
-				status = "okay";
+			lradc: lradc@80050000 {
 				fsl,lradc-touchscreen-wires = <4>;
 				fsl,ave-ctrl = <4>;
 				fsl,ave-delay = <2>;
 				fsl,settling = <10>;
+				status = "okay";
 			};
 
 			i2c0: i2c@80058000 {
@@ -283,4 +289,6 @@
 		default-brightness-level = <6>;
 		power-supply = <&reg_lcd_3v3>;
 	};
+
+
 };
