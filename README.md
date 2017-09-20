@@ -1,4 +1,4 @@
-# EasyARM i.MX283 新软件计划
+# EasyARM i.MX283A V1.02 新软件计划
 
 ------
 
