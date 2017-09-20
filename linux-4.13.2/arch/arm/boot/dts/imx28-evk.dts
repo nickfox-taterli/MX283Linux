@@ -26,6 +26,15 @@
 
 	apb@80000000 {
 		apbh@80000000 {
+		
+			hsadc@80002000 {
+				status = "okay";
+			};
+
+			perfmon@80006000 {
+				status = "okay";
+			};
+
 			gpmi-nand@8000c000 {
 				pinctrl-names = "default";
 				pinctrl-0 = <&gpmi_pins_a &gpmi_status_cfg
@@ -83,6 +92,14 @@
 					fsl,pull-up = <MXS_PULL_DISABLE>;
 				};
 			};
+			
+			digctl@8001c000 {
+				status = "okay";
+			};
+
+			pxp@8002a000 {
+				status = "okay";
+			};
 
 			lcdif@80030000 {
 				pinctrl-names = "default";
@@ -133,12 +150,23 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&i2c0_pins_a>;
 				status = "okay";
+			};
 
+			i2c1: i2c@8005a000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&i2c1_pins_a>;
+				status = "okay";
+			};
+
+			pwm: pwm@80064000 {
+				pinctrl-names = "default";
+				pinctrl-0 = <&pwm3_pins_a>;
+				status = "okay";
 			};
 
 			duart: serial@80074000 {
 				pinctrl-names = "default";
-				pinctrl-0 = <&duart_pins_a>;
+				pinctrl-0 = <&duart_pins_b>;
 				status = "okay";
 			};
 
@@ -194,7 +222,7 @@
 
 		reg_fec_3v3: regulator@1 {
 			compatible = "regulator-fixed";
-			reg = <2>;
+			reg = <1>;
 			regulator-name = "fec-3v3";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
@@ -202,7 +230,7 @@
 
 		reg_usb0_vbus: regulator@2 {
 			compatible = "regulator-fixed";
-			reg = <3>;
+			reg = <2>;
 			regulator-name = "usb0_vbus";
 			regulator-min-microvolt = <5000000>;
 			regulator-max-microvolt = <5000000>;
@@ -210,7 +238,7 @@
 
 		reg_usb1_vbus: regulator@3 {
 			compatible = "regulator-fixed";
-			reg = <4>;
+			reg = <3>;
 			regulator-name = "usb1_vbus";
 			regulator-min-microvolt = <5000000>;
 			regulator-max-microvolt = <5000000>;
@@ -218,7 +246,7 @@
 
 		reg_lcd_3v3: regulator@4 {
 			compatible = "regulator-fixed";
-			reg = <5>;
+			reg = <4>;
 			regulator-name = "lcd-3v3";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
@@ -238,13 +266,13 @@
 		red {
 			label = "err-led";
 			gpios = <&gpio1 23 GPIO_ACTIVE_LOW>;
-			linux,default-trigger = "heartbeat";
+			linux,default-trigger = "panic";
 		};
 
 		green {
 			label = "run-led";
 			gpios = <&gpio1 22 GPIO_ACTIVE_LOW>;
-			linux,default-trigger = "mmc0"; 
+			linux,default-trigger = "heartbeat"; 
 		};
 	};
 
