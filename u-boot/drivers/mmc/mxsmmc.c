@@ -229,7 +229,7 @@ mxsmmc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 	}
 
 	/* Kick off the command */
-	ctrl0 |= SSP_CTRL0_WAIT_FOR_IRQ | SSP_CTRL0_ENABLE | SSP_CTRL0_RUN;
+	ctrl0 |= SSP_CTRL0_CLKGATE | SSP_CTRL0_WAIT_FOR_IRQ | SSP_CTRL0_ENABLE | SSP_CTRL0_RUN;
 	writel(ctrl0, &ssp_regs->hw_ssp_ctrl0);
 
 	/* Wait for the command to complete */
