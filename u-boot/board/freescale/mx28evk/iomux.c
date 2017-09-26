@@ -183,7 +183,7 @@ const iomux_cfg_t iomux_setup[] = {
 	MX28_PAD_LCD_RS__LCD_DOTCLK | MUX_CONFIG_LCD,
 	MX28_PAD_LCD_CS__LCD_ENABLE | MUX_CONFIG_LCD,
 	MX28_PAD_LCD_RESET__GPIO_3_30 | MUX_CONFIG_LCD, /* LCD power */
-	MX28_PAD_PWM2__GPIO_3_18 | MUX_CONFIG_LCD, /* LCD contrast */
+	MX28_PAD_PWM3__GPIO_3_28 | MUX_CONFIG_LCD, /* LCD contrast */
 };
 
 #define HW_DRAM_CTL29	(0x74 >> 2)
