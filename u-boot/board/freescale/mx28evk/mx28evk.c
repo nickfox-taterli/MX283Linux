@@ -78,16 +78,13 @@ static int mx28evk_mmc_wp(int id)
 		return 1;
 	}
 
-	return gpio_get_value(MX28_PAD_SSP1_SCK__GPIO_2_12);
+	return gpio_get_value(MX28_PAD_GPMI_CE1N__GPIO_0_17);
 }
 
 int board_mmc_init(bd_t *bis)
 {
 	/* Configure WP as input */
-	gpio_direction_input(MX28_PAD_SSP1_SCK__GPIO_2_12);
-
-	/* Configure MMC0 Power Enable */
-	gpio_direction_output(MX28_PAD_PWM3__GPIO_3_28, 0);
+	gpio_direction_input(MX28_PAD_GPMI_CE1N__GPIO_0_17);
 
 	return mxsmmc_initialize(bis, 0, mx28evk_mmc_wp, NULL);
 }
@@ -110,13 +107,10 @@ int board_eth_init(bd_t *bis)
 	writel(CLKCTRL_ENET_TIME_SEL_RMII_CLK | CLKCTRL_ENET_CLK_OUT_EN,
 	       &clkctrl_regs->hw_clkctrl_enet);
 
-	/* Power-on FECs */
-	gpio_direction_output(MX28_PAD_SSP1_DATA3__GPIO_2_15, 0);
-
 	/* Reset FEC PHYs */
-	gpio_direction_output(MX28_PAD_ENET0_RX_CLK__GPIO_4_13, 0);
+	gpio_direction_output(MX28_PAD_LCD_D16__GPIO_1_16, 0);
 	udelay(200);
-	gpio_set_value(MX28_PAD_ENET0_RX_CLK__GPIO_4_13, 1);
+	gpio_set_value(MX28_PAD_LCD_D16__GPIO_1_16, 1);
 
 	ret = fecmxc_initialize_multi(bis, 0, 0, MXS_ENET0_BASE);
 	if (ret) {

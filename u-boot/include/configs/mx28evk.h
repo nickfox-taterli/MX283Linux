@@ -35,8 +35,10 @@
 #define CONFIG_SYS_MMC_ENV_DEV		0
 #endif
 
+
 /* Environment is in NAND */
 #if defined(CONFIG_CMD_NAND) && defined(CONFIG_ENV_IS_IN_NAND)
+
 #define CONFIG_ENV_SIZE_REDUND		CONFIG_ENV_SIZE
 #define CONFIG_ENV_SECT_SIZE		(128 * 1024)
 #define CONFIG_ENV_RANGE		(512 * 1024)
@@ -106,13 +108,26 @@
 
 #endif
 
+#ifdef CONFIG_VIDEO
+#define CONFIG_LCD_LOGO
+#define CONFIG_VIDEO_MXS
+#define CONFIG_VIDEO_LOGO
+#define CONFIG_SPLASH_SCREEN
+#define CONFIG_BMP_16BPP
+#define CONFIG_VIDEO_BMP_RLE8
+#define CONFIG_VIDEO_BMP_GZIP
+#define CONFIG_SYS_VIDEO_LOGO_MAX_SIZE	(512 << 10)
+#endif
+
 /* Boot Linux */
 #define CONFIG_BOOTFILE		"uImage"
 #define CONFIG_LOADADDR		0x42000000
 #define CONFIG_SYS_LOAD_ADDR	CONFIG_LOADADDR
 
+
 /* Extra Environment */
 #define CONFIG_EXTRA_ENV_SETTINGS \
+	"videomode=video=ctfb:x:480,y:272,depth:16,mode:0,pclk:29851, le:89,ri:164,up:23,lo:10,hs:10,vs:10,sync:0,vmode:0\0" \
 	"ubifs_file=filesystem.ubifs\0" \
 	"update_nand_full_filename=u-boot.nand\0" \
 	"update_nand_firmware_filename=u-boot.sb\0"	\
