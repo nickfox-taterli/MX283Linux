@@ -52,7 +52,7 @@ int board_early_init_f(void)
 	gpio_direction_output(MX28_PAD_LCD_RESET__GPIO_3_30, 1);
 
 	/* Set contrast to maximum */
-	gpio_direction_output(MX28_PAD_PWM2__GPIO_3_18, 1);
+	gpio_direction_output(MX28_PAD_PWM3__GPIO_3_28, 1);
 
 	return 0;
 }
