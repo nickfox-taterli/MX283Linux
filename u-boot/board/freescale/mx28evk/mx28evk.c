@@ -187,8 +187,7 @@ int board_early_init_f(void)
 
 #ifdef	CONFIG_CMD_USB
 	mxs_iomux_setup_pad(MX28_PAD_SSP2_SS1__USB1_OVERCURRENT);
-	mxs_iomux_setup_pad(MX28_PAD_AUART2_RX__GPIO_3_8 |
-			MXS_PAD_4MA | MXS_PAD_3V3 | MXS_PAD_NOPULL);
+        mxs_iomux_setup_pad(MX28_PAD_SSP2_SS2__USB0_OVERCURRENT);
 #endif
 
 	/* Power on LCD */
