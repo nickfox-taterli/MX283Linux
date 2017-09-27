@@ -168,6 +168,33 @@
 				status = "okay";
 			};
 
+                        auart0: serial@8006a000 {
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&auart0_2pins_a>;
+                                status = "okay";
+                        };
+
+                        auart1: serial@8006c000 {
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&auart1_2pins_a>;
+                                status = "okay";
+                        };
+
+                        auart2: serial@8006e000 {
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&auart2_2pins_a>;
+                                status = "okay";
+                        };
+
+                        auart3: serial@80070000 {
+                                pinctrl-names = "default";
+                                pinctrl-0 = <&auart3_2pins_a>;
+                                status = "okay";
+                        };
+
+                        auart4: serial@80072000 {
+                                status = "okay";
+                        };
 
 			usbphy0: usbphy@8007c000 {
 				status = "okay";
