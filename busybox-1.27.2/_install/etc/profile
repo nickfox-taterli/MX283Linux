@@ -1,0 +1,25 @@
+# /etc/profile: system-wide .profile file for the Bourne shells
+
+echo
+echo -n "Processing /etc/profile... "
+
+export TSLIB_PLUGINDIR=/lib/ts/
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_CALIBFILE=/etc/pointercal
+export TSLIB_CONFFILE=/etc/ts.conf
+
+export OPENSSL_CONF=/etc/ssl/openssl.cnf
+
+export LD_LIBRARY_PATH=/lib
+export LD_PRELOAD=/lib/libts.so
+
+export QT_QPA_FONTDIR=/usr/fonts
+export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/plugins
+export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0
+export QT_QPA_FB_TSLIB=1 #Qt 5 Spec
+export QT_QPA_EVDEV_KEYBOARD_PARAMETERS=/dev/input/event0
+export QT_QPA_GENERIC_PLUGINS=tslib
+
+# no-op
+echo "Done"
+echo

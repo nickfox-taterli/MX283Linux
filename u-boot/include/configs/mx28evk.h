@@ -128,7 +128,7 @@
 
 /* Extra Environment */
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	"videomode=video=ctfb:x:480,y:272,depth:16,mode:0,pclk:12000, le:8,ri:4,up:2,lo:4,hs:10,vs:10,sync:0,vmode:0\0" \
+	"videomode=video=ctfb:x:480,y:272,depth:16,mode:0,pclk:80000, le:8,ri:4,up:2,lo:4,hs:10,vs:10,sync:0,vmode:0\0" \
 	"ubifs_file=filesystem.ubifs\0" \
 	"nandargs=setenv bootargs console=${console_mainline},${baudrate} " \
 		"rootfstype=ubifs ubi.mtd=6 root=ubi0_0 ${mtdparts} rw\0" \

@@ -114,7 +114,7 @@
 					display-timings {
 						native-mode = <&timing0>;
 						timing0: timing0 {
-							clock-frequency = <33500000>;
+							clock-frequency = <8000000>;
 							hactive = <480>;
 							vactive = <272>;
 							hback-porch = <5>;
