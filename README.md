@@ -17,7 +17,17 @@
 
 交叉编译工具需要通过apt-get下载,针对bootlets要用fsl官方工具,否则编译不能执行.
 
-## 一些已知的大坑
+## 暂不支持功能
 
-- [ ] Qt5 没编译mesa支持,X11特性无用,因为128M NAND实在小.
+- [ ] OTP 写入,非驱动工具:[NXP官网下载][1]
+- [ ] HSADC 2Mbps DMA[LRADC够用,暂时不开发.]
+- [ ] PXP加速器 [暂时不知道用在哪里.]
+- [ ] 温度传感应用层程序
+- [ ] RTC [因为还没接电池]
+- [ ] PERFMON [用不上]
+- [ ] devmem2 软件[还没空移植]
+- [ ] Qt mesa [CPU实现OpenGL,好像空间不太够.]
+- [ ] 快速启动[现在zImage小,但是解压时间长,过段时间评估换压缩方法,需要修改分区.]
 
+
+  [1]: https://cache.nxp.com/secured/assets/downloads/en/programmers/imx_otp_tools.zip?__gda__=1508346574_4ca3d5e7de1d228ba9a805d6c64ba89a&fileExt=.zip "IMX-OTP-TOOL"
