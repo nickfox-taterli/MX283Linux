@@ -7,7 +7,7 @@
  * resizing).
  */
 #define MIN_NR_CONSOLES 1       /* must be at least 1 */
-#define MAX_NR_CONSOLES	63	/* serial lines start at 64 */
+#define MAX_NR_CONSOLES	23	/* serial lines start at 64 */
 		/* Note: the ioctl VT_GETSTATE does not work for
 		   consoles 16 and higher (since it returns a short) */
 
