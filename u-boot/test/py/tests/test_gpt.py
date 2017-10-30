@@ -28,26 +28,30 @@ class GptTestDiskImage(object):
         """
 
         filename = 'test_gpt_disk_image.bin'
-        self.path = u_boot_console.config.persistent_data_dir + '/' + filename
 
-        if os.path.exists(self.path):
-            u_boot_console.log.action('Disk image file ' + self.path +
+        persistent = u_boot_console.config.persistent_data_dir + '/' + filename
+        self.path = u_boot_console.config.result_dir  + '/' + filename
+
+        if os.path.exists(persistent):
+            u_boot_console.log.action('Disk image file ' + persistent +
                 ' already exists')
         else:
-            u_boot_console.log.action('Generating ' + self.path)
-            fd = os.open(self.path, os.O_RDWR | os.O_CREAT)
+            u_boot_console.log.action('Generating ' + persistent)
+            fd = os.open(persistent, os.O_RDWR | os.O_CREAT)
             os.ftruncate(fd, 4194304)
             os.close(fd)
-            sgdisk = '/sbin/sgdisk'
-            cmd = (sgdisk, '-U', '375a56f7-d6c9-4e81-b5f0-09d41ca89efe',
-                self.path)
+            cmd = ('sgdisk', '-U', '375a56f7-d6c9-4e81-b5f0-09d41ca89efe',
+                persistent)
             u_boot_utils.run_and_log(u_boot_console, cmd)
-            cmd = (sgdisk, '--new=1:2048:2560', self.path)
+            cmd = ('sgdisk', '--new=1:2048:2560', '-c 1:part1', persistent)
             u_boot_utils.run_and_log(u_boot_console, cmd)
-            cmd = (sgdisk, '--new=2:4096:4608', self.path)
+            cmd = ('sgdisk', '--new=2:4096:4608', '-c 2:part2', persistent)
             u_boot_utils.run_and_log(u_boot_console, cmd)
-            cmd = (sgdisk, '-l', self.path)
+            cmd = ('sgdisk', '-l', persistent)
             u_boot_utils.run_and_log(u_boot_console, cmd)
+
+        cmd = ('cp', persistent, self.path)
+        u_boot_utils.run_and_log(u_boot_console, cmd)
 
 gtdi = None
 @pytest.fixture(scope='function')
@@ -64,6 +68,34 @@ def state_disk_image(u_boot_console):
 
 @pytest.mark.boardspec('sandbox')
 @pytest.mark.buildconfigspec('cmd_gpt')
+@pytest.mark.buildconfigspec('cmd_part')
+@pytest.mark.requiredtool('sgdisk')
+def test_gpt_read(state_disk_image, u_boot_console):
+    """Test the gpt read command."""
+
+    u_boot_console.run_command('host bind 0 ' + state_disk_image.path)
+    output = u_boot_console.run_command('gpt read host 0')
+    assert 'Start 1MiB, size 0MiB' in output
+    assert 'Block size 512, name part1' in output
+    assert 'Start 2MiB, size 0MiB' in output
+    assert 'Block size 512, name part2' in output
+    output = u_boot_console.run_command('part list host 0')
+    assert '0x00000800	0x00000a00	"part1"' in output
+    assert '0x00001000	0x00001200	"part2"' in output
+
+@pytest.mark.boardspec('sandbox')
+@pytest.mark.buildconfigspec('cmd_gpt')
+@pytest.mark.requiredtool('sgdisk')
+def test_gpt_verify(state_disk_image, u_boot_console):
+    """Test the gpt verify command."""
+
+    u_boot_console.run_command('host bind 0 ' + state_disk_image.path)
+    output = u_boot_console.run_command('gpt verify host 0')
+    assert 'Verify GPT: success!' in output
+
+@pytest.mark.boardspec('sandbox')
+@pytest.mark.buildconfigspec('cmd_gpt')
+@pytest.mark.requiredtool('sgdisk')
 def test_gpt_guid(state_disk_image, u_boot_console):
     """Test the gpt guid command."""
 
@@ -73,6 +105,7 @@ def test_gpt_guid(state_disk_image, u_boot_console):
 
 @pytest.mark.boardspec('sandbox')
 @pytest.mark.buildconfigspec('cmd_gpt')
+@pytest.mark.requiredtool('sgdisk')
 def test_gpt_save_guid(state_disk_image, u_boot_console):
     """Test the gpt guid command to save GUID into a string."""
 
@@ -86,6 +119,8 @@ def test_gpt_save_guid(state_disk_image, u_boot_console):
 @pytest.mark.boardspec('sandbox')
 @pytest.mark.buildconfigspec('cmd_gpt')
 @pytest.mark.buildconfigspec('cmd_gpt_rename')
+@pytest.mark.buildconfigspec('cmd_part')
+@pytest.mark.requiredtool('sgdisk')
 def test_gpt_rename_partition(state_disk_image, u_boot_console):
     """Test the gpt rename command to write partition names."""
 
@@ -96,19 +131,43 @@ def test_gpt_rename_partition(state_disk_image, u_boot_console):
     u_boot_console.run_command('gpt rename host 0 2 second')
     output = u_boot_console.run_command('gpt read host 0')
     assert 'name second' in output
+    output = u_boot_console.run_command('part list host 0')
+    assert '0x00000800	0x00000a00	"first"' in output
+    assert '0x00001000	0x00001200	"second"' in output
 
 @pytest.mark.boardspec('sandbox')
 @pytest.mark.buildconfigspec('cmd_gpt')
 @pytest.mark.buildconfigspec('cmd_gpt_rename')
 @pytest.mark.buildconfigspec('cmd_part')
+@pytest.mark.requiredtool('sgdisk')
 def test_gpt_swap_partitions(state_disk_image, u_boot_console):
     """Test the gpt swap command to exchange two partition names."""
 
     u_boot_console.run_command('host bind 0 ' + state_disk_image.path)
     output = u_boot_console.run_command('part list host 0')
-    assert '0x000007ff	"first"' in output
-    assert '0x000017ff	"second"' in output
+    assert '0x00000800	0x00000a00	"first"' in output
+    assert '0x00001000	0x00001200	"second"' in output
     u_boot_console.run_command('gpt swap host 0 first second')
     output = u_boot_console.run_command('part list host 0')
-    assert '0x000007ff	"second"' in output
-    assert '0x000017ff	"first"' in output
+    assert '0x00000800	0x00000a00	"second"' in output
+    assert '0x00001000	0x00001200	"first"' in output
+
+@pytest.mark.boardspec('sandbox')
+@pytest.mark.buildconfigspec('cmd_gpt')
+@pytest.mark.buildconfigspec('cmd_part')
+@pytest.mark.requiredtool('sgdisk')
+def test_gpt_write(state_disk_image, u_boot_console):
+    """Test the gpt write command."""
+
+    u_boot_console.run_command('host bind 0 ' + state_disk_image.path)
+    output = u_boot_console.run_command('gpt write host 0 "name=all,size=0"')
+    assert 'Writing GPT: success!' in output
+    output = u_boot_console.run_command('part list host 0')
+    assert '0x00000022	0x00001fde	"all"' in output
+    output = u_boot_console.run_command('gpt write host 0 "uuid_disk=375a56f7-d6c9-4e81-b5f0-09d41ca89efe;name=first,start=0x100000,size=0x40200;name=second,start=0x200000,size=0x40200;"')
+    assert 'Writing GPT: success!' in output
+    output = u_boot_console.run_command('part list host 0')
+    assert '0x00000800	0x00000a00	"first"' in output
+    assert '0x00001000	0x00001200	"second"' in output
+    output = u_boot_console.run_command('gpt guid host 0')
+    assert '375a56f7-d6c9-4e81-b5f0-09d41ca89efe' in output

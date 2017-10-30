@@ -136,6 +136,7 @@ config MMC_PCI
 config MMC_OMAP_HS
 	bool "TI OMAP High Speed Multimedia Card Interface support"
 	select DM_REGULATOR_PBIAS if DM_MMC && DM_REGULATOR
+	select DM_REGULATOR_PBIAS if DM_MMC && DM_REGULATOR
 	help
 	  This selects the TI OMAP High Speed Multimedia card Interface.
 	  If you have an omap2plus board with a Multimedia Card slot,
@@ -162,12 +163,13 @@ config SH_SDHI
 	  Support for the on-chip SDHI host controller on SuperH/Renesas ARM SoCs platform
 
 config MMC_UNIPHIER
-	bool "UniPhier SD/MMC Host Controller support"
-	depends on ARCH_UNIPHIER
+	bool "UniPhier/RCar SD/MMC Host Controller support"
+	depends on ARCH_UNIPHIER || ARCH_RMOBILE
 	depends on BLK && DM_MMC
 	depends on OF_CONTROL
 	help
-	  This selects support for the SD/MMC Host Controller on UniPhier SoCs.
+	  This selects support for the Matsushita SD/MMC Host Controller on
+	  SocioNext UniPhier and Renesas RCar SoCs.
 
 config MMC_SANDBOX
 	bool "Sandbox MMC support"
@@ -381,6 +383,14 @@ config GENERIC_ATMEL_MCI
 	  (HSMCI), which supports the MultiMedia Card (MMC) Specification V4.3,
 	  the SD Memory Card Specification V2.0, the SDIO V2.0 specification
 	  and CE-ATA V1.1.
+
+config STM32_SDMMC2
+	bool "STMicroelectronics STM32H7 SD/MMC Host Controller support"
+	depends on DM_MMC && BLK && OF_CONTROL
+	help
+	  This selects support for the SD/MMC controller on STM32H7 SoCs.
+	  If you have a board based on such a SoC and with a SD/MMC slot,
+	  say Y or M here.
 
 endif
 

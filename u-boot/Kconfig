@@ -14,6 +14,12 @@ source "arch/Kconfig"
 
 menu "General setup"
 
+config BROKEN
+	bool
+	help
+	  This option cannot be enabled. It is used as dependency
+	  for broken and incomplete features.
+
 config LOCALVERSION
 	string "Local version - append to U-Boot release"
 	help
@@ -158,6 +164,15 @@ config PHYS_64BIT
 	  This can be used not only for 64bit SoCs, but also for
 	  large physical address extention on 32bit SoCs.
 
+config BUILD_ROM
+	bool "Build U-Boot as BIOS replacement"
+	depends on X86
+	help
+	  This option allows to build a ROM version of U-Boot.
+	  The build process generally requires several binary blobs
+	  which are not shipped in the U-Boot source tree.
+	  Please, see doc/README.x86 for details.
+
 endmenu		# General setup
 
 menu "Boot images"
@@ -273,7 +288,7 @@ config SPL_LOAD_FIT
 
 config SPL_FIT_IMAGE_POST_PROCESS
 	bool "Enable post-processing of FIT artifacts after loading by the SPL"
-	depends on SPL_LOAD_FIT && TI_SECURE_DEVICE
+	depends on SPL_LOAD_FIT
 	help
 	  Allows doing any sort of manipulation to blobs after they got extracted
 	  from the U-Boot FIT image like stripping off headers or modifying the
@@ -398,5 +413,3 @@ source "fs/Kconfig"
 source "lib/Kconfig"
 
 source "test/Kconfig"
-
-source "scripts/Kconfig"

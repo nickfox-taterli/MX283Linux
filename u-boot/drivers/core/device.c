@@ -161,7 +161,7 @@ static int device_bind_common(struct udevice *parent, const struct driver *drv,
 	}
 
 	if (parent)
-		dm_dbg("Bound device %s to %s\n", dev->name, parent->name);
+		pr_debug("Bound device %s to %s\n", dev->name, parent->name);
 	if (devp)
 		*devp = dev;
 
@@ -254,6 +254,7 @@ static void *alloc_priv(int size, uint flags)
 	void *priv;
 
 	if (flags & DM_FLAG_ALLOC_PRIV_DMA) {
+		size = ROUND(size, ARCH_DMA_MINALIGN);
 		priv = memalign(ARCH_DMA_MINALIGN, size);
 		if (priv) {
 			memset(priv, '\0', size);

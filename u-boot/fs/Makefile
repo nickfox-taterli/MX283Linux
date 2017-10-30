@@ -12,6 +12,7 @@ obj-$(CONFIG_SPL_EXT_SUPPORT) += ext4/
 else
 obj-y				+= fs.o
 
+obj-$(CONFIG_FS_BTRFS) += btrfs/
 obj-$(CONFIG_FS_CBFS) += cbfs/
 obj-$(CONFIG_CMD_CRAMFS) += cramfs/
 obj-$(CONFIG_FS_EXT4) += ext4/
@@ -23,3 +24,4 @@ obj-$(CONFIG_CMD_UBIFS) += ubifs/
 obj-$(CONFIG_YAFFS2) += yaffs2/
 obj-$(CONFIG_CMD_ZFS) += zfs/
 endif
+obj-y += fs_internal.o

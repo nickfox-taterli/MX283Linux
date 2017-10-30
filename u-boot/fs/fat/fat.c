@@ -495,7 +495,7 @@ read_bootsectandvi(boot_sector *bs, volume_info *volinfo, int *fatsize)
 		return -1;
 	}
 
-	block = memalign(ARCH_DMA_MINALIGN, cur_dev->blksz);
+	block = malloc_cache_aligned(cur_dev->blksz);
 	if (block == NULL) {
 		debug("Error: allocating block\n");
 		return -1;
@@ -599,7 +599,7 @@ static int get_fs_info(fsdata *mydata)
 
 	mydata->fatbufnum = -1;
 	mydata->fat_dirty = 0;
-	mydata->fatbuf = memalign(ARCH_DMA_MINALIGN, FATBUFSIZE);
+	mydata->fatbuf = malloc_cache_aligned(FATBUFSIZE);
 	if (mydata->fatbuf == NULL) {
 		debug("Error: allocating memory\n");
 		return -1;
@@ -710,13 +710,14 @@ static void fat_itr_child(fat_itr *itr, fat_itr *parent)
 	itr->fsdata = parent->fsdata;
 	if (clustnum > 0) {
 		itr->clust = clustnum;
+		itr->is_root = 0;
 	} else {
 		itr->clust = parent->fsdata->root_cluster;
+		itr->is_root = 1;
 	}
 	itr->dent = NULL;
 	itr->remaining = 0;
 	itr->last_cluster = 0;
-	itr->is_root = 0;
 }
 
 static void *next_cluster(fat_itr *itr)
@@ -1034,27 +1035,35 @@ int file_fat_detectfs(void)
 int fat_exists(const char *filename)
 {
 	fsdata fsdata;
-	fat_itr itrblock, *itr = &itrblock;
+	fat_itr *itr;
 	int ret;
 
+	itr = malloc_cache_aligned(sizeof(fat_itr));
+	if (!itr)
+		return 0;
 	ret = fat_itr_root(itr, &fsdata);
 	if (ret)
-		return 0;
+		goto out;
 
 	ret = fat_itr_resolve(itr, filename, TYPE_ANY);
 	free(fsdata.fatbuf);
+out:
+	free(itr);
 	return ret == 0;
 }
 
 int fat_size(const char *filename, loff_t *size)
 {
 	fsdata fsdata;
-	fat_itr itrblock, *itr = &itrblock;
+	fat_itr *itr;
 	int ret;
 
+	itr = malloc_cache_aligned(sizeof(fat_itr));
+	if (!itr)
+		return -ENOMEM;
 	ret = fat_itr_root(itr, &fsdata);
 	if (ret)
-		return ret;
+		goto out_free_itr;
 
 	ret = fat_itr_resolve(itr, filename, TYPE_FILE);
 	if (ret) {
@@ -1068,12 +1077,14 @@ int fat_size(const char *filename, loff_t *size)
 			*size = 0;
 			ret = 0;
 		}
-		goto out;
+		goto out_free_both;
 	}
 
 	*size = FAT2CPU32(itr->dent->size);
-out:
+out_free_both:
 	free(fsdata.fatbuf);
+out_free_itr:
+	free(itr);
 	return ret;
 }
 
@@ -1081,22 +1092,27 @@ int file_fat_read_at(const char *filename, loff_t pos, void *buffer,
 		     loff_t maxsize, loff_t *actread)
 {
 	fsdata fsdata;
-	fat_itr itrblock, *itr = &itrblock;
+	fat_itr *itr;
 	int ret;
 
+	itr = malloc_cache_aligned(sizeof(fat_itr));
+	if (!itr)
+		return -ENOMEM;
 	ret = fat_itr_root(itr, &fsdata);
 	if (ret)
-		return ret;
+		goto out_free_itr;
 
 	ret = fat_itr_resolve(itr, filename, TYPE_FILE);
 	if (ret)
-		goto out;
+		goto out_free_both;
 
 	printf("reading %s\n", filename);
 	ret = get_contents(&fsdata, itr->dent, pos, buffer, maxsize, actread);
 
-out:
+out_free_both:
 	free(fsdata.fatbuf);
+out_free_itr:
+	free(itr);
 	return ret;
 }
 
@@ -1141,17 +1157,18 @@ int fat_opendir(const char *filename, struct fs_dir_stream **dirsp)
 
 	ret = fat_itr_root(&dir->itr, &dir->fsdata);
 	if (ret)
-		goto fail;
+		goto fail_free_dir;
 
 	ret = fat_itr_resolve(&dir->itr, filename, TYPE_DIR);
 	if (ret)
-		goto fail;
+		goto fail_free_both;
 
 	*dirsp = (struct fs_dir_stream *)dir;
 	return 0;
 
-fail:
+fail_free_both:
 	free(dir->fsdata.fatbuf);
+fail_free_dir:
 	free(dir);
 	return ret;
 }

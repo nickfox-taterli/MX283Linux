@@ -159,6 +159,14 @@ config FTMAC100
 	help
 	  This MAC is present in Andestech SoCs.
 
+config MVNETA
+	bool "Marvell Armada 385 network interface support"
+	depends on ARMADA_XP || ARMADA_38X
+	select PHYLIB
+	help
+	  This driver supports the network interface units in the
+	  Marvell ARMADA XP and 38X SoCs
+
 config MVPP2
 	bool "Marvell Armada 375/7K/8K network interface support"
 	depends on ARMADA_375 || ARMADA_8K
@@ -202,6 +210,34 @@ config RTL8169
 	help
 	  This driver supports Realtek 8169 series gigabit ethernet family of
 	  PCI/PCIe chipsets/adapters.
+
+config SMC911X
+	bool "SMSC LAN911x and LAN921x controller driver"
+
+if SMC911X
+
+config SMC911X_BASE
+	hex "SMC911X Base Address"
+	help
+	  Define this to hold the physical address
+	  of the device (I/O space)
+
+choice
+	prompt "SMC911X bus width"
+	default SMC911X_16_BIT
+
+config SMC911X_32_BIT
+	bool "Enable 32-bit interface"
+
+config SMC911X_16_BIT
+	bool "Enable 16-bit interface"
+	help
+	  Define this if data bus is 16 bits. If your processor
+	  automatically converts one 32 bit word to two 16 bit
+	  words you may also try CONFIG_SMC911X_32_BIT.
+
+endchoice
+endif #SMC911X
 
 config SUN7I_GMAC
 	bool "Enable Allwinner GMAC Ethernet support"

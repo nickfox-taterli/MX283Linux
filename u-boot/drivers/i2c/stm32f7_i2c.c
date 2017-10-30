@@ -549,7 +549,7 @@ static int stm32_i2c_compute_solutions(struct stm32_i2c_setup *setup,
 	}
 
 	if (list_empty(solutions)) {
-		error("%s: no Prescaler solution\n", __func__);
+		pr_err("%s: no Prescaler solution\n", __func__);
 		ret = -EPERM;
 	}
 
@@ -571,6 +571,7 @@ static int stm32_i2c_choose_solution(struct stm32_i2c_setup *setup,
 	u32 dnf_delay;
 	u32 tsync;
 	u16 l, h;
+	bool sol_found = false;
 	int ret = 0;
 
 	af_delay_min = setup->analog_filter ?
@@ -619,15 +620,16 @@ static int stm32_i2c_choose_solution(struct stm32_i2c_setup *setup,
 						clk_error_prev = clk_error;
 						v->scll = l;
 						v->sclh = h;
-						s = v;
+						sol_found = true;
+						memcpy(s, v, sizeof(*s));
 					}
 				}
 			}
 		}
 	}
 
-	if (!s) {
-		error("%s: no solution at all\n", __func__);
+	if (!sol_found) {
+		pr_err("%s: no solution at all\n", __func__);
 		ret = -EPERM;
 	}
 
@@ -638,19 +640,19 @@ static int stm32_i2c_compute_timing(struct stm32_i2c_priv *i2c_priv,
 				      struct stm32_i2c_setup *setup,
 				      struct stm32_i2c_timings *output)
 {
-	struct stm32_i2c_timings *v, *_v, *s;
+	struct stm32_i2c_timings *v, *_v;
 	struct list_head solutions;
 	int ret;
 
 	if (setup->speed >= STM32_I2C_SPEED_END) {
-		error("%s: speed out of bound {%d/%d}\n", __func__,
+		pr_err("%s: speed out of bound {%d/%d}\n", __func__,
 		      setup->speed, STM32_I2C_SPEED_END - 1);
 		return -EINVAL;
 	}
 
 	if ((setup->rise_time > i2c_specs[setup->speed].rise_max) ||
 	    (setup->fall_time > i2c_specs[setup->speed].fall_max)) {
-		error("%s :timings out of bound Rise{%d>%d}/Fall{%d>%d}\n",
+		pr_err("%s :timings out of bound Rise{%d>%d}/Fall{%d>%d}\n",
 		      __func__,
 		      setup->rise_time, i2c_specs[setup->speed].rise_max,
 		      setup->fall_time, i2c_specs[setup->speed].fall_max);
@@ -658,32 +660,25 @@ static int stm32_i2c_compute_timing(struct stm32_i2c_priv *i2c_priv,
 	}
 
 	if (setup->dnf > STM32_I2C_DNF_MAX) {
-		error("%s: DNF out of bound %d/%d\n", __func__,
+		pr_err("%s: DNF out of bound %d/%d\n", __func__,
 		      setup->dnf, STM32_I2C_DNF_MAX);
 		return -EINVAL;
 	}
 
 	if (setup->speed_freq > i2c_specs[setup->speed].rate) {
-		error("%s: Freq {%d/%d}\n", __func__,
+		pr_err("%s: Freq {%d/%d}\n", __func__,
 		      setup->speed_freq, i2c_specs[setup->speed].rate);
 		return -EINVAL;
 	}
 
-	s = NULL;
 	INIT_LIST_HEAD(&solutions);
 	ret = stm32_i2c_compute_solutions(setup, &solutions);
 	if (ret)
 		goto exit;
 
-	ret = stm32_i2c_choose_solution(setup, &solutions, s);
+	ret = stm32_i2c_choose_solution(setup, &solutions, output);
 	if (ret)
 		goto exit;
-
-	output->presc = s->presc;
-	output->scldel = s->scldel;
-	output->sdadel = s->sdadel;
-	output->scll = s->scll;
-	output->sclh = s->sclh;
 
 	debug("%s: Presc: %i, scldel: %i, sdadel: %i, scll: %i, sclh: %i\n",
 	      __func__, output->presc,
@@ -711,7 +706,7 @@ static int stm32_i2c_setup_timing(struct stm32_i2c_priv *i2c_priv,
 	setup->clock_src = clk_get_rate(&i2c_priv->clk);
 
 	if (!setup->clock_src) {
-		error("%s: clock rate is 0\n", __func__);
+		pr_err("%s: clock rate is 0\n", __func__);
 		return -EINVAL;
 	}
 
@@ -734,7 +729,7 @@ static int stm32_i2c_setup_timing(struct stm32_i2c_priv *i2c_priv,
 	} while (ret);
 
 	if (ret) {
-		error("%s: impossible to compute I2C timings.\n", __func__);
+		pr_err("%s: impossible to compute I2C timings.\n", __func__);
 		return ret;
 	}
 

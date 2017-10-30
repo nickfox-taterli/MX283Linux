@@ -21,7 +21,6 @@ subdir-$(HOST_TOOLS_ALL) += gdb
 
 # Merge all the different vars for envcrc into one
 ENVCRC-$(CONFIG_ENV_IS_EMBEDDED) = y
-ENVCRC-$(CONFIG_ENV_IS_IN_DATAFLASH) = y
 ENVCRC-$(CONFIG_ENV_IS_IN_EEPROM) = y
 ENVCRC-$(CONFIG_ENV_IS_IN_FLASH) = y
 ENVCRC-$(CONFIG_ENV_IS_IN_ONENAND) = y
@@ -175,7 +174,7 @@ HOSTCFLAGS_rsa-sign.o += -Wno-deprecated-declarations
 endif
 endif
 
-HOSTCFLAGS_fit_image.o += -DMKIMAGE_DTC=\"$(DTC)\"
+HOSTCFLAGS_fit_image.o += -DMKIMAGE_DTC=\"$(CONFIG_MKIMAGE_DTC_PATH)\"
 
 HOSTLOADLIBES_dumpimage := $(HOSTLOADLIBES_mkimage)
 HOSTLOADLIBES_fit_info := $(HOSTLOADLIBES_mkimage)

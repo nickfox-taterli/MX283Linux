@@ -360,7 +360,7 @@ static int set_protective_mbr(struct blk_desc *dev_desc)
 
 	/* Read MBR to backup boot code if it exists */
 	if (blk_dread(dev_desc, 0, 1, p_mbr) != 1) {
-		error("** Can't read from device %d **\n", dev_desc->devnum);
+		pr_err("** Can't read from device %d **\n", dev_desc->devnum);
 		return -1;
 	}
 
@@ -469,8 +469,8 @@ int gpt_fill_pte(struct blk_desc *dev_desc,
 		 * If our partition overlaps with either the GPT
 		 * header, or the partition entry, reject it.
 		 */
-		if (((start <= hdr_end && hdr_start <= (start + size)) ||
-		     (start <= pte_end && pte_start <= (start + size)))) {
+		if (((start < hdr_end && hdr_start < (start + size)) ||
+		     (start < pte_end && pte_start < (start + size)))) {
 			printf("Partition overlap\n");
 			return -1;
 		}
@@ -716,7 +716,7 @@ int gpt_verify_partitions(struct blk_desc *dev_desc,
 
 	for (i = 0; i < parts; i++) {
 		if (i == gpt_head->num_partition_entries) {
-			error("More partitions than allowed!\n");
+			pr_err("More partitions than allowed!\n");
 			return -1;
 		}
 
@@ -729,7 +729,7 @@ int gpt_verify_partitions(struct blk_desc *dev_desc,
 
 		if (strncmp(efi_str, (char *)partitions[i].name,
 			    sizeof(partitions->name))) {
-			error("Partition name: %s does not match %s!\n",
+			pr_err("Partition name: %s does not match %s!\n",
 			      efi_str, (char *)partitions[i].name);
 			return -1;
 		}
@@ -746,7 +746,7 @@ int gpt_verify_partitions(struct blk_desc *dev_desc,
 			if ((i == parts - 1) && (partitions[i].size == 0))
 				continue;
 
-			error("Partition %s size: %llu does not match %llu!\n",
+			pr_err("Partition %s size: %llu does not match %llu!\n",
 			      efi_str, (unsigned long long)gpt_part_size,
 			      (unsigned long long)partitions[i].size);
 			return -1;
@@ -767,7 +767,7 @@ int gpt_verify_partitions(struct blk_desc *dev_desc,
 		      (unsigned long long)partitions[i].start);
 
 		if (le64_to_cpu(gpt_e[i].starting_lba) != partitions[i].start) {
-			error("Partition %s start: %llu does not match %llu!\n",
+			pr_err("Partition %s start: %llu does not match %llu!\n",
 			      efi_str, le64_to_cpu(gpt_e[i].starting_lba),
 			      (unsigned long long)partitions[i].start);
 			return -1;
@@ -923,8 +923,17 @@ static int is_pmbr_valid(legacy_mbr * mbr)
 static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
 			gpt_header *pgpt_head, gpt_entry **pgpt_pte)
 {
+	/* Confirm valid arguments prior to allocation. */
 	if (!dev_desc || !pgpt_head) {
 		printf("%s: Invalid Argument(s)\n", __func__);
+		return 0;
+	}
+
+	ALLOC_CACHE_ALIGN_BUFFER(legacy_mbr, mbr, dev_desc->blksz);
+
+	/* Read MBR Header from device */
+	if (blk_dread(dev_desc, 0, 1, (ulong *)mbr) != 1) {
+		printf("*** ERROR: Can't read MBR header ***\n");
 		return 0;
 	}
 
@@ -936,6 +945,18 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
 
 	if (validate_gpt_header(pgpt_head, (lbaint_t)lba, dev_desc->lba))
 		return 0;
+
+	if (dev_desc->sig_type == SIG_TYPE_NONE) {
+		efi_guid_t empty = {};
+		if (memcmp(&pgpt_head->disk_guid, &empty, sizeof(empty))) {
+			dev_desc->sig_type = SIG_TYPE_GUID;
+			memcpy(&dev_desc->guid_sig, &pgpt_head->disk_guid,
+			      sizeof(empty));
+		} else if (mbr->unique_mbr_signature != 0) {
+			dev_desc->sig_type = SIG_TYPE_MBR;
+			dev_desc->mbr_sig = mbr->unique_mbr_signature;
+		}
+	}
 
 	/* Read and allocate Partition Table Entries */
 	*pgpt_pte = alloc_read_gpt_entries(dev_desc, pgpt_head);

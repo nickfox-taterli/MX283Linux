@@ -40,7 +40,12 @@ static void ftmac100_reset(struct ftmac100_data *priv)
 	writel (FTMAC100_MACCR_SW_RST, &ftmac100->maccr);
 
 	while (readl (&ftmac100->maccr) & FTMAC100_MACCR_SW_RST)
-		;
+		mdelay(1);
+	/*
+	 * When soft reset complete, write mac address immediately maybe fail somehow
+	 *  Wait for a while can avoid this problem
+	 */
+	mdelay(1);
 }
 
 /*
@@ -79,7 +84,6 @@ static int _ftmac100_init(struct ftmac100_data *priv, unsigned char enetaddr[6])
 	struct ftmac100_rxdes *rxdes = priv->rxdes;
 	unsigned int maccr;
 	int i;
-
 	debug ("%s()\n", __func__);
 
 	ftmac100_reset(priv);
@@ -156,7 +160,6 @@ static int __ftmac100_recv(struct ftmac100_data *priv)
 	unsigned short rxlen;
 
 	curr_des = &priv->rxdes[priv->rx_index];
-
 	if (curr_des->rxdes0 & FTMAC100_RXDES0_RXDMA_OWN)
 		return 0;
 
@@ -169,7 +172,7 @@ static int __ftmac100_recv(struct ftmac100_data *priv)
 	}
 
 	rxlen = FTMAC100_RXDES0_RFL (curr_des->rxdes0);
-
+	invalidate_dcache_range(curr_des->rxdes2,curr_des->rxdes2+rxlen);
 	debug ("%s(): RX buffer %d, %x received\n",
 	       __func__, priv->rx_index, rxlen);
 
@@ -196,6 +199,7 @@ static int _ftmac100_send(struct ftmac100_data *priv, void *packet, int length)
 
 	/* initiate a transmit sequence */
 
+	flush_dcache_range((u32)packet,(u32)packet+length);
 	curr_des->txdes2 = (unsigned int)packet;	/* TXBUF_BADR */
 
 	curr_des->txdes1 &= FTMAC100_TXDES1_EDOTR;

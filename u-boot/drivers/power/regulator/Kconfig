@@ -77,6 +77,13 @@ config DM_REGULATOR_FIXED
 	features for fixed value regulators. The driver implements get/set api
 	for enable and get only for voltage value.
 
+config SPL_DM_REGULATOR_FIXED
+	bool "Enable Driver Model for REGULATOR Fixed value in SPL"
+	depends on DM_REGULATOR_FIXED
+	---help---
+	This config enables implementation of driver-model regulator uclass
+	features for fixed value regulators in SPL.
+
 config DM_REGULATOR_GPIO
 	bool "Enable Driver Model for GPIO REGULATOR"
 	depends on DM_REGULATOR
@@ -150,6 +157,19 @@ config DM_REGULATOR_PALMAS
 	This enables implementation of driver-model regulator uclass
 	features for REGULATOR PALMAS and the family of PALMAS PMICs.
 	The driver implements get/set api for: value and enable.
+
+config DM_REGULATOR_PBIAS
+	bool "Enable driver for PBIAS regulator"
+	depends on DM_REGULATOR
+	select REGMAP
+	select SYSCON
+	---help---
+	This enables implementation of driver-model regulator uclass
+	features for pseudo-regulator PBIAS found in the OMAP SOCs.
+	This pseudo-regulator is used to provide a BIAS voltage to MMC1
+	signal pads and must be configured properly during a voltage switch.
+	Voltage switching is required by some operating modes of SDcards and
+	eMMC.
 
 config DM_REGULATOR_LP873X
 	bool "Enable driver for LP873X PMIC regulators"

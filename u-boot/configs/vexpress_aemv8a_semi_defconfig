@@ -10,12 +10,10 @@ CONFIG_BOOTARGS="console=ttyAMA0 earlyprintk=pl011,0x1c090000 debug user_debug=3
 # CONFIG_DISPLAY_BOARDINFO is not set
 CONFIG_SYS_PROMPT="VExpress64# "
 # CONFIG_CMD_CONSOLE is not set
-# CONFIG_CMD_IMLS is not set
 # CONFIG_CMD_XIMG is not set
 # CONFIG_CMD_EDITENV is not set
 # CONFIG_CMD_ENV_EXISTS is not set
 CONFIG_CMD_MEMTEST=y
-CONFIG_CMD_UNZIP=y
 CONFIG_CMD_ARMFLASH=y
 # CONFIG_CMD_FPGA is not set
 # CONFIG_CMD_LOADS is not set

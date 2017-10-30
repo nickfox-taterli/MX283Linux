@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <mapmem.h>
 #include <syscon.h>
+#include <bitfield.h>
 #include <asm/arch/clock.h>
 #include <asm/arch/cru_rk3368.h>
 #include <asm/arch/hardware.h>
@@ -301,7 +302,7 @@ static ulong rk3368_ddr_set_clk(struct rk3368_cru *cru, ulong set_rate)
 		dpll_cfg = &dpll_1600;
 		break;
 	default:
-		error("Unsupported SDRAM frequency!,%ld\n", set_rate);
+		pr_err("Unsupported SDRAM frequency!,%ld\n", set_rate);
 	}
 	rkclk_set_pll(cru, DPLL, dpll_cfg);
 
@@ -359,7 +360,7 @@ static ulong rk3368_spi_get_clk(struct rk3368_cru *cru, ulong clk_id)
 		break;
 
 	default:
-		error("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
+		pr_err("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
 		return -EINVAL;
 	}
 
@@ -384,7 +385,7 @@ static ulong rk3368_spi_set_clk(struct rk3368_cru *cru, ulong clk_id, uint hz)
 		break;
 
 	default:
-		error("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
+		pr_err("%s: SPI clk-id %ld not supported\n", __func__, clk_id);
 		return -EINVAL;
 	}
 
@@ -395,6 +396,31 @@ static ulong rk3368_spi_set_clk(struct rk3368_cru *cru, ulong clk_id, uint hz)
 		      (1 << spiclk->sel_shift)));
 
 	return rk3368_spi_get_clk(cru, clk_id);
+}
+
+static ulong rk3368_saradc_get_clk(struct rk3368_cru *cru)
+{
+	u32 div, val;
+
+	val = readl(&cru->clksel_con[25]);
+	div = bitfield_extract(val, CLK_SARADC_DIV_CON_SHIFT,
+			       CLK_SARADC_DIV_CON_WIDTH);
+
+	return DIV_TO_RATE(OSC_HZ, div);
+}
+
+static ulong rk3368_saradc_set_clk(struct rk3368_cru *cru, uint hz)
+{
+	int src_clk_div;
+
+	src_clk_div = DIV_ROUND_UP(OSC_HZ, hz) - 1;
+	assert(src_clk_div < 128);
+
+	rk_clrsetreg(&cru->clksel_con[25],
+		     CLK_SARADC_DIV_CON_MASK,
+		     src_clk_div << CLK_SARADC_DIV_CON_SHIFT);
+
+	return rk3368_saradc_get_clk(cru);
 }
 
 static ulong rk3368_clk_get_rate(struct clk *clk)
@@ -419,6 +445,9 @@ static ulong rk3368_clk_get_rate(struct clk *clk)
 		rate = rk3368_mmc_get_clk(priv->cru, clk->id);
 		break;
 #endif
+	case SCLK_SARADC:
+		rate = rk3368_saradc_get_clk(priv->cru);
+		break;
 	default:
 		return -ENOENT;
 	}
@@ -453,6 +482,9 @@ static ulong rk3368_clk_set_rate(struct clk *clk, ulong rate)
 		ret = rk3368_gmac_set_clk(priv->cru, clk->id, rate);
 		break;
 #endif
+	case SCLK_SARADC:
+		ret =  rk3368_saradc_set_clk(priv->cru, rate);
+		break;
 	default:
 		return -ENOENT;
 	}
@@ -498,7 +530,7 @@ static int rk3368_clk_bind(struct udevice *dev)
 	/* The reset driver does not have a device node, so bind it here */
 	ret = device_bind_driver(gd->dm_root, "rk3368_sysreset", "reset", &dev);
 	if (ret)
-		error("bind RK3368 reset driver failed: ret=%d\n", ret);
+		pr_err("bind RK3368 reset driver failed: ret=%d\n", ret);
 
 	return ret;
 }

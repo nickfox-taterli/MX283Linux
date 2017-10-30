@@ -14,6 +14,27 @@ config DM_VIDEO
 	  option compiles in the video uclass and routes all LCD/video access
 	  through this.
 
+config BACKLIGHT_PWM
+	bool "Generic PWM based Backlight Driver"
+	depends on DM_VIDEO && DM_PWM
+	default y
+	help
+	  If you have a LCD backlight adjustable by PWM, say Y to enable
+	  this driver.
+	  This driver can be use with "simple-panel" and
+	  it understands the standard device tree
+	  (leds/backlight/pwm-backlight.txt)
+
+config BACKLIGHT_GPIO
+	bool "Generic GPIO based Backlight Driver"
+	depends on DM_VIDEO
+	help
+	  If you have a LCD backlight adjustable by GPIO, say Y to enable
+	  this driver.
+	  This driver can be used with "simple-panel" and
+	  it understands the standard device tree
+	  (leds/backlight/gpio-backlight.txt)
+
 config VIDEO_BPP8
 	bool "Support 8-bit-per-pixel displays"
 	depends on DM_VIDEO
@@ -43,6 +64,14 @@ config VIDEO_BPP32
 	  Enabling this will include code to support this display. Without
 	  this option, such displays will not be supported and console output
 	  will be empty.
+
+config VIDEO_ANSI
+	bool "Support ANSI escape sequences in video console"
+	depends on DM_VIDEO
+	default y if DM_VIDEO
+	help
+	  Enable ANSI escape sequence decoding for a more fully functional
+	  console.
 
 config CONSOLE_NORMAL
 	bool "Support a simple text console"
@@ -97,6 +126,14 @@ config SYS_WHITE_ON_BLACK
 	 option to invert this, i.e. white on a black background. This can be
 	 better in low-light situations or to reduce eye strain in some
 	 cases.
+
+config NO_FB_CLEAR
+	bool "Skip framebuffer clear"
+	help
+	  If firmware (whatever loads u-boot) has already put a splash image
+	  on screen, you might want to preserve it until whatever u-boot
+	  loads takes over the screen.  This, for example, can be used to
+	  keep splash image on screen until grub graphical boot menu starts.
 
 source "drivers/video/fonts/Kconfig"
 
@@ -436,6 +473,8 @@ config VIDEO_SANDBOX_SDL
 	  console device and can display stdout output. Within U-Boot is is
 	  a normal bitmap display and can display images as well as text.
 
+source "drivers/video/stm32/Kconfig"
+
 config VIDEO_TEGRA20
 	bool "Enable LCD support on Tegra20"
 	depends on OF_CONTROL
@@ -600,5 +639,23 @@ config VIDEO_DW_HDMI
 	  As this does not provide any functionality by itself (but
 	  rather requires a SoC-specific glue driver to call it), it
 	  can not be enabled from the configuration menu.
+
+config VIDEO_SIMPLE
+	bool "Simple display driver for preconfigured display"
+	help
+	  Enables a simple generic display driver which utilizes the
+	  simple-framebuffer devicetree bindings.
+
+	  This driver assumes that the display hardware has been initialized
+	  before u-boot starts, and u-boot will simply render to the pre-
+	  allocated frame buffer surface.
+
+config VIDEO_DT_SIMPLEFB
+	bool "Enable SimpleFB support for passing framebuffer to OS"
+	help
+	  Enables the code to pass the framebuffer to the kernel as a
+	  simple framebuffer in the device tree.
+	  The video output is initialized by U-Boot, and kept by the
+	  kernel.
 
 endmenu

@@ -663,8 +663,9 @@ struct xhci_ep_ctx {
 #define GET_MAX_PACKET(p)	((p) & 0x7ff)
 
 /* tx_info bitmasks */
-#define AVG_TRB_LENGTH_FOR_EP(p)	((p) & 0xffff)
-#define MAX_ESIT_PAYLOAD_FOR_EP(p)	(((p) & 0xffff) << 16)
+#define EP_AVG_TRB_LENGTH(p)		((p) & 0xffff)
+#define EP_MAX_ESIT_PAYLOAD_LO(p)	(((p) & 0xffff) << 16)
+#define EP_MAX_ESIT_PAYLOAD_HI(p)	((((p) >> 16) & 0xff) << 24)
 #define CTX_TO_MAX_ESIT_PAYLOAD(p)	(((p) >> 16) & 0xffff)
 
 /* deq bitmasks */
@@ -1045,9 +1046,9 @@ struct xhci_scratchpad {
  * (1K bytes * 8bytes/bit) / (4*32 bits) = 64 segment entries in the table,
  * meaning 64 ring segments.
  * Initial allocated size of the ERST, in number of entries */
-#define	ERST_NUM_SEGS	3
+#define	ERST_NUM_SEGS	1
 /* Initial number of event segment rings allocated */
-#define	ERST_ENTRIES	3
+#define	ERST_ENTRIES	1
 /* Initial allocated size of the ERST, in number of entries */
 #define	ERST_SIZE	64
 /* Poll every 60 seconds */

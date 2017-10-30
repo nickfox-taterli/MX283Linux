@@ -224,7 +224,7 @@ static unsigned long stm32_clk_get_rate(struct clk *clk)
 		return sysclk >>= shift;
 		break;
 	default:
-		error("clock index %ld out of range\n", clk->id);
+		pr_err("clock index %ld out of range\n", clk->id);
 		return -EINVAL;
 		break;
 	}
@@ -310,10 +310,11 @@ static const struct udevice_id stm32_clk_ids[] = {
 };
 
 U_BOOT_DRIVER(stm32f7_clk) = {
-	.name		= "stm32f7_clk",
-	.id		= UCLASS_CLK,
-	.of_match	= stm32_clk_ids,
-	.ops		= &stm32_clk_ops,
-	.probe		= stm32_clk_probe,
-	.flags		= DM_FLAG_PRE_RELOC,
+	.name			= "stm32f7_clk",
+	.id			= UCLASS_CLK,
+	.of_match		= stm32_clk_ids,
+	.ops			= &stm32_clk_ops,
+	.probe			= stm32_clk_probe,
+	.priv_auto_alloc_size	= sizeof(struct stm32_clk),
+	.flags			= DM_FLAG_PRE_RELOC,
 };

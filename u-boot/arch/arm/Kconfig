@@ -588,6 +588,7 @@ config ARCH_OMAP2PLUS
 	bool "TI OMAP2+"
 	select CPU_V7
 	select SPL_BOARD_INIT if SPL
+	select SPL_STACK_R if SPL
 	select SUPPORT_SPL
 	imply FIT
 
@@ -629,6 +630,14 @@ config ARCH_MX5
 	bool "Freescale MX5"
 	select CPU_V7
 	select BOARD_EARLY_INIT_F
+
+config ARCH_QEMU
+	bool "QEMU Virtual Platform"
+	select CPU_V7
+	select ARCH_SUPPORT_PSCI
+	select DM
+	select DM_SERIAL
+	select OF_CONTROL
 
 config ARCH_RMOBILE
 	bool "Renesas ARM SoCs"
@@ -689,12 +698,12 @@ config ARCH_SUNXI
 	select SPL_SYS_MALLOC_SIMPLE if SPL
 	select SYS_NS16550
 	select SPL_SYS_THUMB_BUILD if !ARM64
+	select SYS_THUMB_BUILD if !ARM64
 	select USB if DISTRO_DEFAULTS
 	select USB_STORAGE if DISTRO_DEFAULTS
 	select USB_KEYBOARD if DISTRO_DEFAULTS
 	select USE_TINY_PRINTF
-	imply CMD_FASTBOOT
-	imply FASTBOOT
+	imply CMD_GPT
 	imply FAT_WRITE
 	imply PRE_CONSOLE_BUFFER
 	imply SPL_GPIO_SUPPORT
@@ -704,7 +713,7 @@ config ARCH_SUNXI
 	imply SPL_MMC_SUPPORT if MMC
 	imply SPL_POWER_SUPPORT
 	imply SPL_SERIAL_SUPPORT
-	imply USB_FUNCTION_FASTBOOT
+	imply USB_GADGET
 
 config TARGET_TS4600
 	bool "Support TS4600"
@@ -1114,6 +1123,9 @@ config ARCH_ROCKCHIP
 	imply FAT_WRITE
 	imply USB_FUNCTION_FASTBOOT
 	imply SPL_SYSRESET
+	imply TPL_SYSRESET
+	imply ADC
+	imply SARADC_ROCKCHIP
 
 config TARGET_THUNDERX_88XX
 	bool "Support ThunderX 88xx"
@@ -1167,6 +1179,8 @@ source "arch/arm/mach-orion5x/Kconfig"
 source "arch/arm/mach-rmobile/Kconfig"
 
 source "arch/arm/mach-meson/Kconfig"
+
+source "arch/arm/mach-qemu/Kconfig"
 
 source "arch/arm/mach-rockchip/Kconfig"
 

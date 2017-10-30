@@ -3,7 +3,6 @@ menu "Environment"
 choice
 	prompt "Select the location of the environment"
 	default ENV_IS_IN_MMC if ARCH_SUNXI
-	default ENV_IS_IN_MMC if ARCH_UNIPHIER
 	default ENV_IS_IN_MMC if ARCH_EXYNOS4
 	default ENV_IS_IN_MMC if MX6SX || MX7D
 	default ENV_IS_IN_MMC if TEGRA30 || TEGRA124
@@ -17,6 +16,7 @@ choice
 	default ENV_IS_IN_FLASH if SH && !CPU_SH4
 	default ENV_IS_IN_SPI_FLASH if ARMADA_XP
 	default ENV_IS_IN_SPI_FLASH if INTEL_BAYTRAIL
+	default ENV_IS_IN_SPI_FLASH if INTEL_BRASWELL
 	default ENV_IS_IN_SPI_FLASH if INTEL_BROADWELL
 	default ENV_IS_IN_SPI_FLASH if NORTHBRIDGE_INTEL_IVYBRIDGE
 	default ENV_IS_IN_SPI_FLASH if INTEL_QUARK
@@ -39,21 +39,6 @@ config ENV_IS_NOWHERE
 	  while U-Boot is running, but once U-Boot exits it will not be
 	  stored. U-Boot will therefore always start up with a default
 	  environment.
-
-config ENV_IS_IN_DATAFLASH
-	bool "Environment in dataflash"
-	depends on !CHAIN_OF_TRUST
-	help
-	  Define this if you have a DataFlash memory device which you
-	  want to use for the environment.
-
-	  - CONFIG_ENV_OFFSET:
-	  - CONFIG_ENV_ADDR:
-	  - CONFIG_ENV_SIZE:
-
-	  These three #defines specify the offset and size of the
-	  environment area within the total memory of your DataFlash placed
-	  at the specified address.
 
 config ENV_IS_IN_EEPROM
 	bool "Environment in EEPROM"

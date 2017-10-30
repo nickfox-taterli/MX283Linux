@@ -1028,21 +1028,6 @@ The following options need to be configured:
 			control registers. This behavior won't affect the
 			correctnessof 10/100 link speed update.
 
-		CONFIG_SMC911X
-		Support for SMSC's LAN911x and LAN921x chips
-
-			CONFIG_SMC911X_BASE
-			Define this to hold the physical address
-			of the device (I/O space)
-
-			CONFIG_SMC911X_32_BIT
-			Define this if data bus is 32 bits
-
-			CONFIG_SMC911X_16_BIT
-			Define this if data bus is 16 bits. If your processor
-			automatically converts one 32 bit word to two 16 bit
-			words you may also try CONFIG_SMC911X_32_BIT.
-
 		CONFIG_SH_ETHER
 		Support for Renesas on-chip Ethernet controller
 
@@ -2311,13 +2296,6 @@ The following options need to be configured:
 		explicitly loaded later by U-Boot code. With CONFIG_OF_CONTROL
 		this is instead controlled by the value of
 		/config/load-environment.
-
-- DataFlash Support:
-		CONFIG_HAS_DATAFLASH
-
-		Defining this option enables DataFlash features and
-		allows to read/write in Dataflash via the standard
-		commands cp, md...
 
 - Serial Flash support
 		Usage requires an initial 'sf probe' to define the serial

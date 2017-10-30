@@ -179,7 +179,7 @@ static int dwc_vbus_supply_init(struct udevice *dev)
 
 	ret = regulator_set_enable(vbus_supply, true);
 	if (ret) {
-		error("Error enabling vbus supply\n");
+		pr_err("Error enabling vbus supply\n");
 		return ret;
 	}
 
@@ -1245,7 +1245,7 @@ static int dwc2_usb_ofdata_to_platdata(struct udevice *dev)
 	struct dwc2_priv *priv = dev_get_priv(dev);
 	fdt_addr_t addr;
 
-	addr = devfdt_get_addr(dev);
+	addr = dev_read_addr(dev);
 	if (addr == FDT_ADDR_T_NONE)
 		return -EINVAL;
 	priv->regs = (struct dwc2_core_regs *)addr;
