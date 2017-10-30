@@ -116,6 +116,9 @@ endmenu
 
 source "cmd/fastboot/Kconfig"
 
+config BUILD_BIN2C
+	bool
+
 comment "Commands"
 
 menu "Info commands"
@@ -222,6 +225,8 @@ config CMD_BOOTEFI_HELLO
 	  for testing that EFI is working at a basic level, and for bringing
 	  up EFI support on a new architecture.
 
+source lib/efi_selftest/Kconfig
+
 config CMD_BOOTMENU
 	bool "bootmenu"
 	select MENU
@@ -261,7 +266,6 @@ config CMD_IMI
 
 config CMD_IMLS
 	bool "imls"
-	default y
 	help
 	  List all images found in flash
 
@@ -526,6 +530,7 @@ menu "Compression commands"
 
 config CMD_LZMADEC
 	bool "lzmadec"
+	default y if CMD_BOOTI
 	select LZMA
 	help
 	  Support decompressing an LZMA (Lempel-Ziv-Markov chain algorithm)
@@ -533,6 +538,7 @@ config CMD_LZMADEC
 
 config CMD_UNZIP
 	bool "unzip"
+	default y if CMD_BOOTI
 	help
 	  Uncompress a zip-compressed memory region.
 
@@ -663,9 +669,16 @@ config CMD_GPT
 	bool "GPT (GUID Partition Table) command"
 	select PARTITION_UUIDS
 	select EFI_PARTITION
+	imply RANDOM_UUID
 	help
 	  Enable the 'gpt' command to ready and write GPT style partition
 	  tables.
+
+config RANDOM_UUID
+	bool "GPT Random UUID generation"
+	help
+	  Enable the generation of partitions with random UUIDs if none
+	  are provided.
 
 config CMD_GPT_RENAME
 	bool "GPT partition renaming commands"
@@ -1311,6 +1324,16 @@ config CMD_CROS_EC
 endmenu
 
 menu "Filesystem commands"
+config CMD_BTRFS
+	bool "Enable the 'btrsubvol' command"
+	select FS_BTRFS
+	help
+	  This enables the 'btrsubvol' command to list subvolumes
+	  of a BTRFS filesystem. There are no special commands for
+	  listing BTRFS directories or loading BTRFS files - this
+	  can be done by the generic 'fs' commands (see CMD_FS_GENERIC)
+	  when BTRFS is enabled (see FS_BTRFS).
+
 config CMD_CBFS
 	bool "Enable the 'cbfs' command"
 	depends on FS_CBFS

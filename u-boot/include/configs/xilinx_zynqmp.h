@@ -103,7 +103,6 @@
 		DFU_ALT_INFO_RAM
 
 #ifndef CONFIG_SPL_BUILD
-# define CONFIG_RANDOM_UUID
 # define PARTS_DEFAULT \
 	"partitions=uuid_disk=${uuid_gpt_disk};" \
 	"name=""boot"",size=16M,uuid=${uuid_gpt_boot};" \
@@ -132,7 +131,6 @@
 
 /* Ethernet driver */
 #if defined(CONFIG_ZYNQ_GEM)
-# define CONFIG_NET_MULTI
 # define CONFIG_MII
 # define CONFIG_SYS_FAULT_ECHO_LINK_DOWN
 # define CONFIG_PHY_MARVELL

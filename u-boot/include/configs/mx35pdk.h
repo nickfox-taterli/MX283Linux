@@ -85,10 +85,6 @@
 /*
  * Ethernet on the debug board (SMC911)
  */
-#define CONFIG_SMC911X
-#define CONFIG_SMC911X_16_BIT 1
-#define CONFIG_SMC911X_BASE CS5_BASE_ADDR
-
 #define CONFIG_HAS_ETH1
 #define CONFIG_ETHPRIME
 
@@ -182,7 +178,6 @@
 /*
  * NAND FLASH driver setup
  */
-#define CONFIG_NAND_MXC
 #define CONFIG_MXC_NAND_REGS_BASE	(NFC_BASE_ADDR)
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		(NFC_BASE_ADDR)

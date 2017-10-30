@@ -16,7 +16,6 @@ unsigned long get_board_ddr_clk(void);
 #endif
 
 #ifdef CONFIG_FSL_QSPI
-#undef CONFIG_CMD_IMLS
 #define CONFIG_QIXIS_I2C_ACCESS
 #define CONFIG_SYS_I2C_EARLY_INIT
 #define CONFIG_SYS_I2C_IFDR_DIV		0x7e
@@ -435,13 +434,6 @@ unsigned long get_board_ddr_clk(void);
 #define CONFIG_ETHPRIME		"DPMAC1@xgmii"
 
 #endif
-
-/*
- * USB
- */
-#define CONFIG_HAS_FSL_XHCI_USB
-#define CONFIG_USB_XHCI_FSL
-#define CONFIG_USB_MAX_CONTROLLER_COUNT		2
 
 #include <asm/fsl_secure_boot.h>
 

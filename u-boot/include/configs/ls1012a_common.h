@@ -32,7 +32,7 @@
 #define CONFIG_SYS_DDR_BLOCK2_BASE     0x880000000ULL
 
 /* Generic Timer Definitions */
-#define COUNTER_FREQUENCY		CONFIG_SYS_CLK_FREQ/4	/* 25MHz */
+#define COUNTER_FREQUENCY		25000000	/* 25MHz */
 
 /* CSU */
 #define CONFIG_LAYERSCAPE_NS_ACCESS
@@ -81,9 +81,6 @@
 #define CONFIG_SYS_NS16550_CLK          (get_serial_clock())
 
 #define CONFIG_SYS_BAUDRATE_TABLE	{ 9600, 19200, 38400, 57600, 115200 }
-
-/* Command line configuration */
-#undef CONFIG_CMD_IMLS
 
 #define CONFIG_SYS_HZ			1000
 

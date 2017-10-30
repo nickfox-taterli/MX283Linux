@@ -241,6 +241,27 @@ config IDENT_STRING
 	help
 	  This options adds the board specific name to u-boot version.
 
+config LOGLEVEL
+	int "loglevel"
+	default 4
+	range 0 8
+	help
+	  All Messages with a loglevel smaller than the console loglevel will
+	  be compiled in. The loglevels are defined as follows:
+
+	  0 (KERN_EMERG)          system is unusable
+	  1 (KERN_ALERT)          action must be taken immediately
+	  2 (KERN_CRIT)           critical conditions
+	  3 (KERN_ERR)            error conditions
+	  4 (KERN_WARNING)        warning conditions
+	  5 (KERN_NOTICE)         normal but significant condition
+	  6 (KERN_INFO)           informational
+	  7 (KERN_DEBUG)          debug-level messages
+
+config SPL_LOGLEVEL
+	int
+	default LOGLEVEL
+
 config SILENT_CONSOLE
 	bool "Support a silent console"
 	help
@@ -381,22 +402,6 @@ config SYS_STDIO_DEREGISTER
 	  enabled to ensure this is handled correctly.
 
 endmenu
-
-config DTB_RESELECT
-	bool "Support swapping dtbs at a later point in boot"
-	depends on FIT_EMBED
-	help
-	  It is possible during initial boot you may need to use a generic
-	  dtb until you can fully determine the board your running on. This
-	  config allows boards to implement a function at a later point
-	  during boot to switch to the "correct" dtb.
-
-config FIT_EMBED
-	bool "Support a FIT image embedded in the U-boot image"
-	help
-	  This option provides hooks to allow U-boot to parse an
-	  appended FIT image and enable board specific code to then select
-	  the correct DTB to be used.
 
 config DEFAULT_FDT_FILE
 	string "Default fdt file"

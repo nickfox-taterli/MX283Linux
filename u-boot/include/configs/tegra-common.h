@@ -13,7 +13,6 @@
 /*
  * High Level Configuration Options
  */
-#define CONFIG_ARMCORTEXA9		/* This is an ARM V7 CPU core */
 #define CONFIG_SYS_L2CACHE_OFF		/* No L2 cache */
 
 #include <asm/arch/tegra.h>		/* get chip and board defs */
@@ -87,7 +86,6 @@
 
 /* Defines for SPL */
 #define CONFIG_SPL_FRAMEWORK
-#define CONFIG_SPL_NAND_SIMPLE
 #define CONFIG_SPL_MAX_FOOTPRINT	(CONFIG_SYS_TEXT_BASE - \
 						CONFIG_SPL_TEXT_BASE)
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x00010000

@@ -23,12 +23,15 @@ typedef volatile unsigned char	vu_char;
 #include <time.h>
 #include <asm-offsets.h>
 #include <linux/bitops.h>
+#include <linux/bug.h>
 #include <linux/delay.h>
 #include <linux/types.h>
+#include <linux/printk.h>
 #include <linux/string.h>
 #include <linux/stringify.h>
 #include <asm/ptrace.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <linux/kernel.h>
 
 #include <part.h>
@@ -52,11 +55,6 @@ typedef volatile unsigned char	vu_char;
 #define _SPL_BUILD	1
 #else
 #define _SPL_BUILD	0
-#endif
-
-/* Define this at the top of a file to add a prefix to debug messages */
-#ifndef pr_fmt
-#define pr_fmt(fmt) fmt
 #endif
 
 /*
@@ -92,19 +90,6 @@ void __assert_fail(const char *assertion, const char *file, unsigned line,
 #define assert(x) \
 	({ if (!(x) && _DEBUG) \
 		__assert_fail(#x, __FILE__, __LINE__, __func__); })
-
-#define error(fmt, args...) do {					\
-		printf("ERROR: " pr_fmt(fmt) "\nat %s:%d/%s()\n",	\
-			##args, __FILE__, __LINE__, __func__);		\
-} while (0)
-
-#ifndef BUG
-#define BUG() do { \
-	printf("BUG: failure at %s:%d/%s()!\n", __FILE__, __LINE__, __FUNCTION__); \
-	panic("BUG!"); \
-} while (0)
-#define BUG_ON(condition) do { if (unlikely((condition)!=0)) BUG(); } while(0)
-#endif /* BUG */
 
 typedef void (interrupt_handler_t)(void *);
 
@@ -529,6 +514,8 @@ int	is_core_valid (unsigned int);
  */
 int arch_cpu_init(void);
 
+void s_init(void);
+
 int	checkcpu      (void);
 int	checkicache   (void);
 int	checkdcache   (void);
@@ -624,6 +611,7 @@ ulong	usec2ticks    (unsigned long usec);
 ulong	ticks2usec    (unsigned long ticks);
 
 /* lib/gunzip.c */
+int gzip_parse_header(const unsigned char *src, unsigned long len);
 int gunzip(void *, int, unsigned char *, unsigned long *);
 int zunzip(void *dst, int dstlen, unsigned char *src, unsigned long *lenp,
 						int stoponerr, int offset);
@@ -699,46 +687,6 @@ unsigned int rand_r(unsigned int *seedp);
 /* serial stuff */
 int	serial_printf (const char *fmt, ...)
 		__attribute__ ((format (__printf__, 1, 2)));
-/* stdin */
-int	getc(void);
-int	tstc(void);
-
-/* stdout */
-#if !defined(CONFIG_SPL_BUILD) || \
-	(defined(CONFIG_TPL_BUILD) && defined(CONFIG_TPL_SERIAL_SUPPORT)) || \
-	(defined(CONFIG_SPL_BUILD) && !defined(CONFIG_TPL_BUILD) && \
-		defined(CONFIG_SPL_SERIAL_SUPPORT))
-void	putc(const char c);
-void	puts(const char *s);
-int	printf(const char *fmt, ...)
-		__attribute__ ((format (__printf__, 1, 2)));
-int	vprintf(const char *fmt, va_list args);
-#else
-#define	putc(...) do { } while (0)
-#define puts(...) do { } while (0)
-#define printf(...) do { } while (0)
-#define vprintf(...) do { } while (0)
-#endif
-
-/* stderr */
-#define eputc(c)		fputc(stderr, c)
-#define eputs(s)		fputs(stderr, s)
-#define eprintf(fmt,args...)	fprintf(stderr,fmt ,##args)
-
-/*
- * FILE based functions (can only be used AFTER relocation!)
- */
-#define stdin		0
-#define stdout		1
-#define stderr		2
-#define MAX_FILES	3
-
-int	fprintf(int file, const char *fmt, ...)
-		__attribute__ ((format (__printf__, 2, 3)));
-void	fputs(int file, const char *s);
-void	fputc(int file, const char c);
-int	ftstc(int file);
-int	fgetc(int file);
 
 /* lib/gzip.c */
 int gzip(void *dst, unsigned long *lenp,

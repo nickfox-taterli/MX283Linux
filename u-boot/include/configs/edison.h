@@ -9,11 +9,13 @@
 
 #include <asm/ibmpc.h>
 
+/* ACPI */
+#define CONFIG_LAST_STAGE_INIT
+
 /* Boot */
 #define CONFIG_BOOTCOMMAND "run bootcmd"
 
 /* DISK Partition support */
-#define CONFIG_RANDOM_UUID
 
 /* Miscellaneous configurable options */
 #define CONFIG_SYS_LONGHELP

@@ -558,7 +558,6 @@ ulong genimg_get_kernel_addr_fit(char * const img_addr,
 ulong genimg_get_kernel_addr(char * const img_addr);
 int genimg_get_format(const void *img_addr);
 int genimg_has_config(bootm_headers_t *images);
-ulong genimg_get_image(ulong img_addr);
 
 int boot_get_fpga(int argc, char * const argv[], bootm_headers_t *images,
 		uint8_t arch, const ulong *ld_start, ulong * const ld_len);
@@ -1299,6 +1298,19 @@ void board_fit_image_post_process(void **p_image, size_t *p_size);
 #define FDT_ERROR	((ulong)(-1))
 
 ulong fdt_getprop_u32(const void *fdt, int node, const char *prop);
+
+/**
+ * fit_find_config_node() - Find the node for the best DTB in a FIT image
+ *
+ * A FIT image contains one or more DTBs. This function parses the
+ * configurations described in the FIT images and returns the node of
+ * the first matching DTB. To check if a DTB matches a board, this function
+ * calls board_fit_config_name_match(). If no matching DTB is found, it returns
+ * the node described by the default configuration if it exists.
+ *
+ * @fdt: pointer to flat device tree
+ * @return the node if found, -ve otherwise
+ */
 int fit_find_config_node(const void *fdt);
 
 /**

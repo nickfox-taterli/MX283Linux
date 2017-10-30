@@ -258,6 +258,12 @@ static int spl_common_init(bool setup_malloc)
 	return 0;
 }
 
+void spl_set_bd(void)
+{
+	if (!gd->bd)
+		gd->bd = &bdata;
+}
+
 int spl_early_init(void)
 {
 	int ret;
@@ -365,7 +371,9 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
 	struct spl_image_info spl_image;
 
 	debug(">>spl:board_init_r()\n");
-	gd->bd = &bdata;
+
+	spl_set_bd();
+
 #ifdef CONFIG_SPL_OS_BOOT
 	dram_init_banksize();
 #endif
@@ -424,13 +432,6 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
 	debug("SPL malloc() used %#lx bytes (%ld KB)\n", gd->malloc_ptr,
 	      gd->malloc_ptr / 1024);
 #endif
-
-	if (CONFIG_IS_ENABLED(ATF_SUPPORT)) {
-		debug("loaded - jumping to U-Boot via ATF BL31.\n");
-		bl31_entry();
-	}
-
-	debug("loaded - jumping to U-Boot...\n");
 #ifdef CONFIG_BOOTSTAGE_STASH
 	int ret;
 
@@ -440,6 +441,13 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
 	if (ret)
 		debug("Failed to stash bootstage: err=%d\n", ret);
 #endif
+
+	if (CONFIG_IS_ENABLED(ATF_SUPPORT)) {
+		debug("loaded - jumping to U-Boot via ATF BL31.\n");
+		bl31_entry();
+	}
+
+	debug("loaded - jumping to U-Boot...\n");
 	spl_board_prepare_for_boot();
 	jump_to_image_no_args(&spl_image);
 }

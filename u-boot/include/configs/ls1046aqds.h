@@ -136,13 +136,6 @@ unsigned long get_board_ddr_clk(void);
 #define CFG_LPUART_EN		0x2
 #endif
 
-/* USB */
-#define CONFIG_HAS_FSL_XHCI_USB
-#ifdef CONFIG_HAS_FSL_XHCI_USB
-#define CONFIG_USB_XHCI_FSL
-#define CONFIG_USB_MAX_CONTROLLER_COUNT         3
-#endif
-
 /* SATA */
 #define CONFIG_LIBATA
 #define CONFIG_SCSI_AHCI
@@ -435,7 +428,7 @@ unsigned long get_board_ddr_clk(void);
 
 #ifdef CONFIG_NAND_BOOT
 #define CONFIG_ENV_SIZE			0x2000
-#define CONFIG_ENV_OFFSET		(24 * CONFIG_SYS_NAND_BLOCK_SIZE)
+#define CONFIG_ENV_OFFSET		(12 * CONFIG_SYS_NAND_BLOCK_SIZE)
 #elif defined(CONFIG_SD_BOOT)
 #define CONFIG_ENV_OFFSET		(3 * 1024 * 1024)
 #define CONFIG_SYS_MMC_ENV_DEV		0

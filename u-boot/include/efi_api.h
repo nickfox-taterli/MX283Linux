@@ -29,6 +29,8 @@ enum efi_timer_delay {
 };
 
 #define UINTN size_t
+typedef long INTN;
+typedef uint16_t *efi_string_t;
 
 #define EVT_TIMER				0x80000000
 #define EVT_RUNTIME				0x40000000
@@ -69,30 +71,31 @@ struct efi_boot_services {
 					 enum efi_timer_delay type,
 					 uint64_t trigger_time);
 	efi_status_t (EFIAPI *wait_for_event)(unsigned long number_of_events,
-			struct efi_event **event, unsigned long *index);
+			struct efi_event **event, size_t *index);
 	efi_status_t (EFIAPI *signal_event)(struct efi_event *event);
 	efi_status_t (EFIAPI *close_event)(struct efi_event *event);
 	efi_status_t (EFIAPI *check_event)(struct efi_event *event);
 #define EFI_NATIVE_INTERFACE	0x00000000
 	efi_status_t (EFIAPI *install_protocol_interface)(
-			void **handle, efi_guid_t *protocol,
+			void **handle, const efi_guid_t *protocol,
 			int protocol_interface_type, void *protocol_interface);
 	efi_status_t (EFIAPI *reinstall_protocol_interface)(
-			void *handle, efi_guid_t *protocol,
+			void *handle, const efi_guid_t *protocol,
 			void *old_interface, void *new_interface);
 	efi_status_t (EFIAPI *uninstall_protocol_interface)(void *handle,
-			efi_guid_t *protocol, void *protocol_interface);
-	efi_status_t (EFIAPI *handle_protocol)(efi_handle_t, efi_guid_t *,
-					       void **);
+			const efi_guid_t *protocol, void *protocol_interface);
+	efi_status_t (EFIAPI *handle_protocol)(efi_handle_t,
+					       const efi_guid_t *protocol,
+					       void **protocol_interface);
 	void *reserved;
 	efi_status_t (EFIAPI *register_protocol_notify)(
-			efi_guid_t *protocol, struct efi_event *event,
+			const efi_guid_t *protocol, struct efi_event *event,
 			void **registration);
 	efi_status_t (EFIAPI *locate_handle)(
 			enum efi_locate_search_type search_type,
-			efi_guid_t *protocol, void *search_key,
+			const efi_guid_t *protocol, void *search_key,
 			unsigned long *buffer_size, efi_handle_t *buffer);
-	efi_status_t (EFIAPI *locate_device_path)(efi_guid_t *protocol,
+	efi_status_t (EFIAPI *locate_device_path)(const efi_guid_t *protocol,
 			struct efi_device_path **device_path,
 			efi_handle_t *device);
 	efi_status_t (EFIAPI *install_configuration_table)(
@@ -129,14 +132,14 @@ struct efi_boot_services {
 #define EFI_OPEN_PROTOCOL_BY_DRIVER           0x00000010
 #define EFI_OPEN_PROTOCOL_EXCLUSIVE           0x00000020
 	efi_status_t (EFIAPI *open_protocol)(efi_handle_t handle,
-			efi_guid_t *protocol, void **interface,
+			const efi_guid_t *protocol, void **interface,
 			efi_handle_t agent_handle,
 			efi_handle_t controller_handle, u32 attributes);
 	efi_status_t (EFIAPI *close_protocol)(void *handle,
-			efi_guid_t *protocol, void *agent_handle,
+			const efi_guid_t *protocol, void *agent_handle,
 			void *controller_handle);
 	efi_status_t(EFIAPI *open_protocol_information)(efi_handle_t handle,
-			efi_guid_t *protocol,
+			const efi_guid_t *protocol,
 			struct efi_open_protocol_info_entry **entry_buffer,
 			unsigned long *entry_count);
 	efi_status_t (EFIAPI *protocols_per_handle)(efi_handle_t handle,
@@ -144,9 +147,9 @@ struct efi_boot_services {
 			unsigned long *protocols_buffer_count);
 	efi_status_t (EFIAPI *locate_handle_buffer) (
 			enum efi_locate_search_type search_type,
-			efi_guid_t *protocol, void *search_key,
+			const efi_guid_t *protocol, void *search_key,
 			unsigned long *no_handles, efi_handle_t **buffer);
-	efi_status_t (EFIAPI *locate_protocol)(efi_guid_t *protocol,
+	efi_status_t (EFIAPI *locate_protocol)(const efi_guid_t *protocol,
 			void *registration, void **protocol_interface);
 	efi_status_t (EFIAPI *install_multiple_protocol_interfaces)(
 			void **handle, ...);
@@ -154,10 +157,9 @@ struct efi_boot_services {
 			void *handle, ...);
 	efi_status_t (EFIAPI *calculate_crc32)(void *data,
 			unsigned long data_size, uint32_t *crc32);
-	void (EFIAPI *copy_mem)(void *destination, void *source,
-			unsigned long length);
-	void (EFIAPI *set_mem)(void *buffer, unsigned long size,
-			uint8_t value);
+	void (EFIAPI *copy_mem)(void *destination, const void *source,
+			size_t length);
+	void (EFIAPI *set_mem)(void *buffer, size_t size, uint8_t value);
 	void *create_event_ex;
 };
 
@@ -210,6 +212,10 @@ struct efi_runtime_services {
 #define NULL_GUID \
 	EFI_GUID(0x00000000, 0x0000, 0x0000, 0x00, 0x00, \
 		 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
+
+#define EFI_GLOBAL_VARIABLE_GUID \
+	EFI_GUID(0x8be4df61, 0x93ca, 0x11d2, 0xaa, 0x0d, \
+		 0x00, 0xe0, 0x98, 0x03, 0x2b, 0x8c)
 
 #define LOADED_IMAGE_PROTOCOL_GUID \
 	EFI_GUID(0x5b1b31a1, 0x9562, 0x11d2, 0x8e, 0x3f, \
@@ -284,28 +290,101 @@ struct efi_device_path {
 	u8 type;
 	u8 sub_type;
 	u16 length;
-};
+} __packed;
 
 struct efi_mac_addr {
 	u8 addr[32];
-};
+} __packed;
+
+#define DEVICE_PATH_TYPE_HARDWARE_DEVICE	0x01
+#  define DEVICE_PATH_SUB_TYPE_MEMORY		0x03
+#  define DEVICE_PATH_SUB_TYPE_VENDOR		0x04
+
+struct efi_device_path_memory {
+	struct efi_device_path dp;
+	u32 memory_type;
+	u64 start_address;
+	u64 end_address;
+} __packed;
+
+struct efi_device_path_vendor {
+	struct efi_device_path dp;
+	efi_guid_t guid;
+	u8 vendor_data[];
+} __packed;
+
+#define DEVICE_PATH_TYPE_ACPI_DEVICE		0x02
+#  define DEVICE_PATH_SUB_TYPE_ACPI_DEVICE	0x01
+
+#define EFI_PNP_ID(ID)				(u32)(((ID) << 16) | 0x41D0)
+#define EISA_PNP_ID(ID)				EFI_PNP_ID(ID)
+#define EISA_PNP_NUM(ID)			((ID) >> 16)
+
+struct efi_device_path_acpi_path {
+	struct efi_device_path dp;
+	u32 hid;
+	u32 uid;
+} __packed;
 
 #define DEVICE_PATH_TYPE_MESSAGING_DEVICE	0x03
+#  define DEVICE_PATH_SUB_TYPE_MSG_USB		0x05
 #  define DEVICE_PATH_SUB_TYPE_MSG_MAC_ADDR	0x0b
+#  define DEVICE_PATH_SUB_TYPE_MSG_USB_CLASS	0x0f
+#  define DEVICE_PATH_SUB_TYPE_MSG_SD		0x1a
+#  define DEVICE_PATH_SUB_TYPE_MSG_MMC		0x1d
+
+struct efi_device_path_usb {
+	struct efi_device_path dp;
+	u8 parent_port_number;
+	u8 usb_interface;
+} __packed;
 
 struct efi_device_path_mac_addr {
 	struct efi_device_path dp;
 	struct efi_mac_addr mac;
 	u8 if_type;
-};
+} __packed;
+
+struct efi_device_path_usb_class {
+	struct efi_device_path dp;
+	u16 vendor_id;
+	u16 product_id;
+	u8 device_class;
+	u8 device_subclass;
+	u8 device_protocol;
+} __packed;
+
+struct efi_device_path_sd_mmc_path {
+	struct efi_device_path dp;
+	u8 slot_number;
+} __packed;
 
 #define DEVICE_PATH_TYPE_MEDIA_DEVICE		0x04
+#  define DEVICE_PATH_SUB_TYPE_HARD_DRIVE_PATH	0x01
+#  define DEVICE_PATH_SUB_TYPE_CDROM_PATH	0x02
 #  define DEVICE_PATH_SUB_TYPE_FILE_PATH	0x04
+
+struct efi_device_path_hard_drive_path {
+	struct efi_device_path dp;
+	u32 partition_number;
+	u64 partition_start;
+	u64 partition_end;
+	u8 partition_signature[16];
+	u8 partmap_type;
+	u8 signature_type;
+} __packed;
+
+struct efi_device_path_cdrom_path {
+	struct efi_device_path dp;
+	u32 boot_entry;
+	u64 partition_start;
+	u64 partition_end;
+} __packed;
 
 struct efi_device_path_file_path {
 	struct efi_device_path dp;
-	u16 str[32];
-};
+	u16 str[];
+} __packed;
 
 #define BLOCK_IO_GUID \
 	EFI_GUID(0x964e5b21, 0x6459, 0x11d2, \
@@ -354,14 +433,47 @@ struct simple_text_output_mode {
 	EFI_GUID(0x387477c2, 0x69c7, 0x11d2, \
 		 0x8e, 0x39, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b)
 
+#define EFI_BLACK                0x00
+#define EFI_BLUE                 0x01
+#define EFI_GREEN                0x02
+#define EFI_CYAN                 0x03
+#define EFI_RED                  0x04
+#define EFI_MAGENTA              0x05
+#define EFI_BROWN                0x06
+#define EFI_LIGHTGRAY            0x07
+#define EFI_BRIGHT               0x08
+#define EFI_DARKGRAY             0x08
+#define EFI_LIGHTBLUE            0x09
+#define EFI_LIGHTGREEN           0x0a
+#define EFI_LIGHTCYAN            0x0b
+#define EFI_LIGHTRED             0x0c
+#define EFI_LIGHTMAGENTA         0x0d
+#define EFI_YELLOW               0x0e
+#define EFI_WHITE                0x0f
+#define EFI_BACKGROUND_BLACK     0x00
+#define EFI_BACKGROUND_BLUE      0x10
+#define EFI_BACKGROUND_GREEN     0x20
+#define EFI_BACKGROUND_CYAN      0x30
+#define EFI_BACKGROUND_RED       0x40
+#define EFI_BACKGROUND_MAGENTA   0x50
+#define EFI_BACKGROUND_BROWN     0x60
+#define EFI_BACKGROUND_LIGHTGRAY 0x70
+
+/* extract foreground color from EFI attribute */
+#define EFI_ATTR_FG(attr)        ((attr) & 0x07)
+/* treat high bit of FG as bright/bold (similar to edk2) */
+#define EFI_ATTR_BOLD(attr)      (((attr) >> 3) & 0x01)
+/* extract background color from EFI attribute */
+#define EFI_ATTR_BG(attr)        (((attr) >> 4) & 0x7)
+
 struct efi_simple_text_output_protocol {
 	void *reset;
 	efi_status_t (EFIAPI *output_string)(
 			struct efi_simple_text_output_protocol *this,
-			const unsigned short *str);
+			const efi_string_t str);
 	efi_status_t (EFIAPI *test_string)(
 			struct efi_simple_text_output_protocol *this,
-			const unsigned short *str);
+			const efi_string_t str);
 	efi_status_t(EFIAPI *query_mode)(
 			struct efi_simple_text_output_protocol *this,
 			unsigned long mode_number, unsigned long *columns,
@@ -423,22 +535,14 @@ struct efi_console_control_protocol
 	EFI_GUID(0x8b843e20, 0x8132, 0x4852, \
 		 0x90, 0xcc, 0x55, 0x1a, 0x4e, 0x4a, 0x7f, 0x1c)
 
-struct efi_device_path_protocol
-{
-	uint8_t type;
-	uint8_t sub_type;
-	uint16_t length;
-	uint8_t data[];
-};
-
 struct efi_device_path_to_text_protocol
 {
 	uint16_t *(EFIAPI *convert_device_node_to_text)(
-			struct efi_device_path_protocol *device_node,
+			struct efi_device_path *device_node,
 			bool display_only,
 			bool allow_shortcuts);
 	uint16_t *(EFIAPI *convert_device_path_to_text)(
-			struct efi_device_path_protocol *device_path,
+			struct efi_device_path *device_path,
 			bool display_only,
 			bool allow_shortcuts);
 };
@@ -530,11 +634,21 @@ struct efi_simple_network_mode {
 	u8 media_present;
 };
 
-#define EFI_SIMPLE_NETWORK_RECEIVE_UNICAST               0x01,
-#define EFI_SIMPLE_NETWORK_RECEIVE_MULTICAST             0x02,
-#define EFI_SIMPLE_NETWORK_RECEIVE_BROADCAST             0x04,
-#define EFI_SIMPLE_NETWORK_RECEIVE_PROMISCUOUS           0x08,
-#define EFI_SIMPLE_NETWORK_RECEIVE_PROMISCUOUS_MULTICAST 0x10,
+/* receive_filters bit mask */
+#define EFI_SIMPLE_NETWORK_RECEIVE_UNICAST               0x01
+#define EFI_SIMPLE_NETWORK_RECEIVE_MULTICAST             0x02
+#define EFI_SIMPLE_NETWORK_RECEIVE_BROADCAST             0x04
+#define EFI_SIMPLE_NETWORK_RECEIVE_PROMISCUOUS           0x08
+#define EFI_SIMPLE_NETWORK_RECEIVE_PROMISCUOUS_MULTICAST 0x10
+
+/* interrupt status bit mask */
+#define EFI_SIMPLE_NETWORK_RECEIVE_INTERRUPT	0x01
+#define EFI_SIMPLE_NETWORK_TRANSMIT_INTERRUPT	0x02
+#define EFI_SIMPLE_NETWORK_COMMAND_INTERRUPT	0x04
+#define EFI_SIMPLE_NETWORK_SOFTWARE_INTERRUPT	0x08
+
+/* revision of the simple network protocol */
+#define EFI_SIMPLE_NETWORK_PROTOCOL_REVISION	0x00010000
 
 struct efi_simple_network
 {
@@ -563,14 +677,14 @@ struct efi_simple_network
 	efi_status_t (EFIAPI *get_status)(struct efi_simple_network *this,
 			u32 *int_status, void **txbuf);
 	efi_status_t (EFIAPI *transmit)(struct efi_simple_network *this,
-			ulong header_size, ulong buffer_size, void *buffer,
+			size_t header_size, size_t buffer_size, void *buffer,
 			struct efi_mac_address *src_addr,
 			struct efi_mac_address *dest_addr, u16 *protocol);
 	efi_status_t (EFIAPI *receive)(struct efi_simple_network *this,
-			ulong *header_size, ulong *buffer_size, void *buffer,
+			size_t *header_size, size_t *buffer_size, void *buffer,
 			struct efi_mac_address *src_addr,
 			struct efi_mac_address *dest_addr, u16 *protocol);
-	void (EFIAPI *waitforpacket)(void);
+	struct efi_event *wait_for_packet;
 	struct efi_simple_network_mode *mode;
 };
 
@@ -607,6 +721,71 @@ struct efi_pxe {
 	void (EFIAPI *setstationip)(void);
 	void (EFIAPI *setpackets)(void);
 	struct efi_pxe_mode *mode;
+};
+
+#define EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_GUID \
+	EFI_GUID(0x964e5b22, 0x6459, 0x11d2, \
+		 0x8e, 0x39, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b)
+#define EFI_FILE_PROTOCOL_REVISION 0x00010000
+
+struct efi_file_handle {
+	u64 rev;
+	efi_status_t (EFIAPI *open)(struct efi_file_handle *file,
+			struct efi_file_handle **new_handle,
+			s16 *file_name, u64 open_mode, u64 attributes);
+	efi_status_t (EFIAPI *close)(struct efi_file_handle *file);
+	efi_status_t (EFIAPI *delete)(struct efi_file_handle *file);
+	efi_status_t (EFIAPI *read)(struct efi_file_handle *file,
+			u64 *buffer_size, void *buffer);
+	efi_status_t (EFIAPI *write)(struct efi_file_handle *file,
+			u64 *buffer_size, void *buffer);
+	efi_status_t (EFIAPI *getpos)(struct efi_file_handle *file,
+			u64 *pos);
+	efi_status_t (EFIAPI *setpos)(struct efi_file_handle *file,
+			u64 pos);
+	efi_status_t (EFIAPI *getinfo)(struct efi_file_handle *file,
+			efi_guid_t *info_type, u64 *buffer_size, void *buffer);
+	efi_status_t (EFIAPI *setinfo)(struct efi_file_handle *file,
+			efi_guid_t *info_type, u64 buffer_size, void *buffer);
+	efi_status_t (EFIAPI *flush)(struct efi_file_handle *file);
+};
+
+#define EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_GUID \
+	EFI_GUID(0x964e5b22, 0x6459, 0x11d2, \
+		 0x8e, 0x39, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b)
+#define EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_REVISION 0x00010000
+
+struct efi_simple_file_system_protocol {
+	u64 rev;
+	efi_status_t (EFIAPI *open_volume)(struct efi_simple_file_system_protocol *this,
+			struct efi_file_handle **root);
+};
+
+#define EFI_FILE_INFO_GUID \
+	EFI_GUID(0x9576e92, 0x6d3f, 0x11d2, \
+		 0x8e, 0x39, 0x0, 0xa0, 0xc9, 0x69, 0x72, 0x3b)
+
+#define EFI_FILE_MODE_READ	0x0000000000000001
+#define EFI_FILE_MODE_WRITE	0x0000000000000002
+#define EFI_FILE_MODE_CREATE	0x8000000000000000
+
+#define EFI_FILE_READ_ONLY	0x0000000000000001
+#define EFI_FILE_HIDDEN		0x0000000000000002
+#define EFI_FILE_SYSTEM		0x0000000000000004
+#define EFI_FILE_RESERVED	0x0000000000000008
+#define EFI_FILE_DIRECTORY	0x0000000000000010
+#define EFI_FILE_ARCHIVE	0x0000000000000020
+#define EFI_FILE_VALID_ATTR	0x0000000000000037
+
+struct efi_file_info {
+	u64 size;
+	u64 file_size;
+	u64 physical_size;
+	struct efi_time create_time;
+	struct efi_time last_access_time;
+	struct efi_time modification_time;
+	u64 attribute;
+	s16 file_name[0];
 };
 
 #endif

@@ -79,10 +79,6 @@
 		"nand erase 0x0 0x40000; "				\
 		"nand write 0x81000000 0x0 0x40000\0"
 
-#define CONFIG_SMC911X
-#define CONFIG_SMC911X_BASE	0xB6000000
-#define CONFIG_SMC911X_32_BIT
-
 /*
  * Miscellaneous configurable options
  */
@@ -122,7 +118,6 @@
 /*
  * NAND driver
  */
-#define CONFIG_NAND_MXC
 #define CONFIG_MXC_NAND_REGS_BASE      NFC_BASE_ADDR
 #define CONFIG_SYS_MAX_NAND_DEVICE     1
 #define CONFIG_SYS_NAND_BASE           NFC_BASE_ADDR

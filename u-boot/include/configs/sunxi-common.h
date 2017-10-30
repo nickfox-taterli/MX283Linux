@@ -148,7 +148,13 @@
 #endif
 
 #if defined(CONFIG_ENV_IS_IN_MMC)
-#define CONFIG_SYS_MMC_ENV_DEV		0	/* first detected MMC controller */
+#if CONFIG_MMC_SUNXI_SLOT_EXTRA != -1
+/* If we have two devices (most likely eMMC + MMC), favour the eMMC */
+#define CONFIG_SYS_MMC_ENV_DEV		1
+#else
+/* Otherwise, use the only device we have */
+#define CONFIG_SYS_MMC_ENV_DEV		0
+#endif
 #define CONFIG_SYS_MMC_MAX_DEVICE	4
 #elif defined(CONFIG_ENV_IS_NOWHERE)
 #define CONFIG_ENV_SIZE			(128 << 10)
@@ -262,17 +268,12 @@ extern int soft_i2c_gpio_scl;
 /* GPIO */
 #define CONFIG_SUNXI_GPIO
 
-#ifdef CONFIG_VIDEO
+#ifdef CONFIG_VIDEO_SUNXI
 /*
  * The amount of RAM to keep free at the top of RAM when relocating u-boot,
  * to use as framebuffer. This must be a multiple of 4096.
  */
 #define CONFIG_SUNXI_MAX_FB_SIZE (16 << 20)
-
-/* Do we want to initialize a simple FB? */
-#define CONFIG_VIDEO_DT_SIMPLEFB
-
-#define CONFIG_VIDEO_SUNXI
 
 #define CONFIG_VIDEO_LOGO
 #define CONFIG_VIDEO_STD_TIMINGS
@@ -282,7 +283,7 @@ extern int soft_i2c_gpio_scl;
 /* allow both serial and cfb console. */
 /* stop x86 thinking in cfbconsole from trying to init a pc keyboard */
 
-#endif /* CONFIG_VIDEO */
+#endif /* CONFIG_VIDEO_SUNXI */
 
 /* Ethernet support */
 #ifdef CONFIG_SUNXI_EMAC
@@ -382,15 +383,28 @@ extern int soft_i2c_gpio_scl;
 	"ramdisk ram " RAMDISK_ADDR_R " 0x4000000\0"
 
 #ifdef CONFIG_MMC
-#define BOOT_TARGET_DEVICES_MMC(func) func(MMC, mmc, 0)
 #if CONFIG_MMC_SUNXI_SLOT_EXTRA != -1
-#define BOOT_TARGET_DEVICES_MMC_EXTRA(func) func(MMC, mmc, 1)
+#define BOOTENV_DEV_MMC_AUTO(devtypeu, devtypel, instance)		\
+	BOOTENV_DEV_MMC(MMC, mmc, 0)					\
+	BOOTENV_DEV_MMC(MMC, mmc, 1)					\
+	"bootcmd_mmc_auto="						\
+		"if test ${mmc_bootdev} -eq 1; then "			\
+			"run bootcmd_mmc1; "				\
+			"run bootcmd_mmc0; "				\
+		"elif test ${mmc_bootdev} -eq 0; then "			\
+			"run bootcmd_mmc0; "				\
+			"run bootcmd_mmc1; "				\
+		"fi\0"
+
+#define BOOTENV_DEV_NAME_MMC_AUTO(devtypeu, devtypel, instance) \
+	"mmc_auto "
+
+#define BOOT_TARGET_DEVICES_MMC(func) func(MMC_AUTO, mmc_auto, na)
 #else
-#define BOOT_TARGET_DEVICES_MMC_EXTRA(func)
+#define BOOT_TARGET_DEVICES_MMC(func) func(MMC, mmc, 0)
 #endif
 #else
 #define BOOT_TARGET_DEVICES_MMC(func)
-#define BOOT_TARGET_DEVICES_MMC_EXTRA(func)
 #endif
 
 #ifdef CONFIG_AHCI
@@ -418,7 +432,6 @@ extern int soft_i2c_gpio_scl;
 #define BOOT_TARGET_DEVICES(func) \
 	func(FEL, fel, na) \
 	BOOT_TARGET_DEVICES_MMC(func) \
-	BOOT_TARGET_DEVICES_MMC_EXTRA(func) \
 	BOOT_TARGET_DEVICES_SCSI(func) \
 	BOOT_TARGET_DEVICES_USB(func) \
 	func(PXE, pxe, na) \

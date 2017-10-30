@@ -80,7 +80,6 @@
 #define CONFIG_SYS_I2C_MXC_I2C2		/* enable I2C bus 2 */
 #define CONFIG_SYS_I2C_MXC_I2C3		/* enable I2C bus 3 */
 #define CONFIG_I2C_MULTI_BUS
-#define CONFIG_I2C_MXC
 #define CONFIG_SYS_I2C_SPEED		100000
 #define CONFIG_SYS_SPD_BUS_NUM		0
 
@@ -129,8 +128,6 @@
 #define CONFIG_MXC_USB_FLAGS		0
 /* Gadget part */
 #define CONFIG_USBD_HS
-#define CONFIG_USB_ETHER
-#define CONFIG_USB_ETH_CDC
 #define CONFIG_NETCONSOLE
 #endif
 

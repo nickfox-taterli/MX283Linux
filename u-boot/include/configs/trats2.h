@@ -150,7 +150,6 @@
 	"fdtaddr=40800000\0" \
 
 /* GPT */
-#define CONFIG_RANDOM_UUID
 
 /* Security subsystem - enable hw_rand() */
 #define CONFIG_EXYNOS_ACE_SHA
@@ -163,7 +162,6 @@
 
 /* Download menu - Samsung common */
 #define CONFIG_LCD_MENU
-#define CONFIG_LCD_MENU_BOARD
 
 /* Download menu - definitions for check keys */
 #ifndef __ASSEMBLY__

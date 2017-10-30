@@ -28,14 +28,6 @@
 /* FLASH related */
 #define CONFIG_MTD_DEVICE
 
-#define CONFIG_SMC911X_32_BIT
-/* dummy: referenced by examples/standalone/smc911x_eeprom.c */
-#define CONFIG_SMC911X_BASE	0
-
-#ifdef CONFIG_MICRO_SUPPORT_CARD
-#define CONFIG_SMC911X
-#endif
-
 #define CONFIG_FLASH_CFI_DRIVER
 #define CONFIG_SYS_FLASH_CFI
 
@@ -105,6 +97,7 @@
 
 #define CONFIG_LOADADDR			0x84000000
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
+#define CONFIG_SYS_BOOTM_LEN		(32 << 20)
 
 #define CONFIG_CMDLINE_EDITING		/* add command line history	*/
 
@@ -198,7 +191,6 @@
 
 #define	CONFIG_EXTRA_ENV_SETTINGS				\
 	"netdev=eth0\0"						\
-	"verify=n\0"						\
 	"initrd_high=0xffffffffffffffff\0"			\
 	"nor_base=0x42000000\0"					\
 	"sramupdate=setexpr tmp_addr $nor_base + 0x50000 &&"	\

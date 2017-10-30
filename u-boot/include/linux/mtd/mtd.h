@@ -442,38 +442,6 @@ static inline void mtd_erase_callback(struct erase_info *instr)
 }
 #endif
 
-#ifdef __UBOOT__
-/*
- * Debugging macro and defines
- */
-#define MTD_DEBUG_LEVEL0	(0)	/* Quiet   */
-#define MTD_DEBUG_LEVEL1	(1)	/* Audible */
-#define MTD_DEBUG_LEVEL2	(2)	/* Loud    */
-#define MTD_DEBUG_LEVEL3	(3)	/* Noisy   */
-
-#ifdef CONFIG_MTD_DEBUG
-#define pr_debug(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define MTDDEBUG(n, args...)				\
-	do {						\
-		if (n <= CONFIG_MTD_DEBUG_VERBOSE)	\
-			printk(KERN_INFO args);		\
-	} while(0)
-#else /* CONFIG_MTD_DEBUG */
-#define pr_debug(args...)
-#define MTDDEBUG(n, args...)				\
-	do {						\
-		if (0)					\
-			printk(KERN_INFO args);		\
-	} while(0)
-#endif /* CONFIG_MTD_DEBUG */
-#define pr_info(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define pr_warn(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define pr_err(args...)		MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define pr_crit(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define pr_cont(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#define pr_notice(args...)	MTDDEBUG(MTD_DEBUG_LEVEL0, args)
-#endif
- 
 static inline int mtd_is_bitflip(int err) {
 	return err == -EUCLEAN;
 }

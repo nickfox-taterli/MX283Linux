@@ -113,8 +113,6 @@
 /* SPL */
 
 /* NAND support */
-#define CONFIG_NAND_OMAP_GPMC
-#define CONFIG_NAND_OMAP_ELM
 
 /* NAND Configuration. */
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
@@ -183,9 +181,6 @@
 /* disable host part of MUSB in SPL */
 /* Disable CPSW SPL support so we fit within the 101KiB limit. */
 #endif
-
-/* CPSW ethernet */
-#define CONFIG_NET_MULTI
 
 /* Network */
 #define CONFIG_PHY_RESET	1

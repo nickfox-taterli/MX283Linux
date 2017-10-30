@@ -14,13 +14,12 @@
 #include <fm_eth.h>
 #include <i2c.h>
 #include <miiphy.h>
+#include <fsl-mc/fsl_mc.h>
 #include <fsl-mc/ldpaa_wriop.h>
 
 #include "../common/qixis.h"
 
 #include "ls1088a_qixis.h"
-
-#define MC_BOOT_ENV_VAR "mcinitcmd"
 
 #ifdef CONFIG_FSL_MC_ENET
 
@@ -612,7 +611,6 @@ static void ls1088a_handle_phy_interface_rgmii(int dpmac_id)
 int board_eth_init(bd_t *bis)
 {
 	int error = 0, i;
-	char *mc_boot_env_var;
 #ifdef CONFIG_FSL_MC_ENET
 	struct memac_mdio_info *memac_mdio0_info;
 	char *env_hwconfig = env_get("hwconfig");
@@ -636,6 +634,7 @@ int board_eth_init(bd_t *bis)
 	for (i = WRIOP1_DPMAC1; i < NUM_WRIOP_PORTS; i++) {
 		switch (wriop_get_enet_if(i)) {
 		case PHY_INTERFACE_MODE_RGMII:
+		case PHY_INTERFACE_MODE_RGMII_ID:
 			ls1088a_handle_phy_interface_rgmii(i);
 			break;
 		case PHY_INTERFACE_MODE_QSGMII:
@@ -655,9 +654,6 @@ int board_eth_init(bd_t *bis)
 		}
 	}
 
-	mc_boot_env_var = env_get(MC_BOOT_ENV_VAR);
-	if (mc_boot_env_var)
-		run_command_list(mc_boot_env_var, -1, 0);
 	error = cpu_eth_init(bis);
 
 	if (hwconfig_f("xqsgmii", env_hwconfig)) {
@@ -681,3 +677,10 @@ int board_eth_init(bd_t *bis)
 	error = pci_eth_init(bis);
 	return error;
 }
+
+#if defined(CONFIG_RESET_PHY_R)
+void reset_phy(void)
+{
+	mc_env_boot();
+}
+#endif /* CONFIG_RESET_PHY_R */

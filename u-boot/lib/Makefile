@@ -9,8 +9,8 @@ ifndef CONFIG_SPL_BUILD
 
 obj-$(CONFIG_EFI) += efi/
 obj-$(CONFIG_EFI_LOADER) += efi_loader/
+obj-$(CONFIG_EFI_LOADER) += efi_selftest/
 obj-$(CONFIG_LZMA) += lzma/
-obj-$(CONFIG_LZO) += lzo/
 obj-$(CONFIG_BZIP2) += bzip2/
 obj-$(CONFIG_TIZEN) += tizen/
 obj-$(CONFIG_FIT) += libfdt/
@@ -51,6 +51,8 @@ obj-$(CONFIG_SHA256) += sha256.o
 
 obj-$(CONFIG_$(SPL_)ZLIB) += zlib/
 obj-$(CONFIG_$(SPL_)GZIP) += gunzip.o
+obj-$(CONFIG_$(SPL_)LZO) += lzo/
+
 
 obj-$(CONFIG_$(SPL_TPL_)SAVEENV) += qsort.o
 obj-$(CONFIG_$(SPL_TPL_)OF_LIBFDT) += libfdt/
@@ -70,6 +72,7 @@ obj-y += display_options.o
 CFLAGS_display_options.o := $(if $(BUILD_TAG),-DBUILD_TAG='"$(BUILD_TAG)"')
 obj-$(CONFIG_BCH) += bch.o
 obj-y += crc32.o
+obj-$(CONFIG_CRC32C) += crc32c.o
 obj-y += ctype.o
 obj-y += div64.o
 obj-y += hang.o

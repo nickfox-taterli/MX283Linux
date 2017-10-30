@@ -14,6 +14,8 @@
 #include <asm/spl.h>
 #include <spl.h>
 #include <asm/mach-imx/hab.h>
+#include <asm/mach-imx/boot_mode.h>
+#include <g_dnl.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -29,6 +31,18 @@ u32 spl_boot_device(void)
 	 * BOOT_MODE - see IMX6DQRM Table 8-1
 	 */
 	if (((bmode >> 24) & 0x03) == 0x01) /* Serial Downloader */
+		return BOOT_DEVICE_BOARD;
+
+	/*
+	 * The above method does not detect that the boot ROM used
+	 * serial downloader in case the boot ROM decided to use the
+	 * serial downloader as a fall back (primary boot source failed).
+	 *
+	 * Infer that the boot ROM used the USB serial downloader by
+	 * checking whether the USB PHY is currently active... This
+	 * assumes that SPL did not (yet) initialize the USB PHY...
+	 */
+	if (is_usbotg_phy_active())
 		return BOOT_DEVICE_BOARD;
 
 	/* BOOT_CFG1[7:4] - see IMX6DQRM Table 8-8 */
@@ -81,6 +95,35 @@ u32 spl_boot_device(void)
 		return BOOT_DEVICE_NAND;
 	}
 	return BOOT_DEVICE_NONE;
+}
+
+#elif defined(CONFIG_MX7)
+/* Translate iMX7 boot device to the SPL boot device enumeration */
+u32 spl_boot_device(void)
+{
+	enum boot_device boot_device_spl = get_boot_device();
+
+	switch (boot_device_spl) {
+	case SD1_BOOT:
+	case MMC1_BOOT:
+		return BOOT_DEVICE_MMC1;
+	case SD2_BOOT:
+	case MMC2_BOOT:
+		return BOOT_DEVICE_MMC2;
+	case SPI_NOR_BOOT:
+		return BOOT_DEVICE_SPI;
+	default:
+		return BOOT_DEVICE_NONE;
+	}
+}
+#endif /* CONFIG_MX6 || CONFIG_MX7 */
+
+#ifdef CONFIG_SPL_USB_GADGET_SUPPORT
+int g_dnl_bind_fixup(struct usb_device_descriptor *dev, const char *name)
+{
+	put_unaligned(CONFIG_USB_GADGET_PRODUCT_NUM + 0xfff, &dev->idProduct);
+
+	return 0;
 }
 #endif
 

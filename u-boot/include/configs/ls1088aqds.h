@@ -20,7 +20,6 @@ unsigned long get_board_ddr_clk(void);
 
 
 #if defined(CONFIG_QSPI_BOOT)
-#define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_ENV_SIZE			0x2000          /* 8KB */
 #define CONFIG_ENV_OFFSET		0x300000        /* 3MB */
 #define CONFIG_ENV_SECT_SIZE		0x40000
@@ -35,7 +34,6 @@ unsigned long get_board_ddr_clk(void);
 #define CONFIG_QIXIS_I2C_ACCESS
 #define SYS_NO_FLASH
 
-#undef CONFIG_CMD_IMLS
 #define CONFIG_SYS_CLK_FREQ		100000000
 #define CONFIG_DDR_CLK_FREQ		100000000
 #else

@@ -28,13 +28,13 @@
 
 #define CONFIG_SYS_SPD_BUS_NUM		0
 
-#define CONFIG_FSL_DDR_BIST
 #ifndef CONFIG_SPL
-#define CONFIG_FSL_DDR_INTERACTIVE	/* Interactive debugging */
-#endif
 #define CONFIG_SYS_DDR_RAW_TIMING
+#define CONFIG_FSL_DDR_INTERACTIVE	/* Interactive debugging */
+#define CONFIG_FSL_DDR_BIST
 #define CONFIG_ECC_INIT_VIA_DDRCONTROLLER
 #define CONFIG_MEM_INIT_VALUE           0xdeadbeef
+#endif
 
 #ifdef CONFIG_RAMBOOT_PBL
 #define CONFIG_SYS_FSL_PBL_PBI board/freescale/ls1043ardb/ls1043ardb_pbi.cfg
@@ -46,6 +46,11 @@
 
 #ifdef CONFIG_SD_BOOT
 #define CONFIG_SYS_FSL_PBL_RCW board/freescale/ls1043ardb/ls1043ardb_rcw_sd.cfg
+#define CONFIG_CMD_SPL
+#define CONFIG_SYS_SPL_ARGS_ADDR	0x90000000
+#define CONFIG_SYS_MMCSD_RAW_MODE_KERNEL_SECTOR	0x10000
+#define CONFIG_SYS_MMCSD_RAW_MODE_ARGS_SECTOR	0x500
+#define CONFIG_SYS_MMCSD_RAW_MODE_ARGS_SECTORS	30
 #endif
 
 /*
@@ -276,15 +281,6 @@
 #ifndef SPL_NO_QE
 #if !defined(CONFIG_NAND_BOOT) && !defined(CONFIG_QSPI_BOOT)
 #define CONFIG_U_QE
-#endif
-#endif
-
-/* USB */
-#ifndef SPL_NO_USB
-#define CONFIG_HAS_FSL_XHCI_USB
-#ifdef CONFIG_HAS_FSL_XHCI_USB
-#define CONFIG_USB_XHCI_FSL
-#define CONFIG_USB_MAX_CONTROLLER_COUNT		3
 #endif
 #endif
 

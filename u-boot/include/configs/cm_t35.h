@@ -104,7 +104,6 @@
 /*
  * Board NAND Info.
  */
-#define CONFIG_NAND_OMAP_GPMC
 #define CONFIG_SYS_NAND_ADDR		NAND_BASE	/* physical address */
 							/* to access nand */
 #define CONFIG_SYS_NAND_BASE		NAND_BASE	/* physical address */
@@ -208,14 +207,6 @@
 #define CONFIG_ENV_OFFSET		0x260000
 #define CONFIG_ENV_ADDR			0x260000
 
-#if defined(CONFIG_CMD_NET)
-#define CONFIG_SMC911X
-#define CONFIG_SMC911X_32_BIT
-#define CM_T3X_SMC911X_BASE	0x2C000000
-#define SB_T35_SMC911X_BASE	(CM_T3X_SMC911X_BASE + (16 << 20))
-#define CONFIG_SMC911X_BASE	CM_T3X_SMC911X_BASE
-#endif /* (CONFIG_CMD_NET) */
-
 /* additions for new relocation code, must be added to all boards */
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM_1
 #define CONFIG_SYS_INIT_RAM_ADDR	0x4020f800
@@ -240,7 +231,6 @@
 
 /* Defines for SPL */
 #define CONFIG_SPL_FRAMEWORK
-#define CONFIG_SPL_NAND_SIMPLE
 
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME	"u-boot.img"

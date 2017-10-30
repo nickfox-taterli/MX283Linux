@@ -115,7 +115,6 @@
 #define CONFIG_SPL_SPI_LOAD
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x20000
 
-#define CONFIG_SPL_NAND_AM33XX_BCH
 #define CONFIG_SPL_NAND_BASE
 #define CONFIG_SPL_NAND_DRIVERS
 #define CONFIG_SPL_NAND_ECC
@@ -177,12 +176,6 @@
 #define CONFIG_AM335X_USB0_MODE	MUSB_PERIPHERAL
 #define CONFIG_AM335X_USB1
 #define CONFIG_AM335X_USB1_MODE MUSB_HOST
-
-#ifdef CONFIG_USB_MUSB_GADGET
-#define CONFIG_USB_ETHER
-#define CONFIG_USB_ETH_RNDIS
-#define CONFIG_USBNET_HOST_ADDR	"de:ad:be:af:00:00"
-#endif /* CONFIG_USB_MUSB_GADGET */
 
 /* USB DRACO ID as default */
 #define CONFIG_USBD_HS
@@ -507,8 +500,6 @@
 					"512k(mtdoops),"	\
 					"-(configuration)"
 
-#define CONFIG_NAND_OMAP_GPMC
-#define CONFIG_NAND_OMAP_ELM
 #define CONFIG_SYS_NAND_BASE		(0x08000000)	/* physical address */
 							/* to access nand at */
 							/* CS0 */

@@ -44,7 +44,8 @@
 #define PARTS_DEFAULT \
 	/* Linux partitions */ \
 	"uuid_disk=${uuid_gpt_disk};" \
-	"name=rootfs,start=2MiB,size=-,uuid=${uuid_gpt_rootfs}\0" \
+	"name=bootloader,start=384K,size=1792K,uuid=${uuid_gpt_bootloader};" \
+	"name=rootfs,start=2688K,size=-,uuid=${uuid_gpt_rootfs}\0" \
 	/* Android partitions */ \
 	"partitions_android=" \
 	"uuid_disk=${uuid_gpt_disk};" \
@@ -58,6 +59,7 @@
 	"name=recovery,size=10M,uuid=${uuid_gpt_recovery};" \
 	"name=boot,size=10M,uuid=${uuid_gpt_boot};" \
 	"name=system,size=768M,uuid=${uuid_gpt_system};" \
+	"name=vendor,size=256M,uuid=${uuid_gpt_vendor};" \
 	"name=cache,size=256M,uuid=${uuid_gpt_cache};" \
 	"name=ipu1,size=1M,uuid=${uuid_gpt_ipu1};" \
 	"name=ipu2,size=1M,uuid=${uuid_gpt_ipu2};" \
@@ -72,7 +74,6 @@
 #include <configs/ti_omap5_common.h>
 
 /* Enhance our eMMC support / experience. */
-#define CONFIG_RANDOM_UUID
 #define CONFIG_HSMMC2_8BIT
 
 /* CPSW Ethernet */

@@ -10,13 +10,13 @@
 #include <fdt_support.h>
 #include <fdtdec.h>
 #include <linux/errno.h>
+#include <linux/kernel.h>
+#include <linux/printk.h>
 #include <linux/sizes.h>
+#include <asm/global_data.h>
 
 #include "sg-regs.h"
 #include "soc-info.h"
-
-#define pr_warn(fmt, args...)	printf(fmt, ##args)
-#define pr_err(fmt, args...)	printf(fmt, ##args)
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -267,8 +267,8 @@ int ft_board_setup(void *fdt, bd_t *bd)
 		if (ret)
 			return -ENOSPC;
 
-		printf("   Reserved memory region for DRAM PHY training: addr=%lx size=%lx\n",
-		       rsv_addr, rsv_size);
+		pr_notice("   Reserved memory region for DRAM PHY training: addr=%lx size=%lx\n",
+			  rsv_addr, rsv_size);
 	}
 
 	return 0;
