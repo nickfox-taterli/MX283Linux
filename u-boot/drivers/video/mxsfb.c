@@ -158,7 +158,7 @@ void *video_hw_init(void)
 	void *fb;
 	struct ctfb_res_modes mode;
 
-	puts("Video: ");
+	/* puts("Video: "); */
 
 	/* Suck display configuration from "videomode" variable */
 	penv = env_get("videomode");
@@ -212,7 +212,7 @@ void *video_hw_init(void)
 
 	panel.frameAdrs = (u32)fb;
 
-	printf("%s\n", panel.modeIdent);
+	/* printf("%s\n", panel.modeIdent); */
 
 	/* Start framebuffer */
 	mxs_lcd_init(&panel, &mode, bpp);
