@@ -67,11 +67,11 @@
 #define MTDPARTS_DEFAULT			\
 	"mtdparts=gpmi-nand:"			\
 		"3m(bootloader)ro,"		\
-		"512k(environment),"		\
-		"512k(redundant-environment),"	\
+		"256k(environment),"		\
+		"256k(redundant-environment),"	\
 		"4m(kernel),"			\
 		"512k(fdt),"			\
-		"8m(ramdisk),"			\
+		"12m(ramdisk),"			\
 		"-(filesystem)"
 #endif
 
