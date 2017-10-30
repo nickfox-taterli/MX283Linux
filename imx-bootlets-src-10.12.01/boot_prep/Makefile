@@ -24,7 +24,7 @@ CFLAGS 	= -g -Wall -I$(INCLUDEDIR) -I$(INCLUDEDIR)/mach -I./ -O -D$(MEM_TYPE)
 LDFLAGS = -static -nostdlib -T $(BOOT_LAYOUT)
 
 # Generic code
-CORE_OBJS = init-$(ARCH).o debug.o DDR2_init.o
+CORE_OBJS = init-$(ARCH).o 
 
 all: boot_prep
 
