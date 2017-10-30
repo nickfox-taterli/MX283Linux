@@ -1,5 +1,3 @@
-// STMP378x ROM command script to load and run U-Boot
-
 sources {
 	power_prep="./power_prep/power_prep";
 	sdram_prep="./boot_prep/boot_prep";
@@ -29,3 +27,4 @@ section (0) {
         load u_boot;
         call u_boot;
 }
+

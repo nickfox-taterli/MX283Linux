@@ -48,7 +48,7 @@ ddi_libs += $(COMMONSRCDIR)/drivers/power/libddi_power.a
 POWER_PREP_OBJS = power_prep.o eabi.o
 
 # Generic code
-CORE_OBJS = debug.o
+CORE_OBJS = 
 
 # Default goal
 .PHONY: all
