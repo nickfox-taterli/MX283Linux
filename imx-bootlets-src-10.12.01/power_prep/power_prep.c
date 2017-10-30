@@ -84,10 +84,10 @@ void MasterPower_Boot( void )
     HW_POWER_DCDC4P2.B.TRG = 0;
     HW_POWER_5VCTRL.B.HEADROOM_ADJ = 0x4;
 
-    HW_POWER_DCDC4P2.B.DROPOUT_CTRL = 0x8;  
+    HW_POWER_DCDC4P2.B.DROPOUT_CTRL = 0x8;
     HW_POWER_5VCTRL.B.CHARGE_4P2_ILIMIT = 0x3f;
 
-    BF_SET(POWER_DCDC4P2, ENABLE_4P2);  
+    BF_SET(POWER_DCDC4P2, ENABLE_4P2);
 
     BF_SET(POWER_CHARGE, ENABLE_LOAD);
 
@@ -208,10 +208,10 @@ int _start( void )
     /* 启动5V检测逻辑 */
     hw_power_EnableVbusValid5vDetect( true );
 
-	/* 5V阈值设置 */
+    /* 5V阈值设置 */
     hw_power_SetVbusValidThresh( VBUS_VALID_THRESH_4400 );
-	
-	/* 开启电池检测逻辑 */
+
+    /* 开启电池检测逻辑 */
     extern bool bHwLradcInitialized;
     bHwLradcInitialized = false;
     hw_lradc_Init(FALSE, LRADC_CLOCK_6MHZ);
@@ -219,7 +219,7 @@ int _start( void )
     hw_lradc_EnableBatteryMeasurement( hw_lradc_AcquireBatteryMonitorDelayTrigger(),
                                        100);
 
-	/* 电源初始化 */
+    /* 电源初始化 */
     hw_power_Init();
 
     HW_RTC_PERSISTENT1_SET(0x800);
@@ -228,7 +228,7 @@ int _start( void )
 
     BF_SET(POWER_BATTMONITOR, EN_BATADJ);
     BF_CLR(LRADC_CONVERSION, AUTOMATIC);
-    BF_WR(POWER_BATTMONITOR, BATT_VAL, 525); 
+    BF_WR(POWER_BATTMONITOR, BATT_VAL, 525);
 
     HW_POWER_BATTMONITOR.B.BRWNOUT_LVL = BATTERY_BRWNOUT_BITFIELD_VALUE;
 
@@ -251,20 +251,20 @@ int _start( void )
                 if( HW_POWER_STS.B.VDDIO_BO )
                 {
                     hw_power_PowerDown();
-					break;
+                    break;
                 }
 
                 if( hw_power_GetVbusValid() && hw_power_GetVdd5vGtVddio() )
                 {
                     MasterPower_Boot();
-					break;
+                    break;
                 }
-				
+
                 /* 检查5V是否已经插入 */
                 if( ( hw_power_GetVbusValid() || hw_power_GetVdd5vGtVddio() ) == false )
                 {
                     hw_power_PowerDown();
-					break;
+                    break;
                 }
 
                 if( HW_POWER_STS.B.PSWITCH > 0 )
@@ -302,15 +302,15 @@ int _start( void )
                     HW_POWER_5VCTRL_SET(BM_POWER_5VCTRL_ENABLE_DCDC);
 
                     BF_WR(POWER_5VCTRL, CHARGE_4P2_ILIMIT, 0x8);
-					
-					break;
+
+                    break;
 
                 }
-            } 
+            }
 
         }
     }
-	/* 把时钟切换到PLL. */
+    /* 把时钟切换到PLL. */
     if((HW_CLKCTRL_PLL0CTRL0_RD() & BM_CLKCTRL_PLL0CTRL0_POWER)
             != BM_CLKCTRL_PLL0CTRL0_POWER)
         HW_CLKCTRL_PLL0CTRL0_SET(BM_CLKCTRL_PLL0CTRL0_POWER);
@@ -331,7 +331,7 @@ int _start( void )
 
     HW_POWER_5VCTRL_CLR(BM_POWER_5VCTRL_PWDN_5VBRNOUT);
 
-	/* 禁止DCDC */
+    /* 禁止DCDC */
     HW_POWER_5VCTRL_CLR(BM_POWER_5VCTRL_ENABLE_DCDC);
 
     BF_CLR(POWER_DCDC4P2, ENABLE_DCDC);
@@ -360,7 +360,7 @@ int _start( void )
 
     HW_POWER_5VCTRL_SET(BM_POWER_5VCTRL_PWD_CHARGE_4P2);
 
-	/* 使能DCDC */
+    /* 使能DCDC */
     HW_POWER_5VCTRL_SET(BM_POWER_5VCTRL_ENABLE_DCDC);
 
     BF_WR(POWER_5VCTRL, CHARGE_4P2_ILIMIT, 0x8);
