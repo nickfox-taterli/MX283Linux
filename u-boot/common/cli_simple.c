@@ -295,7 +295,7 @@ void cli_simple_loop(void)
 #endif
 
 		if (len == -1)
-			puts("<INTERRUPT>\n");
+			puts("<INTERRUPT>");
 		else
 			rc = run_command_repeatable(lastcommand, flag);
 

@@ -914,6 +914,7 @@ void board_init_r(gd_t *new_gd, ulong dest_addr)
 	if (initcall_run_list(init_sequence_r))
 		hang();
 
+
 	/* NOTREACHED - run_main_loop() does not return */
 	hang();
 }

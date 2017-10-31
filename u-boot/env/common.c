@@ -207,7 +207,8 @@ int env_import_redund(const char *buf1, const char *buf2)
 			tmp_env2->crc;
 
 	if (!crc1_ok && !crc2_ok) {
-		set_default_env("!bad CRC");
+		set_default_env("\n");/* 因为首次启动NAND中无数据. */
+		run_command("saveenv", 0);
 		return 0;
 	} else if (crc1_ok && !crc2_ok) {
 		gd->env_valid = ENV_VALID;

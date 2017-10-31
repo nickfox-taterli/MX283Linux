@@ -334,6 +334,7 @@ const char *bootdelay_process(void)
 	process_fdt_options(gd->fdt_blob);
 	stored_bootdelay = bootdelay;
 
+
 	return s;
 }
 
