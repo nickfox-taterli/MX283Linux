@@ -244,8 +244,6 @@ static inline void enable_clk_enet_out(void)
 static void __init imx28_evk_init(void)
 {
 	update_fec_mac_prop(OUI_FSL);
-
-	mxs_saif_clkmux_select(MXS_DIGCTL_SAIF_CLKMUX_EXTMSTR0);
 }
 
 static void __init imx28_apf28_init(void)
