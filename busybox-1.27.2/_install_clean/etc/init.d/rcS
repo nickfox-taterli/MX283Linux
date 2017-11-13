@@ -1,0 +1,10 @@
+#!/bin/sh
+
+/bin/mount -a
+
+/sbin/udhcpc -b  >/dev/null &
+
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s

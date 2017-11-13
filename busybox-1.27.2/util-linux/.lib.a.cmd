@@ -1,0 +1,1 @@
+cmd_util-linux/lib.a := rm -f util-linux/lib.a; armv5-fsl-linux-gnueabi-ar  rcs util-linux/lib.a util-linux/dmesg.o util-linux/getopt.o util-linux/hexdump.o util-linux/ionice.o util-linux/mdev.o util-linux/mesg.o util-linux/more.o util-linux/mount.o util-linux/renice.o util-linux/uevent.o util-linux/umount.o

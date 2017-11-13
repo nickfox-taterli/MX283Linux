@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "BUSYBOX 1"
-.TH BUSYBOX 1 "2017-09-19" "version 1.27.2" "busybox"
+.TH BUSYBOX 1 "2017-11-11" "version 1.27.2" "busybox"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -220,106 +220,38 @@ been enabled, more detailed usage information will also be available.
 Currently available applets include:
 .PP
 .Vb 10
-\&        [, [[, acpid, add\-shell, addgroup, adduser, adjtimex, arp, arping,
-\&        ash, awk, base64, basename, beep, blkdiscard, blkid, blockdev,
-\&        bootchartd, brctl, bunzip2, bzcat, bzip2, cal, cat, chat, chattr,
-\&        chgrp, chmod, chown, chpasswd, chpst, chroot, chrt, chvt, cksum,
-\&        clear, cmp, comm, conspy, cp, cpio, crond, crontab, cryptpw,
-\&        cttyhack, cut, date, dc, dd, deallocvt, delgroup, deluser, depmod,
-\&        devmem, df, dhcprelay, diff, dirname, dmesg, dnsd, dnsdomainname,
-\&        dos2unix, dpkg, dpkg\-deb, du, dumpkmap, dumpleases, echo, ed, egrep,
-\&        eject, env, envdir, envuidgid, ether\-wake, expand, expr, factor,
-\&        fakeidentd, fallocate, false, fatattr, fbset, fbsplash, fdflush,
-\&        fdformat, fdisk, fgconsole, fgrep, find, findfs, flock, fold, free,
-\&        freeramdisk, fsck, fsck.minix, fsfreeze, fstrim, fsync, ftpd,
-\&        ftpget, ftpput, fuser, getopt, getty, grep, groups, gunzip, gzip,
-\&        halt, hd, hdparm, head, hexdump, hostid, hostname, httpd, hush,
-\&        hwclock, i2cdetect, i2cdump, i2cget, i2cset, id, ifconfig, ifdown,
-\&        ifenslave, ifplugd, ifup, inetd, init, insmod, install, ionice,
-\&        iostat, ip, ipaddr, ipcalc, ipcrm, ipcs, iplink, ipneigh, iproute,
-\&        iprule, iptunnel, kbd_mode, kill, killall, killall5, klogd, last,
-\&        less, link, linux32, linux64, linuxrc, ln, loadfont, loadkmap,
-\&        logger, login, logname, logread, losetup, lpd, lpq, lpr, ls, lsattr,
-\&        lsmod, lsof, lspci, lsscsi, lsusb, lzcat, lzma, lzop, makedevs,
-\&        makemime, man, md5sum, mdev, mesg, microcom, mkdir, mkdosfs, mke2fs,
-\&        mkfifo, mkfs.ext2, mkfs.minix, mkfs.vfat, mknod, mkpasswd, mkswap,
-\&        mktemp, modinfo, modprobe, more, mount, mountpoint, mpstat, mt, mv,
-\&        nameif, nanddump, nandwrite, nbd\-client, nc, netstat, nice, nl,
-\&        nmeter, nohup, nproc, nsenter, nslookup, ntpd, od, openvt,
-\&        partprobe, passwd, paste, patch, pgrep, pidof, ping, ping6,
-\&        pipe_progress, pivot_root, pkill, pmap, popmaildir, poweroff,
-\&        powertop, printenv, printf, ps, pscan, pstree, pwd, pwdx,
-\&        raidautorun, rdate, rdev, readahead, readlink, readprofile,
-\&        realpath, reboot, reformime, remove\-shell, renice, reset, resize,
-\&        rev, rm, rmdir, rmmod, route, rpm, rpm2cpio, rtcwake, run\-parts,
-\&        runlevel, runsv, runsvdir, rx, script, scriptreplay, sed, sendmail,
-\&        seq, setarch, setconsole, setfont, setkeycodes, setlogcons, setpriv,
-\&        setserial, setsid, setuidgid, sh, sha1sum, sha256sum, sha3sum,
-\&        sha512sum, showkey, shred, shuf, slattach, sleep, smemcap,
-\&        softlimit, sort, split, ssl_client, start\-stop\-daemon, stat,
-\&        strings, stty, su, sulogin, sum, sv, svc, svlogd, swapoff, swapon,
-\&        switch_root, sync, sysctl, syslogd, tac, tail, tar, taskset, tcpsvd,
-\&        tee, telnet, telnetd, test, tftp, tftpd, time, timeout, top, touch,
-\&        tr, traceroute, traceroute6, true, truncate, tty, ttysize, tunctl,
-\&        ubiattach, ubidetach, ubimkvol, ubirename, ubirmvol, ubirsvol,
-\&        ubiupdatevol, udhcpc, udhcpd, udpsvd, uevent, umount, uname,
-\&        unexpand, uniq, unix2dos, unlink, unlzma, unshare, unxz, unzip,
-\&        uptime, users, usleep, uudecode, uuencode, vconfig, vi, vlock,
-\&        volname, w, wall, watch, watchdog, wc, wget, which, who, whoami,
-\&        whois, xargs, xxd, xz, xzcat, yes, zcat, zcip
+\&        adjtimex, arp, arping, ash, awk, base64, basename, beep, blkdiscard,
+\&        blkid, blockdev, cal, chat, chrt, chvt, clear, cmp, conspy, cp,
+\&        crond, crontab, cttyhack, cut, date, dc, dd, depmod, devmem, df,
+\&        dhcprelay, diff, dirname, dmesg, dnsdomainname, dumpleases, echo,
+\&        env, expand, expr, factor, fakeidentd, fallocate, false, fatattr,
+\&        fdflush, fdformat, find, findfs, flock, fold, free, freeramdisk,
+\&        fsck.minix, fsfreeze, fstrim, fsync, getopt, getty, grep, groups,
+\&        hd, head, hexdump, hostid, hostname, hwclock, i2cdetect, i2cdump,
+\&        i2cget, i2cset, id, ifconfig, ifdown, ifplugd, ifup, inetd, init,
+\&        insmod, install, ionice, ip, ipaddr, ipcalc, ipcrm, ipcs, iplink,
+\&        ipneigh, iproute, iprule, iptunnel, kill, klogd, less, link,
+\&        linuxrc, ln, logger, login, logname, logread, losetup, ls, lsmod,
+\&        lspci, lsscsi, lsusb, makedevs, mdev, mesg, mkdir, mkdosfs, mke2fs,
+\&        mkfifo, mkfs.ext2, mkfs.minix, mkfs.vfat, mknod, mkswap, mktemp,
+\&        modinfo, modprobe, more, mount, mountpoint, mt, mv, nameif,
+\&        nanddump, nandwrite, nbd\-client, nc, netstat, nice, nl, nohup,
+\&        nproc, nsenter, nslookup, ntpd, od, partprobe, paste, ping,
+\&        pivot_root, poweroff, printenv, printf, ps, pscan, pwd, raidautorun,
+\&        rdate, rdev, readahead, readlink, readprofile, realpath, reboot,
+\&        renice, rev, rm, rmdir, rmmod, route, rtcwake, rx, script,
+\&        scriptreplay, sed, seq, setpriv, setserial, setsid, sh, shred, shuf,
+\&        slattach, sleep, sort, split, ssl_client, stat, strings, stty, sum,
+\&        switch_root, sync, syslogd, tac, tail, taskset, tcpsvd, tee, telnet,
+\&        telnetd, tftp, tftpd, time, timeout, top, touch, tr, traceroute,
+\&        true, truncate, tty, ttysize, tunctl, ubiattach, ubidetach,
+\&        ubimkvol, ubirename, ubirmvol, ubirsvol, ubiupdatevol, udhcpc,
+\&        udhcpd, udpsvd, uevent, umount, uname, unexpand, uniq, unlink,
+\&        unshare, uptime, usleep, uudecode, uuencode, vconfig, vi, volname,
+\&        watchdog, wc, xxd, zcip
 .Ve
 .SH "COMMAND DESCRIPTIONS"
 .IX Header "COMMAND DESCRIPTIONS"
-.IP "\fBacpid\fR" 4
-.IX Item "acpid"
-acpid [\-df] [\-c \s-1CONFDIR\s0] [\-l \s-1LOGFILE\s0] [\-a \s-1ACTIONFILE\s0] [\-M \s-1MAPFILE\s0] [\-e \s-1PROC_EVENT_FILE\s0] [\-p \s-1PIDFILE\s0]
-.Sp
-Listen to \s-1ACPI\s0 events and spawn specific helpers on event arrival
-.Sp
-.Vb 8
-\&        \-d      Log to stderr, not log file (implies \-f)
-\&        \-f      Run in foreground
-\&        \-c DIR  Config directory [/etc/acpi]
-\&        \-e FILE /proc event file [/proc/acpi/event]
-\&        \-l FILE Log file [/var/log/acpid.log]
-\&        \-p FILE Pid file [/var/run/acpid.pid]
-\&        \-a FILE Action file [/etc/acpid.conf]
-\&        \-M FILE Map file [/etc/acpi.map]
-.Ve
-.Sp
-Accept and ignore compatibility options \-g \-m \-s \-S \-v
-.IP "\fBadd-shell\fR" 4
-.IX Item "add-shell"
-add-shell \s-1SHELL...\s0
-.Sp
-Add SHELLs to /etc/shells
-.IP "\fBaddgroup\fR" 4
-.IX Item "addgroup"
-addgroup [\-g \s-1GID\s0] [\-S] [\s-1USER\s0] \s-1GROUP\s0
-.Sp
-Add a group or add a user to a group
-.Sp
-.Vb 2
-\&        \-g GID  Group id
-\&        \-S      Create a system group
-.Ve
-.IP "\fBadduser\fR" 4
-.IX Item "adduser"
-adduser [\s-1OPTIONS\s0] \s-1USER\s0 [\s-1GROUP\s0]
-.Sp
-Create new user, or add \s-1USER\s0 to \s-1GROUP\s0
-.Sp
-.Vb 9
-\&        \-h DIR          Home directory
-\&        \-g GECOS        GECOS field
-\&        \-s SHELL        Login shell
-\&        \-G GRP          Group
-\&        \-S              Create a system user
-\&        \-D              Don\*(Aqt assign a password
-\&        \-H              Don\*(Aqt create home directory
-\&        \-u UID          User id
-\&        \-k SKEL         Skeleton directory (/etc/skel)
-.Ve
 .IP "\fBadjtimex\fR" 4
 .IX Item "adjtimex"
 adjtimex [\-q] [\-o \s-1OFF\s0] [\-f \s-1FREQ\s0] [\-p \s-1TCONST\s0] [\-t \s-1TICK\s0]
@@ -444,69 +376,6 @@ blockdev \s-1OPTION BLOCKDEV\s0
 \&        \-\-flushbufs     Flush buffers
 \&        \-\-rereadpt      Reread partition table
 .Ve
-.IP "\fBbootchartd\fR" 4
-.IX Item "bootchartd"
-bootchartd start [\s-1PROG ARGS\s0]|stop|init
-.Sp
-Create /var/log/bootchart.tgz with boot chart data
-.Sp
-start: start background logging; with \s-1PROG,\s0 run \s-1PROG,\s0 then kill logging with \s-1USR1\s0
-stop: send \s-1USR1\s0 to all bootchartd processes
-init: start background logging; stop when getty/xdm is seen (for init scripts)
-Under \s-1PID 1:\s0 as init, then exec \f(CW$bootchart_init\fR, /init, /sbin/init
-.IP "\fBbrctl\fR" 4
-.IX Item "brctl"
-brctl \s-1COMMAND\s0 [\s-1BRIDGE\s0 [\s-1INTERFACE\s0]]
-.Sp
-Manage ethernet bridges
-.Sp
-Commands:
-.Sp
-.Vb 10
-\&        show                    Show a list of bridges
-\&        addbr BRIDGE            Create BRIDGE
-\&        delbr BRIDGE            Delete BRIDGE
-\&        addif BRIDGE IFACE      Add IFACE to BRIDGE
-\&        delif BRIDGE IFACE      Delete IFACE from BRIDGE
-\&        setageing BRIDGE TIME           Set ageing time
-\&        setfd BRIDGE TIME               Set bridge forward delay
-\&        sethello BRIDGE TIME            Set hello time
-\&        setmaxage BRIDGE TIME           Set max message age
-\&        setpathcost BRIDGE COST         Set path cost
-\&        setportprio BRIDGE PRIO         Set port priority
-\&        setbridgeprio BRIDGE PRIO       Set bridge priority
-\&        stp BRIDGE [1/yes/on|0/no/off]  STP on/off
-.Ve
-.IP "\fBbunzip2\fR" 4
-.IX Item "bunzip2"
-bunzip2 [\-cfk] [\s-1FILE\s0]...
-.Sp
-Decompress FILEs (or stdin)
-.Sp
-.Vb 3
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
-.IP "\fBbzcat\fR" 4
-.IX Item "bzcat"
-bzcat [\s-1FILE\s0]...
-.Sp
-Decompress to stdout
-.IP "\fBbzip2\fR" 4
-.IX Item "bzip2"
-bzip2 [\s-1OPTIONS\s0] [\s-1FILE\s0]...
-.Sp
-Compress FILEs (or stdin) with bzip2 algorithm
-.Sp
-.Vb 6
-\&        \-1..9   Compression level
-\&        \-d      Decompress
-\&        \-t      Test file integrity
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
 .IP "\fBcal\fR" 4
 .IX Item "cal"
 cal [\-jy] [[\s-1MONTH\s0] \s-1YEAR\s0]
@@ -517,20 +386,6 @@ Display a calendar
 \&        \-j      Use julian dates
 \&        \-y      Display the entire year
 .Ve
-.IP "\fBcat\fR" 4
-.IX Item "cat"
-cat [\-nbvteA] [\s-1FILE\s0]...
-.Sp
-Print FILEs to stdout
-.Sp
-.Vb 6
-\&        \-n      Number output lines
-\&        \-b      Number nonempty lines
-\&        \-v      Show nonprinting characters as ^x or M\-x
-\&        \-t      ...and tabs as ^I
-\&        \-e      ...and end lines with $
-\&        \-A      Same as \-vte
-.Ve
 .IP "\fBchat\fR" 4
 .IX Item "chat"
 chat \s-1EXPECT\s0 [\s-1SEND\s0 [\s-1EXPECT\s0 [\s-1SEND...\s0]]]
@@ -539,120 +394,6 @@ Useful for interacting with a modem connected to stdin/stdout.
 A script consists of one or more \*(L"expect-send\*(R" pairs of strings,
 each pair is a pair of arguments. Example:
 chat '' \s-1ATZ OK ATD123456 CONNECT \s0'' ogin: pppuser word: ppppass '~'
-.IP "\fBchattr\fR" 4
-.IX Item "chattr"
-chattr [\-R] [\-+=AacDdijsStTu] [\-v \s-1VERSION\s0] [\s-1FILE\s0]...
-.Sp
-Change ext2 file attributes
-.Sp
-Modifiers:
-.Sp
-.Vb 2
-\&        \-,+,=   Remove/add/set attributes
-\&Attributes:
-\&
-\&        A       Don\*(Aqt track atime
-\&        a       Append mode only
-\&        c       Enable compress
-\&        D       Write dir contents synchronously
-\&        d       Don\*(Aqt backup with dump
-\&        i       Cannot be modified (immutable)
-\&        j       Write all data to journal first
-\&        s       Zero disk storage when deleted
-\&        S       Write synchronously
-\&        t       Disable tail\-merging of partial blocks with other files
-\&        u       Allow file to be undeleted
-\&        \-R      Recurse
-\&        \-v VER  Set version/generation number
-.Ve
-.IP "\fBchgrp\fR" 4
-.IX Item "chgrp"
-chgrp [\-RhLHPcvf]... \s-1GROUP FILE...\s0
-.Sp
-Change the group membership of each \s-1FILE\s0 to \s-1GROUP\s0
-.Sp
-.Vb 8
-\&        \-R      Recurse
-\&        \-h      Affect symlinks instead of symlink targets
-\&        \-L      Traverse all symlinks to directories
-\&        \-H      Traverse symlinks on command line only
-\&        \-P      Don\*(Aqt traverse symlinks (default)
-\&        \-c      List changed files
-\&        \-v      Verbose
-\&        \-f      Hide errors
-.Ve
-.IP "\fBchmod\fR" 4
-.IX Item "chmod"
-chmod [\-Rcvf] MODE[,MODE]... \s-1FILE...\s0
-.Sp
-Each \s-1MODE\s0 is one or more of the letters ugoa, one of the
-symbols +\-= and one or more of the letters rwxst
-.Sp
-.Vb 4
-\&        \-R      Recurse
-\&        \-c      List changed files
-\&        \-v      List all files
-\&        \-f      Hide errors
-.Ve
-.IP "\fBchown\fR" 4
-.IX Item "chown"
-chown [\-RhLHPcvf]... USER[:[\s-1GRP\s0]] \s-1FILE...\s0
-.Sp
-Change the owner and/or group of each \s-1FILE\s0 to \s-1USER\s0 and/or \s-1GRP\s0
-.Sp
-.Vb 8
-\&        \-R      Recurse
-\&        \-h      Affect symlinks instead of symlink targets
-\&        \-L      Traverse all symlinks to directories
-\&        \-H      Traverse symlinks on command line only
-\&        \-P      Don\*(Aqt traverse symlinks (default)
-\&        \-c      List changed files
-\&        \-v      List all files
-\&        \-f      Hide errors
-.Ve
-.IP "\fBchpasswd\fR" 4
-.IX Item "chpasswd"
-chpasswd [\-\-md5|\-\-encrypted|\-\-crypt\-method]
-.Sp
-Read user:password from stdin and update /etc/passwd
-.Sp
-.Vb 3
-\&        \-e,\-\-encrypted          Supplied passwords are in encrypted form
-\&        \-m,\-\-md5                Eencrypt using md5, not des
-\&        \-c,\-\-crypt\-method ALG   des,md5,sha256/512 (default des)
-.Ve
-.IP "\fBchpst\fR" 4
-.IX Item "chpst"
-chpst [\-vP012] [\-u USER[:GRP]] [\-U USER[:GRP]] [\-e \s-1DIR\s0]
-	[\-/ \s-1DIR\s0] [\-n \s-1NICE\s0] [\-m \s-1BYTES\s0] [\-d \s-1BYTES\s0] [\-o N]
-	[\-p N] [\-f \s-1BYTES\s0] [\-c \s-1BYTES\s0] \s-1PROG ARGS\s0
-.Sp
-Change the process state, run \s-1PROG\s0
-.Sp
-.Vb 10
-\&        \-u USER[:GRP]   Set uid and gid
-\&        \-U USER[:GRP]   Set $UID and $GID in environment
-\&        \-e DIR          Set environment variables as specified by files
-\&                        in DIR: file=1st_line_of_file
-\&        \-/ DIR          Chroot to DIR
-\&        \-n NICE         Add NICE to nice value
-\&        \-m BYTES        Same as \-d BYTES \-s BYTES \-l BYTES
-\&        \-d BYTES        Limit data segment
-\&        \-o N            Limit number of open files per process
-\&        \-p N            Limit number of processes per uid
-\&        \-f BYTES        Limit output file sizes
-\&        \-c BYTES        Limit core file size
-\&        \-v              Verbose
-\&        \-P              Create new process group
-\&        \-0              Close stdin
-\&        \-1              Close stdout
-\&        \-2              Close stderr
-.Ve
-.IP "\fBchroot\fR" 4
-.IX Item "chroot"
-chroot \s-1NEWROOT\s0 [\s-1PROG ARGS\s0]
-.Sp
-Run \s-1PROG\s0 with root directory set to \s-1NEWROOT\s0
 .IP "\fBchrt\fR" 4
 .IX Item "chrt"
 chrt [\-prfom] [\s-1PRIO\s0] [\s-1PID\s0 | \s-1PROG ARGS\s0]
@@ -671,11 +412,6 @@ Change scheduling priority and class for a process
 chvt N
 .Sp
 Change the foreground virtual terminal to /dev/ttyN
-.IP "\fBcksum\fR" 4
-.IX Item "cksum"
-cksum \s-1FILE...\s0
-.Sp
-Calculate the \s-1CRC32\s0 checksums of FILEs
 .IP "\fBclear\fR" 4
 .IX Item "clear"
 clear
@@ -691,17 +427,6 @@ Compare \s-1FILE1\s0 with \s-1FILE2 \s0(or stdin)
 \&        \-l      Write the byte numbers (decimal) and values (octal)
 \&                for all differing bytes
 \&        \-s      Quiet
-.Ve
-.IP "\fBcomm\fR" 4
-.IX Item "comm"
-comm [\-123] \s-1FILE1 FILE2\s0
-.Sp
-Compare \s-1FILE1\s0 with \s-1FILE2\s0
-.Sp
-.Vb 3
-\&        \-1      Suppress lines unique to FILE1
-\&        \-2      Suppress lines unique to FILE2
-\&        \-3      Suppress lines common to both files
 .Ve
 .IP "\fBconspy\fR" 4
 .IX Item "conspy"
@@ -740,30 +465,6 @@ Copy \s-1SOURCE\s0(s) to \s-1DEST\s0
 \&        \-l,\-s   Create (sym)links
 \&        \-u      Copy only newer files
 .Ve
-.IP "\fBcpio\fR" 4
-.IX Item "cpio"
-cpio [\-dmvu] [\-F \s-1FILE\s0] [\-R USER[:GRP]] [\-H newc] [\-tio] [\-p \s-1DIR\s0] [\s-1EXTR_FILE\s0]...
-.Sp
-Extract (\-i) or list (\-t) files from a cpio archive, or
-take file list from stdin and create an archive (\-o) or copy files (\-p)
-.Sp
-Main operation mode:
-.Sp
-.Vb 5
-\&        \-t      List
-\&        \-i      Extract EXTR_FILEs (or all)
-\&        \-o      Create (requires \-H newc)
-\&        \-p DIR  Copy files to DIR
-\&Options:
-\&
-\&        \-d      Make leading directories
-\&        \-m      Preserve mtime
-\&        \-v      Verbose
-\&        \-u      Overwrite
-\&        \-F FILE Input (\-t,\-i,\-p) or output (\-o) file
-\&        \-R USER[:GRP]   Set owner of created files
-\&        \-H newc Archive format
-.Ve
 .IP "\fBcrond\fR" 4
 .IX Item "crond"
 crond \-fbS \-l N \-d N \-L \s-1LOGFILE\s0 \-c \s-1DIR\s0
@@ -788,17 +489,6 @@ crontab [\-c \s-1DIR\s0] [\-u \s-1USER\s0] [\-ler]|[\s-1FILE\s0]
 \&        \-e      Edit crontab
 \&        \-r      Delete crontab
 \&        FILE    Replace crontab by FILE (\*(Aq\-\*(Aq: stdin)
-.Ve
-.IP "\fBcryptpw\fR" 4
-.IX Item "cryptpw"
-cryptpw [\s-1OPTIONS\s0] [\s-1PASSWORD\s0] [\s-1SALT\s0]
-.Sp
-Print \fIcrypt\fR\|(3) hashed \s-1PASSWORD\s0
-.Sp
-.Vb 3
-\&        \-P,\-\-password\-fd N      Read password from fd N
-\&        \-m,\-\-method TYPE        des,md5,sha256/512 (default des)
-\&        \-S,\-\-salt SALT
 .Ve
 .IP "\fBcttyhack\fR" 4
 .IX Item "cttyhack"
@@ -893,21 +583,6 @@ Copy a file with converting and formatting
 .Ve
 .Sp
 N may be suffixed by c (1), w (2), b (512), kB (1000), k (1024), \s-1MB, M, GB, G\s0
-.IP "\fBdeallocvt\fR" 4
-.IX Item "deallocvt"
-deallocvt [N]
-.Sp
-Deallocate unused virtual terminal /dev/ttyN
-.IP "\fBdelgroup\fR" 4
-.IX Item "delgroup"
-delgroup [\s-1USER\s0] \s-1GROUP\s0
-.Sp
-Delete group \s-1GROUP\s0 from the system or user \s-1USER\s0 from group \s-1GROUP\s0
-.IP "\fBdeluser\fR" 4
-.IX Item "deluser"
-deluser [\-\-remove\-home] \s-1USER\s0
-.Sp
-Delete \s-1USER\s0 from the system
 .IP "\fBdepmod\fR" 4
 .IX Item "depmod"
 depmod [\-n]
@@ -930,19 +605,16 @@ Read/write from physical address
 .Ve
 .IP "\fBdf\fR" 4
 .IX Item "df"
-df [\-PkmhTai] [\-B \s-1SIZE\s0] [\s-1FILESYSTEM\s0]...
+df [\-PkmhT] [\s-1FILESYSTEM\s0]...
 .Sp
 Print filesystem usage statistics
 .Sp
-.Vb 8
+.Vb 5
 \&        \-P      POSIX output format
 \&        \-k      1024\-byte blocks (default)
 \&        \-m      1M\-byte blocks
 \&        \-h      Human readable (e.g. 1K 243M 2G)
 \&        \-T      Print filesystem type
-\&        \-a      Show all filesystems
-\&        \-i      Inodes
-\&        \-B SIZE Blocksize
 .Ve
 .IP "\fBdhcprelay\fR" 4
 .IX Item "dhcprelay"
@@ -990,89 +662,6 @@ Print or control the kernel ring buffer
 \&        \-s SIZE         Buffer size
 \&        \-r              Print raw message buffer
 .Ve
-.IP "\fBdnsd\fR" 4
-.IX Item "dnsd"
-dnsd [\-dvs] [\-c \s-1CONFFILE\s0] [\-t \s-1TTL_SEC\s0] [\-p \s-1PORT\s0] [\-i \s-1ADDR\s0]
-.Sp
-Small static \s-1DNS\s0 server daemon
-.Sp
-.Vb 10
-\&        \-c FILE Config file
-\&        \-t SEC  TTL
-\&        \-p PORT Listen on PORT
-\&        \-i ADDR Listen on ADDR
-\&        \-d      Daemonize
-\&        \-v      Verbose
-\&        \-s      Send successful replies only. Use this if you want
-\&                to use /etc/resolv.conf with two nameserver lines:
-\&                        nameserver DNSD_SERVER
-\&                        nameserver NORMAL_DNS_SERVER
-.Ve
-.IP "\fBdos2unix\fR" 4
-.IX Item "dos2unix"
-dos2unix [\-ud] [\s-1FILE\s0]
-.Sp
-Convert \s-1FILE\s0 in-place from \s-1DOS\s0 to Unix format.
-When no file is given, use stdin/stdout.
-.Sp
-.Vb 2
-\&        \-u      dos2unix
-\&        \-d      unix2dos
-.Ve
-.IP "\fBdpkg\fR" 4
-.IX Item "dpkg"
-dpkg [\-ilCPru] [\-F \s-1OPT\s0] \s-1PACKAGE\s0
-.Sp
-Install, remove and manage Debian packages
-.Sp
-.Vb 9
-\&        \-i,\-\-install    Install the package
-\&        \-l,\-\-list       List of installed packages
-\&        \-\-configure     Configure an unpackaged package
-\&        \-P,\-\-purge      Purge all files of a package
-\&        \-r,\-\-remove     Remove all but the configuration files for a package
-\&        \-\-unpack        Unpack a package, but don\*(Aqt configure it
-\&        \-\-force\-depends Ignore dependency problems
-\&        \-\-force\-confnew Overwrite existing config files when installing
-\&        \-\-force\-confold Keep old config files when installing
-.Ve
-.IP "\fBdpkg-deb\fR" 4
-.IX Item "dpkg-deb"
-dpkg-deb [\-cefxX] \s-1FILE\s0 [\s-1DIR\s0]
-.Sp
-Perform actions on Debian packages (.deb)
-.Sp
-.Vb 5
-\&        \-c      List files
-\&        \-f      Print control fields
-\&        \-e      Extract control files to DIR (default: ./DEBIAN)
-\&        \-x      Extract files to DIR (no default)
-\&        \-X      Verbose \-x
-.Ve
-.IP "\fBdu\fR" 4
-.IX Item "du"
-du [\-aHLdclsxhmk] [\s-1FILE\s0]...
-.Sp
-Summarize disk space used for each \s-1FILE\s0 and/or directory
-.Sp
-.Vb 11
-\&        \-a      Show file sizes too
-\&        \-L      Follow all symlinks
-\&        \-H      Follow symlinks on command line
-\&        \-d N    Limit output to directories (and files with \-a) of depth < N
-\&        \-c      Show grand total
-\&        \-l      Count sizes many times if hard linked
-\&        \-s      Display only a total for each argument
-\&        \-x      Skip directories on different filesystems
-\&        \-h      Sizes in human readable format (e.g., 1K 243M 2G)
-\&        \-m      Sizes in megabytes
-\&        \-k      Sizes in kilobytes (default)
-.Ve
-.IP "\fBdumpkmap\fR" 4
-.IX Item "dumpkmap"
-dumpkmap > keymap
-.Sp
-Print a binary keyboard translation table to stdout
 .IP "\fBdumpleases\fR" 4
 .IX Item "dumpleases"
 dumpleases [\-r|\-a] [\-d] [\-f \s-1LEASEFILE\s0]
@@ -1096,20 +685,6 @@ Print the specified ARGs to stdout
 \&        \-e      Interpret backslash escapes (i.e., \et=tab)
 \&        \-E      Don\*(Aqt interpret backslash escapes (default)
 .Ve
-.IP "\fBed\fR" 4
-.IX Item "ed"
-ed
-.IP "\fBeject\fR" 4
-.IX Item "eject"
-eject [\-t] [\-T] [\s-1DEVICE\s0]
-.Sp
-Eject \s-1DEVICE\s0 or default /dev/cdrom
-.Sp
-.Vb 3
-\&        \-s      SCSI device
-\&        \-t      Close tray
-\&        \-T      Open/close tray (toggle)
-.Ve
 .IP "\fBenv\fR" 4
 .IX Item "env"
 env [\-iu] [\-] [name=value]... [\s-1PROG ARGS\s0]
@@ -1120,30 +695,6 @@ the specified environment
 .Vb 2
 \&        \-, \-i   Start with an empty environment
 \&        \-u      Remove variable from the environment
-.Ve
-.IP "\fBenvdir\fR" 4
-.IX Item "envdir"
-envdir \s-1DIR PROG ARGS\s0
-.Sp
-Set various environment variables as specified by files
-in the directory \s-1DIR,\s0 run \s-1PROG\s0
-.IP "\fBenvuidgid\fR" 4
-.IX Item "envuidgid"
-envuidgid \s-1USER PROG ARGS\s0
-.Sp
-Set \f(CW$UID\fR to \s-1USER\s0's uid and \f(CW$GID\fR to \s-1USER\s0's gid, run \s-1PROG\s0
-.IP "\fBether-wake\fR" 4
-.IX Item "ether-wake"
-ether-wake [\-b] [\-i \s-1IFACE\s0] [\-p aa:bb:cc:dd[:ee:ff]/a.b.c.d] \s-1MAC\s0
-.Sp
-Send a magic packet to wake up sleeping machines.
-\&\s-1MAC\s0 must be a station address (00:11:22:33:44:55) or
-a hostname with a known 'ethers' entry.
-.Sp
-.Vb 3
-\&        \-b              Broadcast the packet
-\&        \-i IFACE        Interface to use (default eth0)
-\&        \-p PASSWORD     Append four or six byte PASSWORD to the packet
 .Ve
 .IP "\fBexpand\fR" 4
 .IX Item "expand"
@@ -1237,25 +788,6 @@ Change file attributes on \s-1FAT\s0 filesystem
 \&        d       Directory
 \&        a       Archive
 .Ve
-.IP "\fBfbset\fR" 4
-.IX Item "fbset"
-fbset [\s-1OPTIONS\s0] [\s-1MODE\s0]
-.Sp
-Show and modify frame buffer settings
-.IP "\fBfbsplash\fR" 4
-.IX Item "fbsplash"
-fbsplash \-s \s-1IMGFILE\s0 [\-c] [\-d \s-1DEV\s0] [\-i \s-1INIFILE\s0] [\-f \s-1CMD\s0]
-.Sp
-.Vb 8
-\&        \-s      Image
-\&        \-c      Hide cursor
-\&        \-d      Framebuffer device (default /dev/fb0)
-\&        \-i      Config file (var=value):
-\&                        BAR_LEFT,BAR_TOP,BAR_WIDTH,BAR_HEIGHT
-\&                        BAR_R,BAR_G,BAR_B
-\&        \-f      Control pipe (else exit after drawing image)
-\&                        commands: \*(AqNN\*(Aq (% for progress bar) or \*(Aqexit\*(Aq
-.Ve
 .IP "\fBfdflush\fR" 4
 .IX Item "fdflush"
 fdflush \s-1DEVICE\s0
@@ -1270,25 +802,6 @@ Format floppy disk
 .Vb 1
 \&        \-n      Don\*(Aqt verify after format
 .Ve
-.IP "\fBfdisk\fR" 4
-.IX Item "fdisk"
-fdisk [\-ul] [\-C \s-1CYLINDERS\s0] [\-H \s-1HEADS\s0] [\-S \s-1SECTORS\s0] [\-b \s-1SSZ\s0] \s-1DISK\s0
-.Sp
-Change partition table
-.Sp
-.Vb 6
-\&        \-u              Start and End are in sectors (instead of cylinders)
-\&        \-l              Show partition table for each DISK, then exit
-\&        \-b 2048         (for certain MO disks) use 2048\-byte sectors
-\&        \-C CYLINDERS    Set number of cylinders/heads/sectors
-\&        \-H HEADS        Typically 255
-\&        \-S SECTORS      Typically 63
-.Ve
-.IP "\fBfgconsole\fR" 4
-.IX Item "fgconsole"
-fgconsole
-.Sp
-Get active console
 .IP "\fBfind\fR" 4
 .IX Item "find"
 find [\-HL] [\s-1PATH\s0]... [\s-1OPTIONS\s0] [\s-1ACTIONS\s0]
@@ -1297,52 +810,21 @@ Search for files and perform actions on them.
 First failed action stops processing of current file.
 Defaults: \s-1PATH\s0 is current directory, action is '\-print'
 .Sp
-.Vb 7
+.Vb 2
 \&        \-L,\-follow      Follow symlinks
 \&        \-H              ...on command line only
-\&        \-xdev           Don\*(Aqt descend directories on other filesystems
-\&        \-maxdepth N     Descend at most N levels. \-maxdepth 0 applies
-\&                        actions to command line arguments only
-\&        \-mindepth N     Don\*(Aqt act on first N levels
-\&        \-depth          Act on directory *after* traversing it
 .Ve
 .Sp
 Actions:
 .Sp
-.Vb 10
-\&        ( ACTIONS )     Group actions for \-o / \-a
-\&        ! ACT           Invert ACT\*(Aqs success/failure
+.Vb 7
 \&        ACT1 [\-a] ACT2  If ACT1 fails, stop, else do ACT2
 \&        ACT1 \-o ACT2    If ACT1 succeeds, stop, else do ACT2
 \&                        Note: \-a has higher priority than \-o
 \&        \-name PATTERN   Match file name (w/o directory name) to PATTERN
 \&        \-iname PATTERN  Case insensitive \-name
-\&        \-path PATTERN   Match path to PATTERN
-\&        \-ipath PATTERN  Case insensitive \-path
-\&        \-regex PATTERN  Match path to regex PATTERN
-\&        \-type X         File type is X (one of: f,d,l,b,c,...)
-\&        \-perm MASK      At least one mask bit (+MASK), all bits (\-MASK),
-\&                        or exactly MASK bits are set in file\*(Aqs mode
-\&        \-mtime DAYS     mtime is greater than (+N), less than (\-N),
-\&                        or exactly N days in the past
-\&        \-mmin MINS      mtime is greater than (+N), less than (\-N),
-\&                        or exactly N minutes in the past
-\&        \-newer FILE     mtime is more recent than FILE\*(Aqs
-\&        \-inum N         File has inode number N
-\&        \-user NAME/ID   File is owned by given user
-\&        \-group NAME/ID  File is owned by given group
-\&        \-size N[bck]    File size is N (c:bytes,k:kbytes,b:512 bytes(def.))
-\&                        +/\-N: file size is bigger/smaller than N
-\&        \-links N        Number of links is greater than (+N), less than (\-N),
-\&                        or exactly N
-\&        \-prune          If current file is directory, don\*(Aqt descend into it
 \&If none of the following actions is specified, \-print is assumed
 \&        \-print          Print file name
-\&        \-print0         Print file name, NUL terminated
-\&        \-exec CMD ARG ; Run CMD with all instances of {} replaced by
-\&                        file name. Fails if CMD exits with nonzero
-\&        \-exec CMD ARG + Run CMD with {} replaced by list of file names
-\&        \-delete         Delete current file/directory. Turns on \-depth option
 .Ve
 .IP "\fBfindfs\fR" 4
 .IX Item "findfs"
@@ -1382,21 +864,6 @@ Display the amount of free and used system memory
 freeramdisk \s-1DEVICE\s0
 .Sp
 Free all memory used by the specified ramdisk
-.IP "\fBfsck\fR" 4
-.IX Item "fsck"
-fsck [\-ANPRTV] [\-t \s-1FSTYPE\s0] [\s-1FS_OPTS\s0] [\s-1BLOCKDEV\s0]...
-.Sp
-Check and repair filesystems
-.Sp
-.Vb 7
-\&        \-A      Walk /etc/fstab and check all filesystems
-\&        \-N      Don\*(Aqt execute, just show what would be done
-\&        \-P      With \-A, check filesystems in parallel
-\&        \-R      With \-A, skip the root filesystem
-\&        \-T      Don\*(Aqt show title on startup
-\&        \-V      Verbose
-\&        \-t TYPE List of filesystem types to check
-.Ve
 .IP "\fBfsck.minix\fR" 4
 .IX Item "fsck.minix"
 fsck.minix [\-larvsmf] \s-1BLOCKDEV\s0
@@ -1435,62 +902,6 @@ Write files' buffered blocks to disk
 .Sp
 .Vb 1
 \&        \-d      Avoid syncing metadata
-.Ve
-.IP "\fBftpd\fR" 4
-.IX Item "ftpd"
-ftpd [\-wvS] [\-a \s-1USER\s0] [\-t N] [\-T N] [\s-1DIR\s0]
-.Sp
-\&\s-1FTP\s0 server. Chroots to \s-1DIR,\s0 if this fails (run by non-root), cds to it.
-Should be used as inetd service, inetd.conf line:
-	21 stream tcp nowait root ftpd ftpd /files/to/serve
-Can be run from tcpsvd:
-.Sp
-.Vb 1
-\&        tcpsvd \-vE 0.0.0.0 21 ftpd /files/to/serve
-\&
-\&        \-w      Allow upload
-\&        \-a USER Enable \*(Aqanonymous\*(Aq login and map it to USER
-\&        \-v      Log errors to stderr. \-vv: verbose log
-\&        \-S      Log errors to syslog. \-SS: verbose log
-\&        \-t,\-T N Idle and absolute timeout
-.Ve
-.IP "\fBftpget\fR" 4
-.IX Item "ftpget"
-ftpget [\s-1OPTIONS\s0] \s-1HOST\s0 [\s-1LOCAL_FILE\s0] \s-1REMOTE_FILE\s0
-.Sp
-Download a file via \s-1FTP\s0
-.Sp
-.Vb 5
-\&        \-c,\-\-continue           Continue previous transfer
-\&        \-v,\-\-verbose            Verbose
-\&        \-u,\-\-username USER      Username
-\&        \-p,\-\-password PASS      Password
-\&        \-P,\-\-port NUM           Port
-.Ve
-.IP "\fBftpput\fR" 4
-.IX Item "ftpput"
-ftpput [\s-1OPTIONS\s0] \s-1HOST\s0 [\s-1REMOTE_FILE\s0] \s-1LOCAL_FILE\s0
-.Sp
-Upload a file to a \s-1FTP\s0 server
-.Sp
-.Vb 4
-\&        \-v,\-\-verbose            Verbose
-\&        \-u,\-\-username USER      Username
-\&        \-p,\-\-password PASS      Password
-\&        \-P,\-\-port NUM           Port
-.Ve
-.IP "\fBfuser\fR" 4
-.IX Item "fuser"
-fuser [\s-1OPTIONS\s0] \s-1FILE\s0 or \s-1PORT/PROTO\s0
-.Sp
-Find processes which use FILEs or PORTs
-.Sp
-.Vb 5
-\&        \-m      Find processes which use same fs as FILEs
-\&        \-4,\-6   Search only IPv4/IPv6 space
-\&        \-s      Don\*(Aqt display PIDs
-\&        \-k      Kill found processes
-\&        \-SIGNAL Signal to send (default: KILL)
 .Ve
 .IP "\fBgetopt\fR" 4
 .IX Item "getopt"
@@ -1547,7 +958,7 @@ Open \s-1TTY,\s0 prompt for login name, then invoke /bin/login
 \&\s-1BAUD_RATE\s0 of 0 leaves it unchanged
 .IP "\fBgrep\fR" 4
 .IX Item "grep"
-grep [\-HhnlLoqvsriwFE] [\-m N] [\-A/B/C N] PATTERN/\-e \s-1PATTERN..\s0./\-f \s-1FILE\s0 [\s-1FILE\s0]...
+grep [\-HhnlLoqvsriwFE] [\-m N] PATTERN/\-e \s-1PATTERN..\s0./\-f \s-1FILE\s0 [\s-1FILE\s0]...
 .Sp
 Search for \s-1PATTERN\s0 in FILEs (or stdin)
 .Sp
@@ -1569,9 +980,6 @@ Search for \s-1PATTERN\s0 in FILEs (or stdin)
 \&        \-F      PATTERN is a literal (not regexp)
 \&        \-E      PATTERN is an extended regexp
 \&        \-m N    Match up to N times per file
-\&        \-A N    Print N lines of trailing context
-\&        \-B N    Print N lines of leading context
-\&        \-C N    Same as \*(Aq\-A N \-B N\*(Aq
 \&        \-e PTRN Pattern to match
 \&        \-f FILE Read pattern from file
 .Ve
@@ -1580,92 +988,11 @@ Search for \s-1PATTERN\s0 in FILEs (or stdin)
 groups [\s-1USER\s0]
 .Sp
 Print the group memberships of \s-1USER\s0 or for the current process
-.IP "\fBgunzip\fR" 4
-.IX Item "gunzip"
-gunzip [\-cfkt] [\s-1FILE\s0]...
-.Sp
-Decompress FILEs (or stdin)
-.Sp
-.Vb 4
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-\&        \-t      Test file integrity
-.Ve
-.IP "\fBgzip\fR" 4
-.IX Item "gzip"
-gzip [\-cfkdt] [\s-1FILE\s0]...
-.Sp
-Compress FILEs (or stdin)
-.Sp
-.Vb 5
-\&        \-d      Decompress
-\&        \-t      Test file integrity
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
-.IP "\fBhalt\fR" 4
-.IX Item "halt"
-halt [\-d \s-1DELAY\s0] [\-n] [\-f] [\-w]
-.Sp
-Halt the system
-.Sp
-.Vb 4
-\&        \-d SEC  Delay interval
-\&        \-n      Do not sync
-\&        \-f      Force (don\*(Aqt go through init)
-\&        \-w      Only write a wtmp record
-.Ve
 .IP "\fBhd\fR" 4
 .IX Item "hd"
 hd \s-1FILE...\s0
 .Sp
 hd is an alias for hexdump \-C
-.IP "\fBhdparm\fR" 4
-.IX Item "hdparm"
-hdparm [\s-1OPTIONS\s0] [\s-1DEVICE\s0]
-.Sp
-.Vb 10
-\&        \-a      Get/set fs readahead
-\&        \-A      Set drive read\-lookahead flag (0/1)
-\&        \-b      Get/set bus state (0 == off, 1 == on, 2 == tristate)
-\&        \-B      Set Advanced Power Management setting (1\-255)
-\&        \-c      Get/set IDE 32\-bit IO setting
-\&        \-C      Check IDE power mode status
-\&        \-d      Get/set using_dma flag
-\&        \-D      Enable/disable drive defect\-mgmt
-\&        \-f      Flush buffer cache for device on exit
-\&        \-g      Display drive geometry
-\&        \-h      Display terse usage information
-\&        \-i      Display drive identification
-\&        \-I      Detailed/current information directly from drive
-\&        \-k      Get/set keep_settings_over_reset flag (0/1)
-\&        \-K      Set drive keep_features_over_reset flag (0/1)
-\&        \-L      Set drive doorlock (0/1) (removable harddisks only)
-\&        \-m      Get/set multiple sector count
-\&        \-n      Get/set ignore\-write\-errors flag (0/1)
-\&        \-p      Set PIO mode on IDE interface chipset (0,1,2,3,4,...)
-\&        \-P      Set drive prefetch count
-\&        \-Q      Get/set DMA tagged\-queuing depth (if supported)
-\&        \-r      Get/set readonly flag (DANGEROUS to set)
-\&        \-R      Register an IDE interface (DANGEROUS)
-\&        \-S      Set standby (spindown) timeout
-\&        \-t      Perform device read timings
-\&        \-T      Perform cache read timings
-\&        \-u      Get/set unmaskirq flag (0/1)
-\&        \-U      Unregister an IDE interface (DANGEROUS)
-\&        \-v      Defaults; same as \-mcudkrag for IDE drives
-\&        \-V      Display program version and exit immediately
-\&        \-w      Perform device reset (DANGEROUS)
-\&        \-W      Set drive write\-caching flag (0/1) (DANGEROUS)
-\&        \-x      Tristate device for hotswap (0/1) (DANGEROUS)
-\&        \-X      Set IDE xfer mode (DANGEROUS)
-\&        \-y      Put IDE drive in standby mode
-\&        \-Y      Put IDE drive to sleep
-\&        \-Z      Disable Seagate auto\-powersaving mode
-\&        \-z      Reread partition table
-.Ve
 .IP "\fBhead\fR" 4
 .IX Item "head"
 head [\s-1OPTIONS\s0] [\s-1FILE\s0]...
@@ -1720,31 +1047,6 @@ Get or set hostname or \s-1DNS\s0 domain name
 \&        \-f      Fully qualified domain name
 \&        \-F FILE Use FILE\*(Aqs content as hostname
 .Ve
-.IP "\fBhttpd\fR" 4
-.IX Item "httpd"
-httpd [\-ifv[v]] [\-c \s-1CONFFILE\s0] [\-p [\s-1IP:\s0]PORT] [\-u USER[:GRP]] [\-r \s-1REALM\s0] [\-h \s-1HOME\s0]
-or httpd \-d/\-e/\-m \s-1STRING\s0
-.Sp
-Listen for incoming \s-1HTTP\s0 requests
-.Sp
-.Vb 11
-\&        \-i              Inetd mode
-\&        \-f              Don\*(Aqt daemonize
-\&        \-v[v]           Verbose
-\&        \-p [IP:]PORT    Bind to IP:PORT (default *:80)
-\&        \-u USER[:GRP]   Set uid/gid after binding to port
-\&        \-r REALM        Authentication Realm for Basic Authentication
-\&        \-h HOME         Home directory (default .)
-\&        \-c FILE         Configuration file (default {/etc,HOME}/httpd.conf)
-\&        \-m STRING       MD5 crypt STRING
-\&        \-e STRING       HTML encode STRING
-\&        \-d STRING       URL decode STRING
-.Ve
-.IP "\fBhush\fR" 4
-.IX Item "hush"
-hush [\-nxl] [\-c '\s-1SCRIPT\s0' [\s-1ARG0\s0 [\s-1ARGS\s0]] / \s-1FILE\s0 [\s-1ARGS\s0]]
-.Sp
-Unix shell interpreter
 .IP "\fBhwclock\fR" 4
 .IX Item "hwclock"
 hwclock [\-r|\-\-show] [\-s|\-\-hctosys] [\-w|\-\-systohc] [\-t|\-\-systz] [\-l|\-\-localtime] [\-u|\-\-utc] [\-f|\-\-rtc \s-1FILE\s0]
@@ -1862,16 +1164,12 @@ ifconfig [\-a] interface [address]
 .Sp
 Configure a network interface
 .Sp
-.Vb 10
-\&        [add ADDRESS[/PREFIXLEN]]
-\&        [del ADDRESS[/PREFIXLEN]]
+.Vb 6
 \&        [[\-]broadcast [ADDRESS]] [[\-]pointopoint [ADDRESS]]
 \&        [netmask ADDRESS] [dstaddr ADDRESS]
-\&        [outfill NN] [keepalive NN]
 \&        [hw ether|infiniband ADDRESS] [metric NN] [mtu NN]
 \&        [[\-]trailers] [[\-]arp] [[\-]allmulti]
 \&        [multicast] [[\-]promisc] [txqueuelen NN] [[\-]dynamic]
-\&        [mem_start NN] [io_addr NN] [irq NN]
 \&        [up|down] ...
 .Ve
 .IP "\fBifdown\fR" 4
@@ -1886,17 +1184,6 @@ ifdown [\-anmvf] [\-i \s-1FILE\s0] \s-1IFACE...\s0
 \&        \-m      Don\*(Aqt run any mappings
 \&        \-v      Print out what would happen before doing it
 \&        \-f      Force deconfiguration
-.Ve
-.IP "\fBifenslave\fR" 4
-.IX Item "ifenslave"
-ifenslave [\-cdf] \s-1MASTER_IFACE SLAVE_IFACE...\s0
-.Sp
-Configure network interfaces for parallel routing
-.Sp
-.Vb 3
-\&        \-c,\-\-change\-active      Change active slave
-\&        \-d,\-\-detach             Remove slave interface from bonding device
-\&        \-f,\-\-force              Force, even if interface is not Ethernet
 .Ve
 .IP "\fBifplugd\fR" 4
 .IX Item "ifplugd"
@@ -1988,20 +1275,6 @@ Change I/O priority and class
 .Vb 2
 \&        \-c      Class. 1:realtime 2:best\-effort 3:idle
 \&        \-n      Priority
-.Ve
-.IP "\fBiostat\fR" 4
-.IX Item "iostat"
-iostat [\-c] [\-d] [\-t] [\-z] [\-k|\-m] [ALL|BLOCKDEV...] [\s-1INTERVAL\s0 [\s-1COUNT\s0]]
-.Sp
-Report \s-1CPU\s0 and I/O statistics
-.Sp
-.Vb 6
-\&        \-c      Show CPU utilization
-\&        \-d      Show device utilization
-\&        \-t      Print current time
-\&        \-z      Omit devices with no activity
-\&        \-k      Use kb/s
-\&        \-m      Use Mb/s
 .Ve
 .IP "\fBip\fR" 4
 .IX Item "ip"
@@ -2120,19 +1393,6 @@ iptunnel add|change|del|show [\s-1NAME\s0]
 	[mode ipip|gre|sit] [remote \s-1ADDR\s0] [local \s-1ADDR\s0]
 	[[i|o]seq] [[i|o]key \s-1KEY\s0] [[i|o]csum]
 	[ttl \s-1TTL\s0] [tos \s-1TOS\s0] [[no]pmtudisc] [dev \s-1PHYS_DEV\s0]
-.IP "\fBkbd_mode\fR" 4
-.IX Item "kbd_mode"
-kbd_mode [\-a|k|s|u] [\-C \s-1TTY\s0]
-.Sp
-Report or set the keyboard mode
-.Sp
-.Vb 5
-\&        \-a      Default (ASCII)
-\&        \-k      Medium\-raw (keyboard)
-\&        \-s      Raw (scancode)
-\&        \-u      Unicode (utf\-8)
-\&        \-C TTY  Affect TTY instead of /dev/tty
-.Ve
 .IP "\fBkill\fR" 4
 .IX Item "kill"
 kill [\-l] [\-SIG] \s-1PID...\s0
@@ -2141,26 +1401,6 @@ Send a signal (default: \s-1TERM\s0) to given PIDs
 .Sp
 .Vb 1
 \&        \-l      List all signal names and numbers
-.Ve
-.IP "\fBkillall\fR" 4
-.IX Item "killall"
-killall [\-l] [\-q] [\-SIG] \s-1PROCESS_NAME...\s0
-.Sp
-Send a signal (default: \s-1TERM\s0) to given processes
-.Sp
-.Vb 2
-\&        \-l      List all signal names and numbers
-\&        \-q      Don\*(Aqt complain if no processes were killed
-.Ve
-.IP "\fBkillall5\fR" 4
-.IX Item "killall5"
-killall5 [\-l] [\-SIG] [\-o \s-1PID\s0]...
-.Sp
-Send a signal (default: \s-1TERM\s0) to all processes outside current session
-.Sp
-.Vb 2
-\&        \-l      List all signal names and numbers
-\&        \-o PID  Don\*(Aqt signal this PID
 .Ve
 .IP "\fBklogd\fR" 4
 .IX Item "klogd"
@@ -2171,16 +1411,6 @@ Kernel logger
 .Vb 2
 \&        \-c N    Print to console messages more urgent than prio N (1\-8)
 \&        \-n      Run in foreground
-.Ve
-.IP "\fBlast\fR" 4
-.IX Item "last"
-last [\-HW] [\-f \s-1FILE\s0]
-.Sp
-Show listing of the last users that logged into the system
-.Sp
-.Vb 2
-\&        \-W      Display with no host column truncation
-\&        \-f FILE Read from FILE instead of /var/log/wtmp
 .Ve
 .IP "\fBless\fR" 4
 .IX Item "less"
@@ -2217,16 +1447,6 @@ Create a link \s-1LINK\s0 or \s-1DIR/TARGET\s0 to the specified \s-1TARGET\s0(s)
 \&        \-T      2nd arg must be a DIR
 \&        \-v      Verbose
 .Ve
-.IP "\fBloadfont\fR" 4
-.IX Item "loadfont"
-loadfont < font
-.Sp
-Load a console font from stdin
-.IP "\fBloadkmap\fR" 4
-.IX Item "loadkmap"
-loadkmap < keymap
-.Sp
-Load a binary keyboard translation table from stdin
 .IP "\fBlogger\fR" 4
 .IX Item "logger"
 logger [\s-1OPTIONS\s0] [\s-1MESSAGE\s0]
@@ -2276,40 +1496,6 @@ losetup [\-r] [\-o \s-1OFS\s0] {\-f|LOOPDEV} \s-1FILE \-\s0 associate loop devic
 \&        \-r      Read\-only
 \&        \-f      Show/use next free loop device
 .Ve
-.IP "\fBlpd\fR" 4
-.IX Item "lpd"
-lpd \s-1SPOOLDIR\s0 [\s-1HELPER\s0 [\s-1ARGS\s0]]
-.Sp
-\&\s-1SPOOLDIR\s0 must contain (symlinks to) device nodes or directories
-with names matching print queue names. In the first case, jobs are
-sent directly to the device. Otherwise each job is stored in queue
-directory and \s-1HELPER\s0 program is called. Name of file to print
-is passed in \f(CW$DATAFILE\fR variable.
-Example:
-.Sp
-.Vb 1
-\&        tcpsvd \-E 0 515 softlimit \-m 999999 lpd /var/spool ./print
-.Ve
-.IP "\fBlpq\fR" 4
-.IX Item "lpq"
-lpq [\-P queue[@host[:port]]] [\-U \s-1USERNAME\s0] [\-d \s-1JOBID\s0]... [\-fs]
-.Sp
-.Vb 4
-\&        \-P      lp service to connect to (else uses $PRINTER)
-\&        \-d      Delete jobs
-\&        \-f      Force any waiting job to be printed
-\&        \-s      Short display
-.Ve
-.IP "\fBlpr\fR" 4
-.IX Item "lpr"
-lpr \-P queue[@host[:port]] \-U \s-1USERNAME \-J TITLE\s0 \-Vmh [\s-1FILE\s0]...
-.Sp
-.Vb 4
-\&        \-P      lp service to connect to (else uses $PRINTER)
-\&        \-m      Send mail on completion
-\&        \-h      Print banner page too
-\&        \-V      Verbose
-.Ve
 .IP "\fBls\fR" 4
 .IX Item "ls"
 ls [\-1AaCxdLHRFplinshrSXvctu] [\-w \s-1WIDTH\s0] [\s-1FILE\s0]...
@@ -2346,29 +1532,11 @@ List directory contents
 \&        \-w N    Format N columns wide
 \&        \-\-color[={always,never,auto}]   Control coloring
 .Ve
-.IP "\fBlsattr\fR" 4
-.IX Item "lsattr"
-lsattr [\-Radlv] [\s-1FILE\s0]...
-.Sp
-List ext2 file attributes
-.Sp
-.Vb 5
-\&        \-R      Recurse
-\&        \-a      Don\*(Aqt hide entries starting with .
-\&        \-d      List directory entries instead of contents
-\&        \-l      List long flag names
-\&        \-v      List version/generation number
-.Ve
 .IP "\fBlsmod\fR" 4
 .IX Item "lsmod"
 lsmod
 .Sp
 List loaded kernel modules
-.IP "\fBlsof\fR" 4
-.IX Item "lsof"
-lsof
-.Sp
-Show all open files
 .IP "\fBlspci\fR" 4
 .IX Item "lspci"
 lspci [\-mk]
@@ -2378,37 +1546,6 @@ List all \s-1PCI\s0 devices
 .Vb 2
 \&        \-m      Parsable output
 \&        \-k      Show driver
-.Ve
-.IP "\fBlzcat\fR" 4
-.IX Item "lzcat"
-lzcat [\s-1FILE\s0]...
-.Sp
-Decompress to stdout
-.IP "\fBlzma\fR" 4
-.IX Item "lzma"
-lzma \-d [\-cfk] [\s-1FILE\s0]...
-.Sp
-Decompress \s-1FILE \s0(or stdin)
-.Sp
-.Vb 4
-\&        \-d      Decompress
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
-.IP "\fBlzop\fR" 4
-.IX Item "lzop"
-lzop [\-cfUvd123456789CF] [\s-1FILE\s0]...
-.Sp
-.Vb 8
-\&        \-1..9   Compression level
-\&        \-d      Decompress
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-U      Delete input files
-\&        \-v      Verbose
-\&        \-F      Don\*(Aqt store or verify checksum
-\&        \-C      Also write checksum of compressed block
 .Ve
 .IP "\fBmakedevs\fR" 4
 .IX Item "makedevs"
@@ -2427,44 +1564,6 @@ Where name is the file name, type can be one of:
 uid is the user id for the target file, gid is the group id for the
 target file. The rest of the entries (major, minor, etc) apply to
 to device special files. A '\-' may be used for blank entries.
-.IP "\fBmakemime\fR" 4
-.IX Item "makemime"
-makemime [\s-1OPTIONS\s0] [\s-1FILE\s0]...
-.Sp
-Create multipart MIME-encoded message from FILEs
-.Sp
-.Vb 5
-\&        \-o FILE Output. Default: stdout
-\&        \-a HDR  Add header(s). Examples:
-\&                "From: user@host.org", "Date: \`date \-R\`"
-\&        \-c CT   Content type. Default: application/octet\-stream
-\&        \-C CS   Charset. Default: us\-ascii
-.Ve
-.Sp
-Other options are silently ignored
-.IP "\fBman\fR" 4
-.IX Item "man"
-man [\-aw] [\s-1MANPAGE\s0]...
-.Sp
-Format and display manual page
-.Sp
-.Vb 2
-\&        \-a      Display all pages
-\&        \-w      Show page locations
-.Ve
-.Sp
-\&\f(CW$COLUMNS\fR overrides output width
-.IP "\fBmd5sum\fR" 4
-.IX Item "md5sum"
-md5sum [\-c[sw]] [\s-1FILE\s0]...
-.Sp
-Print or check \s-1MD5\s0 checksums
-.Sp
-.Vb 3
-\&        \-c      Check sums against list in FILEs
-\&        \-s      Don\*(Aqt output anything, status code shows success
-\&        \-w      Warn about improperly formatted checksum lines
-.Ve
 .IP "\fBmdev\fR" 4
 .IX Item "mdev"
 mdev [\-s]
@@ -2496,19 +1595,6 @@ mesg [y|n]
 Control write access to your terminal
 	y	Allow write access to your terminal
 	n	Disallow write access to your terminal
-.IP "\fBmicrocom\fR" 4
-.IX Item "microcom"
-microcom [\-d \s-1DELAY\s0] [\-t \s-1TIMEOUT\s0] [\-s \s-1SPEED\s0] [\-X] \s-1TTY\s0
-.Sp
-Copy bytes for stdin to \s-1TTY\s0 and from \s-1TTY\s0 to stdout
-.Sp
-.Vb 5
-\&        \-d      Wait up to DELAY ms for TTY output before sending every
-\&                next byte to it
-\&        \-t      Exit if both stdin and TTY are silent for TIMEOUT ms
-\&        \-s      Set serial line to SPEED
-\&        \-X      Disable special meaning of NUL and Ctrl\-X from stdin
-.Ve
 .IP "\fBmkdir\fR" 4
 .IX Item "mkdir"
 mkdir [\s-1OPTIONS\s0] \s-1DIRECTORY...\s0
@@ -2599,17 +1685,6 @@ Create a special file (block, character, or pipe)
 \&        b       Block device
 \&        c or u  Character device
 \&        p       Named pipe (MAJOR and MINOR are ignored)
-.Ve
-.IP "\fBmkpasswd\fR" 4
-.IX Item "mkpasswd"
-mkpasswd [\s-1OPTIONS\s0] [\s-1PASSWORD\s0] [\s-1SALT\s0]
-.Sp
-Print \fIcrypt\fR\|(3) hashed \s-1PASSWORD\s0
-.Sp
-.Vb 3
-\&        \-P,\-\-password\-fd N      Read password from fd N
-\&        \-m,\-\-method TYPE        des,md5,sha256/512 (default des)
-\&        \-S,\-\-salt SALT
 .Ve
 .IP "\fBmkswap\fR" 4
 .IX Item "mkswap"
@@ -2707,18 +1782,6 @@ Check if the directory is a mountpoint
 \&        \-d      Print major/minor device number of the filesystem
 \&        \-n      Print device name of the filesystem
 \&        \-x      Print major/minor device number of the blockdevice
-.Ve
-.IP "\fBmpstat\fR" 4
-.IX Item "mpstat"
-mpstat [\-A] [\-I SUM|CPU|ALL|SCPU] [\-u] [\-P num|ALL] [\s-1INTERVAL\s0 [\s-1COUNT\s0]]
-.Sp
-Per-processor statistics
-.Sp
-.Vb 4
-\&        \-A                      Same as \-I ALL \-u \-P ALL
-\&        \-I SUM|CPU|ALL|SCPU     Report interrupt statistics
-\&        \-P num|ALL              Processor to monitor
-\&        \-u                      Report CPU utilization
 .Ve
 .IP "\fBmt\fR" 4
 .IX Item "mt"
@@ -2851,35 +1914,6 @@ Write FILEs to standard output with line numbers added
 \&        \-v N            Start from N
 \&        \-w N            Width of line numbers
 .Ve
-.IP "\fBnmeter\fR" 4
-.IX Item "nmeter"
-nmeter [\-d \s-1MSEC\s0] \s-1FORMAT_STRING\s0
-.Sp
-Monitor system in real time
-.Sp
-.Vb 1
-\& \-d MSEC        Milliseconds between updates, default:1000, none:\-1
-.Ve
-.Sp
-Format specifiers:
-.Sp
-.Vb 10
-\& %Nc or %[cN]   CPU. N \- bar size (default 10)
-\&                (displays: S:system U:user N:niced D:iowait I:irq i:softirq)
-\& %[nINTERFACE]  Network INTERFACE
-\& %m             Allocated memory
-\& %[mf]          Free memory
-\& %[mt]          Total memory
-\& %s             Allocated swap
-\& %f             Number of used file descriptors
-\& %Ni            Total/specific IRQ rate
-\& %x             Context switch rate
-\& %p             Forks
-\& %[pn]          # of processes
-\& %b             Block io
-\& %Nt            Time (with N decimal points)
-\& %r             Print <cr> instead of <lf> at EOL
-.Ve
 .IP "\fBnohup\fR" 4
 .IX Item "nohup"
 nohup \s-1PROG ARGS\s0
@@ -2939,34 +1973,11 @@ ntpd [\-dnqNwl \-I \s-1IFACE\s0] [\-S \s-1PROG\s0] [\-p \s-1PEER\s0]...
 od [\-abcdfhilovxs] [\-t \s-1TYPE\s0] [\-A \s-1RADIX\s0] [\-N \s-1SIZE\s0] [\-j \s-1SKIP\s0] [\-S \s-1MINSTR\s0] [\-w \s-1WIDTH\s0] [\s-1FILE\s0]...
 .Sp
 Print FILEs (or stdin) unambiguously, as octal bytes by default
-.IP "\fBopenvt\fR" 4
-.IX Item "openvt"
-openvt [\-c N] [\-sw] [\s-1PROG ARGS\s0]
-.Sp
-Start \s-1PROG\s0 on a new virtual terminal
-.Sp
-.Vb 3
-\&        \-c N    Use specified VT
-\&        \-s      Switch to the VT
-\&        \-w      Wait for PROG to exit
-.Ve
 .IP "\fBpartprobe\fR" 4
 .IX Item "partprobe"
 partprobe \s-1DEVICE...\s0
 .Sp
 Ask kernel to rescan partition table
-.IP "\fBpasswd\fR" 4
-.IX Item "passwd"
-passwd [\s-1OPTIONS\s0] [\s-1USER\s0]
-.Sp
-Change \s-1USER\s0's password (default: current user)
-.Sp
-.Vb 4
-\&        \-a ALG  des,md5,sha256/512 (default des)
-\&        \-d      Set password to \*(Aq\*(Aq
-\&        \-l      Lock (disable) account
-\&        \-u      Unlock (enable) account
-.Ve
 .IP "\fBpaste\fR" 4
 .IX Item "paste"
 paste [\s-1OPTIONS\s0] [\s-1FILE\s0]...
@@ -2977,53 +1988,13 @@ Paste lines from each input file, separated with tab
 \&        \-d LIST Use delimiters from LIST, not tab
 \&        \-s      Serial: one file at a time
 .Ve
-.IP "\fBpatch\fR" 4
-.IX Item "patch"
-patch [\s-1OPTIONS\s0] [\s-1ORIGFILE\s0 [\s-1PATCHFILE\s0]]
-.Sp
-.Vb 5
-\&        \-p,\-\-strip N            Strip N leading components from file names
-\&        \-i,\-\-input DIFF         Read DIFF instead of stdin
-\&        \-R,\-\-reverse            Reverse patch
-\&        \-N,\-\-forward            Ignore already applied patches
-\&        \-E,\-\-remove\-empty\-files Remove output files if they become empty
-.Ve
-.IP "\fBpgrep\fR" 4
-.IX Item "pgrep"
-pgrep [\-flanovx] [\-s SID|\-P PPID|PATTERN]
-.Sp
-Display process(es) selected by regex \s-1PATTERN\s0
-.Sp
-.Vb 9
-\&        \-l      Show command name too
-\&        \-a      Show command line too
-\&        \-f      Match against entire command line
-\&        \-n      Show the newest process only
-\&        \-o      Show the oldest process only
-\&        \-v      Negate the match
-\&        \-x      Match whole name (not substring)
-\&        \-s      Match session ID (0 for current)
-\&        \-P      Match parent process ID
-.Ve
-.IP "\fBpidof\fR" 4
-.IX Item "pidof"
-pidof [\s-1OPTIONS\s0] [\s-1NAME\s0]...
-.Sp
-List PIDs of all processes with names that match NAMEs
-.Sp
-.Vb 3
-\&        \-s      Show only one PID
-\&        \-o PID  Omit given pid
-\&                Use %PPID to omit pid of pidof\*(Aqs parent
-.Ve
 .IP "\fBping\fR" 4
 .IX Item "ping"
 ping [\s-1OPTIONS\s0] \s-1HOST\s0
 .Sp
 Send \s-1ICMP ECHO_REQUEST\s0 packets to network hosts
 .Sp
-.Vb 12
-\&        \-4,\-6           Force IP or IPv6 name resolution
+.Vb 11
 \&        \-c CNT          Send only CNT pings
 \&        \-s SIZE         Send SIZE data bytes in packets (default 56)
 \&        \-t TTL          Set TTL
@@ -3036,71 +2007,12 @@ Send \s-1ICMP ECHO_REQUEST\s0 packets to network hosts
 \&                        and when finished
 \&        \-p              Pattern to use for payload
 .Ve
-.IP "\fBping6\fR" 4
-.IX Item "ping6"
-ping6 [\s-1OPTIONS\s0] \s-1HOST\s0
-.Sp
-Send \s-1ICMP ECHO_REQUEST\s0 packets to network hosts
-.Sp
-.Vb 6
-\&        \-c CNT          Send only CNT pings
-\&        \-s SIZE         Send SIZE data bytes in packets (default 56)
-\&        \-I IFACE/IP     Source interface or IP address
-\&        \-q              Quiet, only display output at start
-\&                        and when finished
-\&        \-p              Pattern to use for payload
-.Ve
 .IP "\fBpivot_root\fR" 4
 .IX Item "pivot_root"
 pivot_root \s-1NEW_ROOT PUT_OLD\s0
 .Sp
 Move the current root file system to \s-1PUT_OLD\s0 and make \s-1NEW_ROOT\s0
 the new root file system
-.IP "\fBpkill\fR" 4
-.IX Item "pkill"
-pkill [\-l|\-SIGNAL] [\-fnovx] [\-s SID|\-P PPID|PATTERN]
-.Sp
-Send a signal to process(es) selected by regex \s-1PATTERN\s0
-.Sp
-.Vb 8
-\&        \-l      List all signals
-\&        \-f      Match against entire command line
-\&        \-n      Signal the newest process only
-\&        \-o      Signal the oldest process only
-\&        \-v      Negate the match
-\&        \-x      Match whole name (not substring)
-\&        \-s      Match session ID (0 for current)
-\&        \-P      Match parent process ID
-.Ve
-.IP "\fBpmap\fR" 4
-.IX Item "pmap"
-pmap [\-xq] \s-1PID\s0
-.Sp
-Display process memory usage
-.Sp
-.Vb 2
-\&        \-x      Show details
-\&        \-q      Quiet
-.Ve
-.IP "\fBpopmaildir\fR" 4
-.IX Item "popmaildir"
-popmaildir [\s-1OPTIONS\s0] \s-1MAILDIR\s0 [\s-1CONN_HELPER ARGS\s0]
-.Sp
-Fetch content of remote mailbox to local maildir
-.Sp
-.Vb 6
-\&        \-s              Skip authorization
-\&        \-T              Get messages with TOP instead of RETR
-\&        \-k              Keep retrieved messages on the server
-\&        \-t SEC          Network timeout
-\&        \-F "PROG ARGS"  Filter program (may be repeated)
-\&        \-M "PROG ARGS"  Delivery program
-.Ve
-.Sp
-Fetch from plain \s-1POP3\s0 server:
-popmaildir \-k \s-1DIR\s0 nc pop3.server.com 110 <user_and_pass.txt
-Fetch from SSLed \s-1POP3\s0 server and delete fetched emails:
-popmaildir \s-1DIR\s0 \*(-- openssl s_client \-quiet \-connect pop3.server.com:995 <user_and_pass.txt
 .IP "\fBpoweroff\fR" 4
 .IX Item "poweroff"
 poweroff [\-d \s-1DELAY\s0] [\-n] [\-f]
@@ -3112,11 +2024,6 @@ Halt and shut off power
 \&        \-n      Do not sync
 \&        \-f      Force (don\*(Aqt go through init)
 .Ve
-.IP "\fBpowertop\fR" 4
-.IX Item "powertop"
-powertop
-.Sp
-Analyze power consumption on Intel-based laptops
 .IP "\fBprintenv\fR" 4
 .IX Item "printenv"
 printenv [\s-1VARIABLE\s0]...
@@ -3130,13 +2037,12 @@ printf \s-1FORMAT\s0 [\s-1ARG\s0]...
 Format and print \s-1ARG\s0(s) according to \s-1FORMAT \s0(a\-la C printf)
 .IP "\fBps\fR" 4
 .IX Item "ps"
-ps [\-o \s-1COL1\s0,COL2=HEADER] [\-T]
+ps [\-o \s-1COL1\s0,COL2=HEADER]
 .Sp
 Show list of processes
 .Sp
-.Vb 2
+.Vb 1
 \&        \-o COL1,COL2=HEADER     Select columns for display
-\&        \-T                      Show threads
 .Ve
 .IP "\fBpscan\fR" 4
 .IX Item "pscan"
@@ -3152,25 +2058,11 @@ Scan a host, print all open ports
 \&        \-t      Timeout (default 5000 ms)
 \&        \-T      Minimum rtt (default 5 ms, increase for congested hosts)
 .Ve
-.IP "\fBpstree\fR" 4
-.IX Item "pstree"
-pstree [\-p] [PID|USER]
-.Sp
-Display process tree, optionally start from \s-1USER\s0 or \s-1PID\s0
-.Sp
-.Vb 1
-\&        \-p      Show pids
-.Ve
 .IP "\fBpwd\fR" 4
 .IX Item "pwd"
 pwd
 .Sp
 Print the full filename of the current working directory
-.IP "\fBpwdx\fR" 4
-.IX Item "pwdx"
-pwdx \s-1PID...\s0
-.Sp
-Show current directory for PIDs
 .IP "\fBraidautorun\fR" 4
 .IX Item "raidautorun"
 raidautorun \s-1DEVICE\s0
@@ -3239,24 +2131,6 @@ Reboot the system
 \&        \-n      Do not sync
 \&        \-f      Force (don\*(Aqt go through init)
 .Ve
-.IP "\fBreformime\fR" 4
-.IX Item "reformime"
-reformime [\s-1OPTIONS\s0]
-.Sp
-Parse MIME-encoded message on stdin
-.Sp
-.Vb 3
-\&        \-x PREFIX       Extract content of MIME sections to files
-\&        \-X PROG ARGS    Filter content of MIME sections through PROG
-\&                        Must be the last option
-.Ve
-.Sp
-Other options are silently ignored
-.IP "\fBremove-shell\fR" 4
-.IX Item "remove-shell"
-remove-shell \s-1SHELL...\s0
-.Sp
-Remove SHELLs from /etc/shells
 .IP "\fBrenice\fR" 4
 .IX Item "renice"
 renice [\-n] \s-1PRIORITY\s0 [[\-p | \-g | \-u] \s-1ID...\s0]...
@@ -3270,16 +2144,6 @@ Change scheduling priority of a running process
 \&        \-g      Process group ids
 \&        \-u      Process user names
 .Ve
-.IP "\fBreset\fR" 4
-.IX Item "reset"
-reset
-.Sp
-Reset the screen
-.IP "\fBresize\fR" 4
-.IX Item "resize"
-resize
-.Sp
-Resize the screen
 .IP "\fBrev\fR" 4
 .IX Item "rev"
 rev [\s-1FILE\s0]...
@@ -3320,29 +2184,8 @@ Edit kernel routing tables
 .Vb 3
 \&        \-n      Don\*(Aqt resolve names
 \&        \-e      Display other/more information
-\&        \-A inet{6}      Select address family
+\&        \-A inet Select address family
 .Ve
-.IP "\fBrpm\fR" 4
-.IX Item "rpm"
-rpm \-i \s-1PACKAGE\s0.rpm; rpm \-qp[ildc] \s-1PACKAGE\s0.rpm
-.Sp
-Manipulate \s-1RPM\s0 packages
-.Sp
-Commands:
-.Sp
-.Vb 6
-\&        \-i      Install package
-\&        \-qp     Query package
-\&        \-qpi    Show information
-\&        \-qpl    List contents
-\&        \-qpd    List documents
-\&        \-qpc    List config files
-.Ve
-.IP "\fBrpm2cpio\fR" 4
-.IX Item "rpm2cpio"
-rpm2cpio package.rpm
-.Sp
-Output a cpio archive of the rpm file
 .IP "\fBrtcwake\fR" 4
 .IX Item "rtcwake"
 rtcwake [\-a | \-l | \-u] [\-d \s-1DEV\s0] [\-m \s-1MODE\s0] [\-s \s-1SEC\s0 | \-t \s-1TIME\s0]
@@ -3357,43 +2200,6 @@ Enter a system sleep state until specified wakeup time
 \&        \-m,\-\-mode MODE  Set sleep state (default: standby)
 \&        \-s,\-\-seconds SEC Set timeout in SEC seconds from now
 \&        \-t,\-\-time TIME  Set timeout to TIME seconds from epoch
-.Ve
-.IP "\fBrun-parts\fR" 4
-.IX Item "run-parts"
-run-parts [\-a \s-1ARG\s0]... [\-u \s-1UMASK\s0] [\-\-reverse] [\-\-test] [\-\-exit\-on\-error] [\-\-list] \s-1DIRECTORY\s0
-.Sp
-Run a bunch of scripts in \s-1DIRECTORY\s0
-.Sp
-.Vb 6
-\&        \-a ARG          Pass ARG as argument to scripts
-\&        \-u UMASK        Set UMASK before running scripts
-\&        \-\-reverse       Reverse execution order
-\&        \-\-test          Dry run
-\&        \-\-exit\-on\-error Exit if a script exits with non\-zero
-\&        \-\-list          Print names of matching files even if they are not executable
-.Ve
-.IP "\fBrunlevel\fR" 4
-.IX Item "runlevel"
-runlevel [\s-1FILE\s0]
-.Sp
-Find the current and previous system runlevel
-.Sp
-If no utmp \s-1FILE\s0 exists or if no runlevel record can be found,
-print \*(L"unknown\*(R"
-.IP "\fBrunsv\fR" 4
-.IX Item "runsv"
-runsv \s-1DIR\s0
-.Sp
-Start and monitor a service and optionally an appendant log service
-.IP "\fBrunsvdir\fR" 4
-.IX Item "runsvdir"
-runsvdir [\-P] [\-s \s-1SCRIPT\s0] \s-1DIR\s0
-.Sp
-Start a runsv process for each subdirectory. If it exits, restart it.
-.Sp
-.Vb 2
-\&        \-P              Put each runsv in a new session
-\&        \-s SCRIPT       Run SCRIPT <signo> after signal is processed
 .Ve
 .IP "\fBrx\fR" 4
 .IX Item "rx"
@@ -3432,42 +2238,6 @@ or: sed [\-inrE] \s-1CMD\s0 [\s-1FILE\s0]...
 .Sp
 If no \-e or \-f, the first non-option argument is the sed command string.
 Remaining arguments are input files (stdin if none).
-.IP "\fBsendmail\fR" 4
-.IX Item "sendmail"
-sendmail [\-tv] [\-f \s-1SENDER\s0] [\-amLOGIN 4<user_pass.txt | \-auUSER \-apPASS]
-		[\-w \s-1SECS\s0] [\-H '\s-1PROG ARGS\s0' | \-S \s-1HOST\s0] [\s-1RECIPIENT_EMAIL\s0]...
-.Sp
-Read email from stdin and send it
-.Sp
-Standard options:
-.Sp
-.Vb 5
-\&        \-t              Read additional recipients from message body
-\&        \-f SENDER       For use in MAIL FROM:<sender>. Can be empty string
-\&                        Default: \-auUSER, or username of current UID
-\&        \-o OPTIONS      Various options. \-oi implied, others are ignored
-\&        \-i              \-oi synonym, implied and ignored
-.Ve
-.Sp
-Busybox specific options:
-.Sp
-.Vb 10
-\&        \-v              Verbose
-\&        \-w SECS         Network timeout
-\&        \-H \*(AqPROG ARGS\*(Aq  Run connection helper. Examples:
-\&                openssl s_client \-quiet \-tls1 \-starttls smtp \-connect smtp.gmail.com:25
-\&                openssl s_client \-quiet \-tls1 \-connect smtp.gmail.com:465
-\&                        $SMTP_ANTISPAM_DELAY: seconds to wait after helper connect
-\&        \-S HOST[:PORT]  Server (default $SMTPHOST or 127.0.0.1)
-\&        \-amLOGIN        Log in using AUTH LOGIN (\-amCRAM\-MD5 not supported)
-\&        \-auUSER         Username for AUTH
-\&        \-apPASS         Password for AUTH
-.Ve
-.Sp
-If no \-a options are given, authentication is not done.
-If \-amLOGIN is given but no \-au/\-ap, user/password is read from fd #4.
-Other options are silently ignored; \-oi is implied.
-Use makemime to create emails with attachments.
 .IP "\fBseq\fR" 4
 .IX Item "seq"
 seq [\-w] [\-s \s-1SEP\s0] [\s-1FIRST\s0 [\s-1INC\s0]] \s-1LAST\s0
@@ -3479,51 +2249,6 @@ FIRST, INC\s0 default to 1.
 \&        \-w      Pad to last with leading zeros
 \&        \-s SEP  String separator
 .Ve
-.IP "\fBsetarch\fR" 4
-.IX Item "setarch"
-setarch \s-1PERSONALITY\s0 [\-R] \s-1PROG ARGS\s0
-.Sp
-\&\s-1PERSONALITY\s0 may be:
-.Sp
-.Vb 2
-\&        linux32 Set 32bit uname emulation
-\&        linux64 Set 64bit uname emulation
-\&
-\&        \-R      Disable address space randomization
-.Ve
-.IP "\fBsetconsole\fR" 4
-.IX Item "setconsole"
-setconsole [\-r|\-\-reset] [\s-1DEVICE\s0]
-.Sp
-Redirect system console output to \s-1DEVICE \s0(default: /dev/tty)
-.Sp
-.Vb 1
-\&        \-r      Reset output to /dev/console
-.Ve
-.IP "\fBsetfont\fR" 4
-.IX Item "setfont"
-setfont \s-1FONT\s0 [\-m \s-1MAPFILE\s0] [\-C \s-1TTY\s0]
-.Sp
-Load a console font
-.Sp
-.Vb 2
-\&        \-m MAPFILE      Load console screen map
-\&        \-C TTY          Affect TTY instead of /dev/tty
-.Ve
-.IP "\fBsetkeycodes\fR" 4
-.IX Item "setkeycodes"
-setkeycodes \s-1SCANCODE KEYCODE...\s0
-.Sp
-Set entries into the kernel's scancode-to-keycode map,
-allowing unusual keyboards to generate usable keycodes.
-.Sp
-\&\s-1SCANCODE\s0 may be either xx or e0xx (hexadecimal),
-and \s-1KEYCODE\s0 is given in decimal.
-.IP "\fBsetlogcons\fR" 4
-.IX Item "setlogcons"
-setlogcons [N]
-.Sp
-Redirect the kernel output to console N. Default:0 (current console)
 .IP "\fBsetpriv\fR" 4
 .IX Item "setpriv"
 setpriv [\s-1OPTIONS\s0] \s-1PROG\s0 [\s-1ARGS\s0]
@@ -3570,73 +2295,11 @@ and will not be affected by keyboard signals (^C etc).
 .Vb 1
 \&        \-c      Set controlling terminal to stdin
 .Ve
-.IP "\fBsetuidgid\fR" 4
-.IX Item "setuidgid"
-setuidgid \s-1USER PROG ARGS\s0
-.Sp
-Set uid and gid to \s-1USER\s0's uid and gid, drop supplementary group ids,
-run \s-1PROG\s0
 .IP "\fBsh\fR" 4
 .IX Item "sh"
 sh [\-/+OPTIONS] [\-/+o \s-1OPT\s0]... [\-c '\s-1SCRIPT\s0' [\s-1ARG0\s0 [\s-1ARGS\s0]] / \s-1FILE\s0 [\s-1ARGS\s0]]
 .Sp
 Unix shell interpreter
-.IP "\fBsha1sum\fR" 4
-.IX Item "sha1sum"
-sha1sum [\-c[sw]] [\s-1FILE\s0]...
-.Sp
-Print or check \s-1SHA1\s0 checksums
-.Sp
-.Vb 3
-\&        \-c      Check sums against list in FILEs
-\&        \-s      Don\*(Aqt output anything, status code shows success
-\&        \-w      Warn about improperly formatted checksum lines
-.Ve
-.IP "\fBsha256sum\fR" 4
-.IX Item "sha256sum"
-sha256sum [\-c[sw]] [\s-1FILE\s0]...
-.Sp
-Print or check \s-1SHA256\s0 checksums
-.Sp
-.Vb 3
-\&        \-c      Check sums against list in FILEs
-\&        \-s      Don\*(Aqt output anything, status code shows success
-\&        \-w      Warn about improperly formatted checksum lines
-.Ve
-.IP "\fBsha3sum\fR" 4
-.IX Item "sha3sum"
-sha3sum [\-c[sw]] [\-a \s-1BITS\s0] [\s-1FILE\s0]...
-.Sp
-Print or check \s-1SHA3\s0 checksums
-.Sp
-.Vb 4
-\&        \-c      Check sums against list in FILEs
-\&        \-s      Don\*(Aqt output anything, status code shows success
-\&        \-w      Warn about improperly formatted checksum lines
-\&        \-a BITS 224 (default), 256, 384, 512
-.Ve
-.IP "\fBsha512sum\fR" 4
-.IX Item "sha512sum"
-sha512sum [\-c[sw]] [\s-1FILE\s0]...
-.Sp
-Print or check \s-1SHA512\s0 checksums
-.Sp
-.Vb 3
-\&        \-c      Check sums against list in FILEs
-\&        \-s      Don\*(Aqt output anything, status code shows success
-\&        \-w      Warn about improperly formatted checksum lines
-.Ve
-.IP "\fBshowkey\fR" 4
-.IX Item "showkey"
-showkey [\-a | \-k | \-s]
-.Sp
-Show keys pressed
-.Sp
-.Vb 3
-\&        \-a      Display decimal/octal/hex values of the keys
-\&        \-k      Display interpreted keycodes (default)
-\&        \-s      Display raw scan\-codes
-.Ve
 .IP "\fBshred\fR" 4
 .IX Item "shred"
 shred \s-1FILE...\s0
@@ -3684,37 +2347,6 @@ sleep [N]...
 .Sp
 Pause for a time equal to the total of the args given, where each arg can
 have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
-.IP "\fBsmemcap\fR" 4
-.IX Item "smemcap"
-smemcap >\s-1SMEMDATA.TAR\s0
-.Sp
-Collect memory usage data in /proc and write it to stdout
-.IP "\fBsoftlimit\fR" 4
-.IX Item "softlimit"
-softlimit [\-a \s-1BYTES\s0] [\-m \s-1BYTES\s0] [\-d \s-1BYTES\s0] [\-s \s-1BYTES\s0] [\-l \s-1BYTES\s0]
-	[\-f \s-1BYTES\s0] [\-c \s-1BYTES\s0] [\-r \s-1BYTES\s0] [\-o N] [\-p N] [\-t N]
-	\s-1PROG ARGS\s0
-.Sp
-Set soft resource limits, then run \s-1PROG\s0
-.Sp
-.Vb 8
-\&        \-a BYTES        Limit total size of all segments
-\&        \-m BYTES        Same as \-d BYTES \-s BYTES \-l BYTES \-a BYTES
-\&        \-d BYTES        Limit data segment
-\&        \-s BYTES        Limit stack segment
-\&        \-l BYTES        Limit locked memory size
-\&        \-o N            Limit number of open files per process
-\&        \-p N            Limit number of processes per uid
-\&Options controlling file sizes:
-\&
-\&        \-f BYTES        Limit output file sizes
-\&        \-c BYTES        Limit core file size
-\&Efficiency opts:
-\&
-\&        \-r BYTES        Limit resident set size
-\&        \-t N            Limit CPU time, process receives
-\&                        a SIGXCPU after N seconds
-.Ve
 .IP "\fBsort\fR" 4
 .IX Item "sort"
 sort [\-nrugMcszbdfiokt] [\-o \s-1FILE\s0] [\-k start[.offset][opts][,end[.offset][opts]] [\-t \s-1CHAR\s0] [\s-1FILE\s0]...
@@ -3750,40 +2382,6 @@ split [\s-1OPTIONS\s0] [\s-1INPUT\s0 [\s-1PREFIX\s0]]
 .IP "\fBssl_client\fR" 4
 .IX Item "ssl_client"
 ssl_client \-s \s-1FD\s0 [\-r \s-1FD\s0] [\-n \s-1SNI\s0]
-.IP "\fBstart-stop-daemon\fR" 4
-.IX Item "start-stop-daemon"
-start-stop-daemon [\s-1OPTIONS\s0] [\-S|\-K] ... [\-\- \s-1ARGS...\s0]
-.Sp
-Search for matching processes, and then
-\&\-K: stop all matching processes.
-\&\-S: start a process unless a matching process is found.
-.Sp
-Process matching:
-.Sp
-.Vb 10
-\&        \-u,\-\-user USERNAME|UID  Match only this user\*(Aqs processes
-\&        \-n,\-\-name NAME          Match processes with NAME
-\&                                in comm field in /proc/PID/stat
-\&        \-x,\-\-exec EXECUTABLE    Match processes with this command
-\&                                in /proc/PID/{exe,cmdline}
-\&        \-p,\-\-pidfile FILE       Match a process with PID from the file
-\&        All specified conditions must match
-\&\-S only:
-\&        \-x,\-\-exec EXECUTABLE    Program to run
-\&        \-a,\-\-startas NAME       Zeroth argument
-\&        \-b,\-\-background         Background
-\&        \-N,\-\-nicelevel N        Change nice level
-\&        \-c,\-\-chuid USER[:[GRP]] Change to user/group
-\&        \-m,\-\-make\-pidfile       Write PID to the pidfile specified by \-p
-\&\-K only:
-\&        \-s,\-\-signal SIG         Signal to send
-\&        \-t,\-\-test               Match only, exit with 0 if a process is found
-\&Other:
-\&
-\&        \-o,\-\-oknodo             Exit with status 0 if nothing is done
-\&        \-v,\-\-verbose            Verbose
-\&        \-q,\-\-quiet              Quiet
-.Ve
 .IP "\fBstat\fR" 4
 .IX Item "stat"
 stat [\s-1OPTIONS\s0] \s-1FILE...\s0
@@ -3869,27 +2467,6 @@ and deviations from stty sane
 \&        \-g              Print in stty\-readable form
 \&        [SETTING]       See manpage
 .Ve
-.IP "\fBsu\fR" 4
-.IX Item "su"
-su [\-lmp] [\-] [\-s \s-1SH\s0] [\s-1USER\s0 [\s-1SCRIPT ARGS /\s0 \-c '\s-1CMD\s0' \s-1ARG0 ARGS\s0]]
-.Sp
-Run shell under \s-1USER \s0(by default, root)
-.Sp
-.Vb 4
-\&        \-,\-l    Clear environment, go to home dir, run shell as login shell
-\&        \-p,\-m   Do not set new $HOME, $SHELL, $USER, $LOGNAME
-\&        \-c CMD  Command to pass to \*(Aqsh \-c\*(Aq
-\&        \-s SH   Shell to use instead of user\*(Aqs default
-.Ve
-.IP "\fBsulogin\fR" 4
-.IX Item "sulogin"
-sulogin [\-t N] [\s-1TTY\s0]
-.Sp
-Single user login
-.Sp
-.Vb 1
-\&        \-t N    Timeout
-.Ve
 .IP "\fBsum\fR" 4
 .IX Item "sum"
 sum [\-rs] [\s-1FILE\s0]...
@@ -3899,69 +2476,6 @@ Checksum and count the blocks in a file
 .Vb 2
 \&        \-r      Use BSD sum algorithm (1K blocks)
 \&        \-s      Use System V sum algorithm (512byte blocks)
-.Ve
-.IP "\fBsv\fR" 4
-.IX Item "sv"
-sv [\-v] [\-w \s-1SEC\s0] \s-1CMD SERVICE_DIR...\s0
-.Sp
-Control services monitored by runsv supervisor.
-Commands (only first character is enough):
-.Sp
-status: query service status
-up: if service isn't running, start it. If service stops, restart it
-once: like 'up', but if service stops, don't restart it
-down: send \s-1TERM\s0 and \s-1CONT\s0 signals. If ./run exits, start ./finish
-	if it exists. After it stops, don't restart service
-exit: send \s-1TERM\s0 and \s-1CONT\s0 signals to service and log service. If they exit,
-	runsv exits too
-pause, cont, hup, alarm, interrupt, quit, 1, 2, term, kill: send
-\&\s-1STOP, CONT, HUP, ALRM, INT, QUIT, USR1, USR2, TERM, KILL\s0 signal to service
-.IP "\fBsvc\fR" 4
-.IX Item "svc"
-svc [\-udopchaitkx] \s-1SERVICE_DIR...\s0
-.Sp
-Control services monitored by runsv supervisor
-.Sp
-.Vb 5
-\&        \-u      If service is not running, start it; restart if it stops
-\&        \-d      If service is running, send TERM+CONT signals; do not restart it
-\&        \-o      Once: if service is not running, start it; do not restart it
-\&        \-pchaitk Send STOP, CONT, HUP, ALRM, INT, TERM, KILL signal to service
-\&        \-x      Exit: runsv will exit as soon as the service is down
-.Ve
-.IP "\fBsvlogd\fR" 4
-.IX Item "svlogd"
-svlogd [\-tttv] [\-r C] [\-R \s-1CHARS\s0] [\-l \s-1MATCHLEN\s0] [\-b \s-1BUFLEN\s0] \s-1DIR...\s0
-.Sp
-Read log data from stdin and write to rotated log files in DIRs
-.Sp
-DIR/config file modifies behavior:
-sSIZE \- when to rotate logs
-nNUM \- number of files to retain
-!PROG \- process rotated log with \s-1PROG
-+,\-PATTERN \- \s0(de)select line for logging
-E,ePATTERN \- (de)select line for stderr
-.IP "\fBswapoff\fR" 4
-.IX Item "swapoff"
-swapoff [\-a] [\s-1DEVICE\s0]
-.Sp
-Stop swapping on \s-1DEVICE\s0
-.Sp
-.Vb 1
-\&        \-a      Stop swapping on all swap devices
-.Ve
-.IP "\fBswapon\fR" 4
-.IX Item "swapon"
-swapon [\-a] [\-e] [\-d[\s-1POL\s0]] [\-p \s-1PRI\s0] [\s-1DEVICE\s0]
-.Sp
-Start swapping on \s-1DEVICE\s0
-.Sp
-.Vb 5
-\&        \-a      Start swapping on all swap devices
-\&        \-d[POL] Discard blocks at swapon (POL=once),
-\&                as freed (POL=pages), or both (POL omitted)
-\&        \-e      Silently skip devices that do not exist
-\&        \-p PRI  Set swap device priority
 .Ve
 .IP "\fBswitch_root\fR" 4
 .IX Item "switch_root"
@@ -3982,20 +2496,6 @@ sync [\-df] [\s-1FILE\s0]...
 Write all buffered blocks (in FILEs) to disk
 	\-d	Avoid syncing metadata
 	\-f	Sync filesystems underlying FILEs
-.IP "\fBsysctl\fR" 4
-.IX Item "sysctl"
-sysctl [\s-1OPTIONS\s0] [KEY[=VALUE]]...
-.Sp
-Show/set kernel parameters
-.Sp
-.Vb 6
-\&        \-e      Don\*(Aqt warn about unknown keys
-\&        \-n      Don\*(Aqt show key names
-\&        \-a      Show all values
-\&        \-w      Set values
-\&        \-p FILE Set values from FILE (default /etc/sysctl.conf)
-\&        \-q      Set values silently
-.Ve
 .IP "\fBsyslogd\fR" 4
 .IX Item "syslogd"
 syslogd [\s-1OPTIONS\s0]
@@ -4028,43 +2528,11 @@ tail [\s-1OPTIONS\s0] [\s-1FILE\s0]...
 Print last 10 lines of each \s-1FILE \s0(or stdin) to stdout.
 With more than one \s-1FILE,\s0 precede each with a filename header.
 .Sp
-.Vb 8
+.Vb 4
 \&        \-f              Print data as file grows
 \&        \-c [+]N[kbm]    Print last N bytes
 \&        \-n N[kbm]       Print last N lines
 \&        \-n +N[kbm]      Start on Nth line and print the rest
-\&        \-q              Never print headers
-\&        \-s SECONDS      Wait SECONDS between reads with \-f
-\&        \-v              Always print headers
-\&        \-F              Same as \-f, but keep retrying
-.Ve
-.Sp
-N may be suffixed by k (x1024), b (x512), or m (x1024^2).
-.IP "\fBtar\fR" 4
-.IX Item "tar"
-tar \-[cxtzJjahmvO] [\-X \s-1FILE\s0] [\-T \s-1FILE\s0] [\-f \s-1TARFILE\s0] [\-C \s-1DIR\s0] [\s-1FILE\s0]...
-.Sp
-Create, extract, or list files from a tar file
-.Sp
-Operation:
-.Sp
-.Vb 10
-\&        c       Create
-\&        x       Extract
-\&        t       List
-\&        f       Name of TARFILE (\*(Aq\-\*(Aq for stdin/out)
-\&        C       Change to DIR before operation
-\&        v       Verbose
-\&        z       (De)compress using gzip
-\&        J       (De)compress using xz
-\&        j       (De)compress using bzip2
-\&        a       (De)compress using lzma
-\&        O       Extract to stdout
-\&        h       Follow symlinks
-\&        m       Don\*(Aqt restore mtime
-\&        exclude File to exclude
-\&        X       File with names to exclude
-\&        T       File with names to include
 .Ve
 .IP "\fBtaskset\fR" 4
 .IX Item "taskset"
@@ -4099,7 +2567,7 @@ Run \s-1PROG\s0 for each connection.
 .Sp
 Environment if no \-E:
 PROTO='\s-1TCP\s0'
-TCPREMOTEADDR='ip:port' ('[ip]:port' for IPv6)
+TCPREMOTEADDR='ip:port'
 TCPLOCALADDR='ip:port'
 TCPORIGDSTADDR='ip:port' of destination before firewall
 	Useful for REDIRECTed-to-local connections:
@@ -4199,28 +2667,16 @@ Runs \s-1PROG.\s0 Sends \s-1SIG\s0 to it if it is not gone in \s-1SECS\s0 second
 Defaults: \s-1SECS: 10, SIG: TERM.\s0
 .IP "\fBtop\fR" 4
 .IX Item "top"
-top [\-b] [\-nCOUNT] [\-dSECONDS] [\-m]
+top [\-b] [\-nCOUNT] [\-dSECONDS]
 .Sp
 Provide a view of process activity in real time.
 Read the status of all processes from /proc each \s-1SECONDS\s0
 and display a screenful of them.
-Keys:
 .Sp
-.Vb 5
-\&        N/M/P/T: show CPU usage, sort by pid/mem/cpu/time
-\&        S: show memory
-\&        R: reverse sort
-\&        H: toggle threads, 1: toggle SMP
-\&        Q,^C: exit
-.Ve
-.Sp
-Options:
-.Sp
-.Vb 4
+.Vb 3
 \&        \-b      Batch mode
 \&        \-n N    Exit after N iterations
 \&        \-d N    Delay between updates
-\&        \-m      Same as \*(Aqs\*(Aq key
 .Ve
 .IP "\fBtouch\fR" 4
 .IX Item "touch"
@@ -4248,14 +2704,13 @@ Translate, squeeze, or delete characters from stdin, writing to stdout
 .Ve
 .IP "\fBtraceroute\fR" 4
 .IX Item "traceroute"
-traceroute [\-46FIlnrv] [\-f 1ST_TTL] [\-m \s-1MAXTTL\s0] [\-q \s-1PROBES\s0] [\-p \s-1PORT\s0]
+traceroute [\-FIlnrv] [\-f 1ST_TTL] [\-m \s-1MAXTTL\s0] [\-q \s-1PROBES\s0] [\-p \s-1PORT\s0]
 	[\-t \s-1TOS\s0] [\-w \s-1WAIT_SEC\s0] [\-s \s-1SRC_IP\s0] [\-i \s-1IFACE\s0]
 	[\-z \s-1PAUSE_MSEC\s0] \s-1HOST\s0 [\s-1BYTES\s0]
 .Sp
 Trace the route to \s-1HOST\s0
 .Sp
 .Vb 10
-\&        \-4,\-6   Force IP or IPv6 name resolution
 \&        \-F      Set don\*(Aqt fragment bit
 \&        \-I      Use ICMP ECHO instead of UDP datagrams
 \&        \-l      Display TTL value of the returned packet
@@ -4272,27 +2727,6 @@ Trace the route to \s-1HOST\s0
 \&        \-t N    Type\-of\-service in probe packets (default 0)
 \&        \-w SEC  Time to wait for a response (default 3)
 \&        \-g IP   Loose source route gateway (8 max)
-.Ve
-.IP "\fBtraceroute6\fR" 4
-.IX Item "traceroute6"
-traceroute6 [\-nrv] [\-m \s-1MAXTTL\s0] [\-q \s-1PROBES\s0] [\-p \s-1PORT\s0]
-	[\-t \s-1TOS\s0] [\-w \s-1WAIT_SEC\s0] [\-s \s-1SRC_IP\s0] [\-i \s-1IFACE\s0]
-	\s-1HOST\s0 [\s-1BYTES\s0]
-.Sp
-Trace the route to \s-1HOST\s0
-.Sp
-.Vb 11
-\&        \-n      Print numeric addresses
-\&        \-r      Bypass routing tables, send directly to HOST
-\&        \-v      Verbose
-\&        \-m N    Max number of hops
-\&        \-q N    Number of probes per hop (default 3)
-\&        \-p N    Base UDP port number used in probes
-\&                (default 33434)
-\&        \-s IP   Source address
-\&        \-i IFACE Source interface
-\&        \-t N    Type\-of\-service in probe packets (default 0)
-\&        \-w SEC  Time wait for a response (default 3)
 .Ve
 .IP "\fBtruncate\fR" 4
 .IX Item "truncate"
@@ -4473,7 +2907,7 @@ peer ip:port to it.
 .Sp
 Environment if no \-E:
 PROTO='\s-1UDP\s0'
-UDPREMOTEADDR='ip:port' ('[ip]:port' for IPv6)
+UDPREMOTEADDR='ip:port'
 UDPLOCALADDR='ip:port'
 If \-h:
 UDPLOCALHOST='hostname' (\-l \s-1NAME\s0 is used if specified)
@@ -4542,33 +2976,11 @@ Discard duplicate lines
 \&        \-s N    Skip first N chars (after any skipped fields)
 \&        \-w N    Compare N characters in line
 .Ve
-.IP "\fBunix2dos\fR" 4
-.IX Item "unix2dos"
-unix2dos [\-ud] [\s-1FILE\s0]
-.Sp
-Convert \s-1FILE\s0 in-place from Unix to \s-1DOS\s0 format.
-When no file is given, use stdin/stdout.
-.Sp
-.Vb 2
-\&        \-u      dos2unix
-\&        \-d      unix2dos
-.Ve
 .IP "\fBunlink\fR" 4
 .IX Item "unlink"
 unlink \s-1FILE\s0
 .Sp
 Delete \s-1FILE\s0 by calling \fIunlink()\fR
-.IP "\fBunlzma\fR" 4
-.IX Item "unlzma"
-unlzma [\-cfk] [\s-1FILE\s0]...
-.Sp
-Decompress \s-1FILE \s0(or stdin)
-.Sp
-.Vb 3
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
 .IP "\fBunshare\fR" 4
 .IX Item "unshare"
 unshare [\s-1OPTIONS\s0] [\s-1PROG\s0 [\s-1ARGS\s0]]
@@ -4587,42 +2999,11 @@ unshare [\s-1OPTIONS\s0] [\s-1PROG\s0 [\s-1ARGS\s0]]
 \&                                Modify mount propagation in mount namespace
 \&        \-\-setgroups allow|deny  Control the setgroups syscall in user namespaces
 .Ve
-.IP "\fBunxz\fR" 4
-.IX Item "unxz"
-unxz [\-cfk] [\s-1FILE\s0]...
-.Sp
-Decompress \s-1FILE \s0(or stdin)
-.Sp
-.Vb 3
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
-.IP "\fBunzip\fR" 4
-.IX Item "unzip"
-unzip [\-lnopq] FILE[.zip] [\s-1FILE\s0]... [\-x \s-1FILE...\s0] [\-d \s-1DIR\s0]
-.Sp
-Extract FILEs from \s-1ZIP\s0 archive
-.Sp
-.Vb 7
-\&        \-l      List contents (with \-q for short form)
-\&        \-n      Never overwrite files (default: ask)
-\&        \-o      Overwrite
-\&        \-p      Print to stdout
-\&        \-q      Quiet
-\&        \-x FILE Exclude FILEs
-\&        \-d DIR  Extract into DIR
-.Ve
 .IP "\fBuptime\fR" 4
 .IX Item "uptime"
 uptime
 .Sp
 Display the time since the last boot
-.IP "\fBusers\fR" 4
-.IX Item "users"
-users
-.Sp
-Print the users currently logged on
 .IP "\fBusleep\fR" 4
 .IX Item "usleep"
 usleep N
@@ -4668,40 +3049,11 @@ Edit \s-1FILE\s0
 \&        \-R      Read\-only
 \&        \-H      List available features
 .Ve
-.IP "\fBvlock\fR" 4
-.IX Item "vlock"
-vlock [\-a]
-.Sp
-Lock a virtual terminal. A password is required to unlock.
-.Sp
-.Vb 1
-\&        \-a      Lock all VTs
-.Ve
 .IP "\fBvolname\fR" 4
 .IX Item "volname"
 volname [\s-1DEVICE\s0]
 .Sp
 Show \s-1CD\s0 volume name of the \s-1DEVICE \s0(default /dev/cdrom)
-.IP "\fBw\fR" 4
-.IX Item "w"
-w
-.Sp
-Show who is logged on
-.IP "\fBwall\fR" 4
-.IX Item "wall"
-wall [\s-1FILE\s0]
-.Sp
-Write content of \s-1FILE\s0 or stdin to all logged-in users
-.IP "\fBwatch\fR" 4
-.IX Item "watch"
-watch [\-n \s-1SEC\s0] [\-t] \s-1PROG ARGS\s0
-.Sp
-Run \s-1PROG\s0 periodically
-.Sp
-.Vb 2
-\&        \-n      Loop period in seconds (default 2)
-\&        \-t      Don\*(Aqt print header
-.Ve
 .IP "\fBwatchdog\fR" 4
 .IX Item "watchdog"
 watchdog [\-t N[ms]] [\-T N[ms]] [\-F] \s-1DEV\s0
@@ -4717,82 +3069,15 @@ Periodically write to watchdog device \s-1DEV\s0
 Use 500ms to specify period in milliseconds
 .IP "\fBwc\fR" 4
 .IX Item "wc"
-wc [\-cmlwL] [\s-1FILE\s0]...
+wc [\-clwL] [\s-1FILE\s0]...
 .Sp
 Count lines, words, and bytes for each \s-1FILE \s0(or stdin)
 .Sp
-.Vb 5
+.Vb 4
 \&        \-c      Count bytes
-\&        \-m      Count characters
 \&        \-l      Count newlines
 \&        \-w      Count words
 \&        \-L      Print longest line length
-.Ve
-.IP "\fBwget\fR" 4
-.IX Item "wget"
-wget [\-c|\-\-continue] [\-\-spider] [\-q|\-\-quiet] [\-O|\-\-output\-document \s-1FILE\s0]
-	[\-\-header 'header: value'] [\-Y|\-\-proxy on/off] [\-P \s-1DIR\s0]
-	[\-S|\-\-server\-response] [\-U|\-\-user\-agent \s-1AGENT\s0] [\-T \s-1SEC\s0] \s-1URL...\s0
-.Sp
-Retrieve files via \s-1HTTP\s0 or \s-1FTP\s0
-.Sp
-.Vb 9
-\&        \-\-spider        Only check URL existence: $? is 0 if exists
-\&        \-c              Continue retrieval of aborted transfer
-\&        \-q              Quiet
-\&        \-P DIR          Save to DIR (default .)
-\&        \-S              Show server response
-\&        \-T SEC          Network read timeout is SEC seconds
-\&        \-O FILE         Save to FILE (\*(Aq\-\*(Aq for stdout)
-\&        \-U STR          Use STR for User\-Agent header
-\&        \-Y on/off       Use proxy
-.Ve
-.IP "\fBwhich\fR" 4
-.IX Item "which"
-which [\s-1COMMAND\s0]...
-.Sp
-Locate a \s-1COMMAND\s0
-.IP "\fBwho\fR" 4
-.IX Item "who"
-who [\-a]
-.Sp
-Show who is logged on
-.Sp
-.Vb 2
-\&        \-a      Show all
-\&        \-H      Print column headers
-.Ve
-.IP "\fBwhoami\fR" 4
-.IX Item "whoami"
-whoami
-.Sp
-Print the user name associated with the current effective user id
-.IP "\fBwhois\fR" 4
-.IX Item "whois"
-whois [\-i] [\-h \s-1SERVER\s0] [\-p \s-1PORT\s0] \s-1NAME...\s0
-.Sp
-Query \s-1WHOIS\s0 info about \s-1NAME\s0
-.Sp
-.Vb 2
-\&        \-i      Show redirect results too
-\&        \-h,\-p   Server to query
-.Ve
-.IP "\fBxargs\fR" 4
-.IX Item "xargs"
-xargs [\s-1OPTIONS\s0] [\s-1PROG ARGS\s0]
-.Sp
-Run \s-1PROG\s0 on every item given by stdin
-.Sp
-.Vb 9
-\&        \-p      Ask user whether to run each command
-\&        \-r      Don\*(Aqt run command if input is empty
-\&        \-0      Input is separated by NUL characters
-\&        \-t      Print the command on stderr before execution
-\&        \-e[STR] STR stops input processing
-\&        \-n N    Pass no more than N args to PROG
-\&        \-s N    Pass command line of no more than N bytes
-\&        \-I STR  Replace STR within PROG ARGS with input line
-\&        \-x      Exit if size is exceeded
 .Ve
 .IP "\fBxxd\fR" 4
 .IX Item "xxd"
@@ -4807,33 +3092,6 @@ Hex dump \s-1FILE \s0(or stdin)
 \&        \-l LENGTH       Show only first LENGTH bytes
 \&        \-s OFFSET       Skip OFFSET bytes
 .Ve
-.IP "\fBxz\fR" 4
-.IX Item "xz"
-xz \-d [\-cfk] [\s-1FILE\s0]...
-.Sp
-Decompress \s-1FILE \s0(or stdin)
-.Sp
-.Vb 4
-\&        \-d      Decompress
-\&        \-c      Write to stdout
-\&        \-f      Force
-\&        \-k      Keep input files
-.Ve
-.IP "\fBxzcat\fR" 4
-.IX Item "xzcat"
-xzcat [\s-1FILE\s0]...
-.Sp
-Decompress to stdout
-.IP "\fByes\fR" 4
-.IX Item "yes"
-yes [\s-1STRING\s0]
-.Sp
-Repeatedly output a line with \s-1STRING,\s0 or 'y'
-.IP "\fBzcat\fR" 4
-.IX Item "zcat"
-zcat [\s-1FILE\s0]...
-.Sp
-Decompress to stdout
 .IP "\fBzcip\fR" 4
 .IX Item "zcip"
 zcip [\s-1OPTIONS\s0] \s-1IFACE SCRIPT\s0
