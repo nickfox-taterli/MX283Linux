@@ -1,1 +1,0 @@
-cmd_networking/lib.a := rm -f networking/lib.a; armv5-fsl-linux-gnueabi-ar  rcs networking/lib.a networking/arp.o networking/hostname.o networking/ifconfig.o networking/interface.o networking/netstat.o networking/nslookup.o networking/ping.o networking/pscan.o networking/route.o
